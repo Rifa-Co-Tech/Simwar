@@ -6,7 +6,7 @@ import '../models/item_keranjang.dart';
 import '../models/pengguna_model.dart';
 import '../utils/formatters.dart';
 import '../widgets/scanner_modal.dart';
-import 'catat_barang_masuk_screen.dart';
+import 'kelola_titipan_screen.dart';
 import 'pembayaran_screen.dart';
 
 /// SIMWAR — Modul Kasir: Keranjang & Jual (Figma node 2029:2)
@@ -462,9 +462,9 @@ class _KasirScreenState extends State<KasirScreen> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (_) => CatatBarangMasukScreen(pengguna: widget.pengguna),
+                                    builder: (_) => KelolaTitipanScreen(pengguna: widget.pengguna),
                                   ),
-                                );
+                                ).then((_) => setState(() {}));
                               },
                               child: Container(
                                 height: 50,

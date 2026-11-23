@@ -11,6 +11,7 @@ import 'catat_barang_masuk_screen.dart';
 import 'kasir_screen.dart';
 import 'kasbon_screen.dart';
 import 'kelola_barang_screen.dart';
+import 'kelola_titipan_screen.dart';
 import 'kotak_masuk_screen.dart';
 import 'laba_per_barang_screen.dart';
 import 'lapor_ke_pemilik_screen.dart';
@@ -813,6 +814,18 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               },
             },
+            {
+              'label': 'Kelola titipan',
+              'icon': 'assets/icons/ikon-flag-22x22-23794F.svg',
+              'action': () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => KelolaTitipanScreen(pengguna: widget.pengguna),
+                  ),
+                );
+              },
+            },
           ]
         : [
             {
@@ -823,6 +836,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   context,
                   MaterialPageRoute(
                     builder: (_) => BarangMasukScreen(pengguna: widget.pengguna),
+                  ),
+                );
+              },
+            },
+            {
+              'label': 'Kelola titipan',
+              'icon': 'assets/icons/ikon-flag-22x22-23794F.svg',
+              'action': () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => KelolaTitipanScreen(pengguna: widget.pengguna),
                   ),
                 );
               },

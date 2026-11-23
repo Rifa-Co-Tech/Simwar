@@ -5,7 +5,7 @@ import '../models/barang_masuk_model.dart';
 import '../models/pengguna_model.dart';
 import '../services/excel_export_service.dart';
 import '../utils/formatters.dart';
-import 'barang_masuk_screen.dart';
+import 'kelola_titipan_screen.dart';
 import 'laba_per_barang_screen.dart';
 
 /// SIMWAR — Laporan Penjualan & Rekap Keuangan Warung
@@ -689,7 +689,7 @@ class _LaporanPenjualanScreenState extends State<LaporanPenjualanScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (_) => BarangMasukScreen(pengguna: widget.pengguna),
+                    builder: (_) => KelolaTitipanScreen(pengguna: widget.pengguna),
                   ),
                 );
               },
