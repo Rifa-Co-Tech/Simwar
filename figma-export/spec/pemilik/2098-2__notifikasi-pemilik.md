@@ -1,0 +1,86 @@
+# Notifikasi (Pemilik)
+
+- Figma node: `2098:2` (file `PYGhjINDLB7fWCguQ0TevK`)
+- Section: pemilik
+- Grup: -
+- Ukuran: 390x844
+- Screenshot: `screens/pemilik/2098-2__notifikasi-pemilik.png`
+
+Koordinat relatif ke pojok kiri-atas layar. Teks ditulis persis seperti di desain.
+
+- [FRAME] Notifikasi (Pemilik) @ 0,0 390x844 fill #F4EFE0 radius 28
+  - [TEXT] Status bar jam @ 28,13 36x16 fill #14372D "09.41" font Inter w600 13px lh 16
+  - [FRAME] Status bar ikon @ 300,15 62x12  => ASET assets/icons/status-bar-ikon-62x12-14372D.svg
+  - [FRAME] Navigasi @ 0,764 390x64
+    - [RECTANGLE] Bar navigasi @ 16,764 358x64 fill #14372D radius 32
+    - [FRAME] Ikon home @ 41,772 22x22  => ASET assets/icons/ikon-home-22x22-F8B62B.svg
+    - [TEXT] Beranda @ 30,799 44x13 fill #F8B62B "Beranda" font Inter w500 11px lh 13
+    - [FRAME] Ikon cart @ 112,772 22x22  => ASET assets/icons/ikon-cart-22x22-F4EFE0.svg
+    - [TEXT] Kasir @ 110,799 27x13 fill #F4EFE0 "Kasir" font Inter w500 11px lh 13
+    - [FRAME] Ikon box @ 184,772 22x22  => ASET assets/icons/ikon-box-22x22-F4EFE0.svg
+    - [TEXT] Stok @ 183,799 24x13 fill #F4EFE0 "Stok" font Inter w500 11px lh 13
+    - [FRAME] Ikon chart @ 256,772 22x22  => ASET assets/icons/ikon-chart-22x22-F4EFE0.svg
+    - [TEXT] Laporan @ 245,799 43x13 fill #F4EFE0 "Laporan" font Inter w500 11px lh 13
+    - [FRAME] Ikon inbox @ 327,772 22x22  => ASET assets/icons/ikon-inbox-22x22-F4EFE0.svg
+    - [TEXT] Kotak masuk @ 304,799 68x13 fill #F4EFE0 "Kotak masuk" font Inter w500 11px lh 13
+  - [RECTANGLE] Tautan · Nav Kasir @ 88,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Stok @ 159,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Laporan @ 231,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kotak masuk @ 302,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Beranda @ 16,764 72x64 fill #FFFFFF@0.01
+  - [RECTANGLE] Tombol kembali @ 24,46 40x40 fill #FFFFFF stroke #E4DCC3 1 radius 20 shadow 0,4 blur 14 #14382E@0.10
+  - [FRAME] Ikon kembali @ 34,56 20x20  => ASET assets/icons/ikon-kembali-20x20-14372D.svg
+  - [RECTANGLE] Tautan · Kembali @ 24,46 40x40 fill #FFFFFF@0.01
+  - [TEXT] Notifikasi @ 78,50 122x31 fill #14372D "Notifikasi" font Inter w700 26px lh 31
+  - [RECTANGLE] Ringkasan Stok menipis @ 24,108 165x64 fill #FFFFFF stroke #E4DCC3 1 radius 18 shadow 0,4 blur 14 #14382E@0.10
+  - [RECTANGLE] Ubin Stok menipis @ 36,120 40x40 fill #FDECC8 radius 12
+  - [FRAME] Ikon alert @ 46,130 20x20  => ASET assets/icons/ikon-alert-20x20-BE780A.svg
+  - [TEXT] 5 @ 86,116 13x24 fill #14372D "5" font Inter w700 20px lh 24
+  - [TEXT] Stok menipis @ 86,142 96x13 fill #54685E "Stok menipis" font Inter w500 11px lh 13
+  - [RECTANGLE] Tautan · Ringkasan Stok menipis @ 24,108 165x64 fill #FFFFFF@0.01
+  - [RECTANGLE] Ringkasan Mendekati kedaluwarsa @ 201,108 165x64 fill #FFFFFF stroke #E4DCC3 1 radius 18 shadow 0,4 blur 14 #14382E@0.10
+  - [RECTANGLE] Ubin Mendekati kedaluwarsa @ 213,120 40x40 fill #F7DED6 radius 12
+  - [FRAME] Ikon cal @ 223,130 20x20  => ASET assets/icons/ikon-cal-20x20-C8401E.svg
+  - [TEXT] 3 @ 263,116 14x24 fill #14372D "3" font Inter w700 20px lh 24
+  - [TEXT] Mendekati kedaluwarsa @ 263,142 96x26 fill #54685E "Mendekati kedaluwarsa" font Inter w500 11px lh 13
+  - [RECTANGLE] Tautan · Ringkasan Mendekati kedaluwarsa @ 201,108 165x64 fill #FFFFFF@0.01
+  - [TEXT] Hari ini @ 24,194 48x17 fill #14372D "Hari ini" font Inter w700 14px lh 17
+  - [RECTANGLE] Kartu notifikasi @ 24,218 342x84 fill #FFFFFF stroke #E4DCC3 1 radius 20 shadow 0,4 blur 14 #14382E@0.10
+  - [RECTANGLE] Ubin Stok menipis @ 38,236 48x48 fill #FDECC8 radius 14
+  - [FRAME] Ikon @ 51,249 22x22  => ASET assets/icons/ikon-22x22-BE780A.svg
+  - [TEXT] Stok menipis @ 100,232 89x17 fill #14372D "Stok menipis" font Inter w700 14px lh 17
+  - [TEXT] Minyak Goreng 1 L tersisa 2 pcs (batas min. 10) @ 100,252 214x30 fill #54685E "Minyak Goreng 1 L tersisa 2 pcs (batas min. 10)" font Inter w400 12px lh 15
+  - [TEXT] 5 mnt lalu @ 290,234 52x13 fill #82918A "5 mnt lalu" font Inter w500 11px lh 13
+  - [ELLIPSE] Penanda baru @ 326,280 9x9 fill #C8401E
+  - [RECTANGLE] Tautan · Stok menipis 1 @ 24,218 342x84 fill #FFFFFF@0.01
+  - [RECTANGLE] Kartu notifikasi @ 24,314 342x84 fill #FFFFFF stroke #E4DCC3 1 radius 20 shadow 0,4 blur 14 #14382E@0.10
+  - [RECTANGLE] Ubin Mendekati kedaluwarsa @ 38,332 48x48 fill #F7DED6 radius 14
+  - [FRAME] Ikon @ 51,345 22x22  => ASET assets/icons/ikon-22x22-C8401E.svg
+  - [TEXT] Mendekati kedaluwarsa @ 100,328 164x17 fill #14372D "Mendekati kedaluwarsa" font Inter w700 14px lh 17
+  - [TEXT] Biskuit Marie · 12 pcs, kedaluwarsa 5 Nov 2026 (4 hari lagi) @ 100,348 214x30 fill #54685E "Biskuit Marie · 12 pcs, kedaluwarsa 5 Nov 2026 (4 hari lagi)" font Inter w400 12px lh 15
+  - [TEXT] 1 jam lalu @ 293,330 49x13 fill #82918A "1 jam lalu" font Inter w500 11px lh 13
+  - [ELLIPSE] Penanda baru @ 326,376 9x9 fill #C8401E
+  - [RECTANGLE] Tautan · Mendekati kedaluwarsa 2 @ 24,314 342x84 fill #FFFFFF@0.01
+  - [RECTANGLE] Kartu notifikasi @ 24,410 342x84 fill #FFFFFF stroke #E4DCC3 1 radius 20 shadow 0,4 blur 14 #14382E@0.10
+  - [RECTANGLE] Ubin Stok menipis @ 38,428 48x48 fill #FDECC8 radius 14
+  - [FRAME] Ikon @ 51,441 22x22  => ASET assets/icons/ikon-22x22-BE780A.svg
+  - [TEXT] Stok menipis @ 100,424 89x17 fill #14372D "Stok menipis" font Inter w700 14px lh 17
+  - [TEXT] Gula Pasir 1 kg tersisa 3 pcs (batas min. 10) @ 100,444 214x30 fill #54685E "Gula Pasir 1 kg tersisa 3 pcs (batas min. 10)" font Inter w400 12px lh 15
+  - [TEXT] 2 jam lalu @ 292,426 50x13 fill #82918A "2 jam lalu" font Inter w500 11px lh 13
+  - [ELLIPSE] Penanda baru @ 326,472 9x9 fill #C8401E
+  - [RECTANGLE] Tautan · Stok menipis 3 @ 24,410 342x84 fill #FFFFFF@0.01
+  - [TEXT] Kemarin @ 24,510 57x17 fill #14372D "Kemarin" font Inter w700 14px lh 17
+  - [RECTANGLE] Kartu notifikasi @ 24,534 342x84 fill #FFFFFF stroke #E4DCC3 1 radius 20 shadow 0,4 blur 14 #14382E@0.10
+  - [RECTANGLE] Ubin Stok menipis @ 38,552 48x48 fill #FDECC8 radius 14
+  - [FRAME] Ikon @ 51,565 22x22  => ASET assets/icons/ikon-22x22-BE780A.svg
+  - [TEXT] Stok menipis @ 100,548 89x17 fill #14372D "Stok menipis" font Inter w700 14px lh 17
+  - [TEXT] Rokok Gudang Garam 12 tersisa 5 pcs (batas min. 12) @ 100,568 214x30 fill #54685E "Rokok Gudang Garam 12 tersisa 5 pcs (batas min. 12)" font Inter w400 12px lh 15
+  - [TEXT] Kemarin 16.40 @ 267,550 75x13 fill #82918A "Kemarin 16.40" font Inter w500 11px lh 13
+  - [RECTANGLE] Tautan · Stok menipis 4 @ 24,534 342x84 fill #FFFFFF@0.01
+  - [RECTANGLE] Kartu notifikasi @ 24,630 342x84 fill #FFFFFF stroke #E4DCC3 1 radius 20 shadow 0,4 blur 14 #14382E@0.10
+  - [RECTANGLE] Ubin Stok menipis @ 38,648 48x48 fill #FDECC8 radius 14
+  - [FRAME] Ikon @ 51,661 22x22  => ASET assets/icons/ikon-22x22-BE780A.svg
+  - [TEXT] Stok menipis @ 100,644 89x17 fill #14372D "Stok menipis" font Inter w700 14px lh 17
+  - [TEXT] Teh Botol Sosro tersisa 5 pcs (batas min. 12) @ 100,664 214x30 fill #54685E "Teh Botol Sosro tersisa 5 pcs (batas min. 12)" font Inter w400 12px lh 15
+  - [TEXT] Kemarin 09.15 @ 268,646 74x13 fill #82918A "Kemarin 09.15" font Inter w500 11px lh 13
+  - [RECTANGLE] Tautan · Stok menipis 5 @ 24,630 342x84 fill #FFFFFF@0.01

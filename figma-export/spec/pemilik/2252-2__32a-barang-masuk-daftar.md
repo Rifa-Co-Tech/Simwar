@@ -1,0 +1,70 @@
+# 32a · Barang masuk (daftar)
+
+- Figma node: `2252:2` (file `PYGhjINDLB7fWCguQ0TevK`)
+- Section: pemilik
+- Grup: BARANG MASUK  ·  7 layar
+- Ukuran: 390x844
+- Screenshot: `screens/pemilik/2252-2__32a-barang-masuk-daftar.png`
+
+Koordinat relatif ke pojok kiri-atas layar. Teks ditulis persis seperti di desain.
+
+- [FRAME] 32a · Barang masuk (daftar) @ 0,0 390x844 fill #F4EFE0 radius 28
+  - [TEXT] Barang masuk @ 24,52 195x34 fill #14372D "Barang masuk" font Inter w700 28px lh 34
+  - [TEXT] Kiriman dan titipan terbaru @ 24,90 158x15 fill #6E7468 "Kiriman dan titipan terbaru" font Inter w400 12.5px lh 15
+  - [RECTANGLE] Rectangle @ 24,118 64x34 fill #23794F radius 17
+  - [TEXT] Semua @ 36,127 40x15 fill #FFFFFF "Semua" font Inter w600 12px lh 15
+  - [RECTANGLE] Rectangle @ 96,118 78x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] Pasokan @ 110,127 50x15 fill #14372D "Pasokan" font Inter w600 12px lh 15
+  - [RECTANGLE] Rectangle @ 182,118 78x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] Titipan @ 200,127 41x15 fill #14372D "Titipan" font Inter w600 12px lh 15
+  - [RECTANGLE] Rectangle @ 29,190 2x500 fill #E3EFE8 radius 1
+  - [ELLIPSE] Ellipse @ 24,190 12x12 fill #E3EFE8
+  - [RECTANGLE] Rectangle @ 44,174 322x64 fill #FFFFFF stroke #E4DCC3 1 radius 16 shadow 0,2 blur 8 #14382E@0.08
+  - [TEXT] Distributor Berkah Jaya @ 58,186 190x13 fill #1F2D26 "Distributor Berkah Jaya" font Inter w700 13px lh 13
+  - [RECTANGLE] Rectangle @ 294,186 58x22 fill #E3EFE8 radius 11
+  - [TEXT] Sesuai @ 306,191 34x13 fill #23794F "Sesuai" font Inter w600 10.5px lh 13
+  - [TEXT] 28 Okt · 3 barang @ 58,206 87x13 fill #6E7468 "28 Okt · 3 barang" font Inter w400 10.5px lh 13
+  - [ELLIPSE] Ellipse @ 24,266 12x12 fill #E3EFE8
+  - [RECTANGLE] Rectangle @ 44,250 322x92 fill #FFFFFF stroke #E4DCC3 1 radius 16 shadow 0,2 blur 8 #14382E@0.08
+  - [TEXT] Ibu Rahmah · Keripik pisang @ 58,262 190x13 fill #1F2D26 "Ibu Rahmah · Keripik pisang" font Inter w700 13px lh 13
+  - [RECTANGLE] Rectangle @ 281,262 71x22 fill #E3EFE8 radius 11
+  - [TEXT] Berjalan @ 296,267 42x13 fill #23794F "Berjalan" font Inter w600 10.5px lh 13
+  - [TEXT] 27 Okt · sisa 6 dari 20 @ 58,282 109x13 fill #6E7468 "27 Okt · sisa 6 dari 20" font Inter w400 10.5px lh 13
+  - [RECTANGLE] Rectangle @ 58,310 294x8 fill #E4DCC3 radius 4
+  - [RECTANGLE] Rectangle @ 58,310 206x8 fill #23794F radius 4
+  - [ELLIPSE] Ellipse @ 24,370 12x12 fill #E3EFE8
+  - [RECTANGLE] Rectangle @ 44,354 322x64 fill #FFFFFF stroke #E4DCC3 1 radius 16 shadow 0,2 blur 8 #14382E@0.08
+  - [TEXT] Sinar Pagi Sembako @ 58,366 190x13 fill #1F2D26 "Sinar Pagi Sembako" font Inter w700 13px lh 13
+  - [RECTANGLE] Rectangle @ 294,366 58x22 fill #E3EFE8 radius 11
+  - [TEXT] Sesuai @ 306,371 34x13 fill #23794F "Sesuai" font Inter w600 10.5px lh 13
+  - [TEXT] 26 Okt · 5 barang @ 58,386 87x13 fill #6E7468 "26 Okt · 5 barang" font Inter w400 10.5px lh 13
+  - [ELLIPSE] Ellipse @ 24,446 12x12 fill #E3EFE8
+  - [RECTANGLE] Rectangle @ 44,430 322x92 fill #FFFFFF stroke #E4DCC3 1 radius 16 shadow 0,2 blur 8 #14382E@0.08
+  - [TEXT] Ibu Siti · Kue lapis @ 58,442 190x13 fill #1F2D26 "Ibu Siti · Kue lapis" font Inter w700 13px lh 13
+  - [RECTANGLE] Rectangle @ 255,442 97x22 fill #E3EFE8 radius 11
+  - [TEXT] Siap direkap @ 272,447 63x13 fill #23794F "Siap direkap" font Inter w600 10.5px lh 13
+  - [TEXT] 25 Okt · sisa 0 dari 12 @ 58,462 107x13 fill #6E7468 "25 Okt · sisa 0 dari 12" font Inter w400 10.5px lh 13
+  - [RECTANGLE] Rectangle @ 58,490 294x8 fill #E4DCC3 radius 4
+  - [RECTANGLE] Rectangle @ 58,490 294x8 fill #23794F radius 4
+  - [RECTANGLE] Rectangle @ 196,692 170x50 fill #F8B62B radius 25
+  - [TEXT] + Catat masuk @ 226,708 110x18 fill #14372D "+  Catat masuk" font Inter w700 15px lh 18
+  - [FRAME] Status bar ikon @ 300,15 62x12  => ASET assets/icons/status-bar-ikon-62x12-14372D.svg
+  - [TEXT] Status bar jam @ 28,13 36x16 fill #14372D "09.41" font Inter w600 13px lh 16
+  - [FRAME] Navigasi @ 0,764 390x64
+    - [RECTANGLE] Bar navigasi @ 16,764 358x64 fill #14372D radius 32
+    - [FRAME] Ikon home @ 41,772 22x22  => ASET assets/icons/ikon-home-22x22-F4EFE0.svg
+    - [TEXT] Beranda @ 30,799 44x13 fill #F4EFE0 "Beranda" font Inter w500 11px lh 13
+    - [FRAME] Ikon cart @ 112,772 22x22  => ASET assets/icons/ikon-cart-22x22-F4EFE0.svg
+    - [TEXT] Kasir @ 110,799 27x13 fill #F4EFE0 "Kasir" font Inter w500 11px lh 13
+    - [FRAME] Ikon box @ 184,772 22x22  => ASET assets/icons/ikon-box-22x22-F8B62B.svg
+    - [TEXT] Stok @ 183,799 24x13 fill #F8B62B "Stok" font Inter w500 11px lh 13
+    - [FRAME] Ikon chart @ 256,772 22x22  => ASET assets/icons/ikon-chart-22x22-F4EFE0.svg
+    - [TEXT] Laporan @ 245,799 43x13 fill #F4EFE0 "Laporan" font Inter w500 11px lh 13
+    - [FRAME] Ikon inbox @ 327,772 22x22  => ASET assets/icons/ikon-inbox-22x22-F4EFE0.svg
+    - [TEXT] Kotak masuk @ 304,799 68x13 fill #F4EFE0 "Kotak masuk" font Inter w500 11px lh 13
+  - [RECTANGLE] Tautan · Nav Beranda @ 16,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kasir @ 88,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Stok @ 159,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Laporan @ 231,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kotak masuk @ 302,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · + Catat masuk @ 196,692 170x50 fill #FFFFFF@0.01

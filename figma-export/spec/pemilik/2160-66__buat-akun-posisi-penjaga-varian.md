@@ -1,0 +1,58 @@
+# Buat akun · Posisi Penjaga (varian)
+
+- Figma node: `2160:66` (file `PYGhjINDLB7fWCguQ0TevK`)
+- Section: pemilik
+- Grup: -
+- Ukuran: 390x844
+- Screenshot: `screens/pemilik/2160-66__buat-akun-posisi-penjaga-varian.png`
+
+Koordinat relatif ke pojok kiri-atas layar. Teks ditulis persis seperti di desain.
+
+- [FRAME] Buat akun · Posisi Penjaga (varian) @ 0,0 390x844 fill gradient radius 28
+  - [ELLIPSE] Cincin @ 240,-40 200x200 stroke #F4EFE0@0.10 1.5
+  - [ELLIPSE] Cincin @ 262,-18 156x156 stroke #F4EFE0@0.08 1.5
+  - [ELLIPSE] Cahaya @ -60,60 220x220 fill #23794F@0.25
+  - [TEXT] Status bar jam @ 28,13 36x16 fill #F4EFE0 "09.41" font Inter w600 13px lh 16
+  - [FRAME] Status bar ikon @ 300,15 62x12  => ASET assets/icons/status-bar-ikon-62x12-F4EFE0.svg
+  - [RECTANGLE] Panel @ 0,176 390x668 fill #FFFFFF radius 36/36/0/0
+  - [ELLIPSE] Tombol kembali @ 24,44 40x40 fill #F4EFE0@0.16
+  - [FRAME] Ikon kembali @ 34,54 20x20  => ASET assets/icons/ikon-kembali-20x20-F4EFE0.svg
+  - [TEXT] Buat akun @ 24,88 152x37 fill #F4EFE0 "Buat akun" font Fraunces w700 30px lh 37
+  - [TEXT] Minta kode warung ke pemilik agar akunmu tersambung ke warungnya. @ 24,130 320x32 fill #F4EFE0@0.78 "Minta kode warung ke pemilik agar akunmu tersambung ke warungnya." font Inter w400 13px lh 16
+  - [TEXT] Sandi baru @ 24,536 63x15 fill #54685E "Sandi baru" font Inter w600 12px lh 15
+  - [RECTANGLE] Kolom isian @ 24,556 342x52 fill #FFFFFF stroke #CFC7AA 1 radius 16
+  - [FRAME] Ikon @ 40,573 18x18  => ASET assets/icons/ikon-18x18-54685E.svg
+  - [TEXT] •••••••••• @ 68,572 80x18 fill #14372D "••••••••••" font Inter w500 15px lh 18
+  - [FRAME] Ikon mata @ 333,573 18x18  => ASET assets/icons/ikon-mata-18x18-54685E.svg
+  - [TEXT] Ulangi sandi baru @ 24,620 101x15 fill #54685E "Ulangi sandi baru" font Inter w600 12px lh 15
+  - [RECTANGLE] Kolom isian @ 24,640 342x52 fill #FFFFFF stroke #CFC7AA 1 radius 16
+  - [FRAME] Ikon @ 40,657 18x18  => ASET assets/icons/ikon-18x18-54685E.svg
+  - [TEXT] •••••••••• @ 68,656 80x18 fill #14372D "••••••••••" font Inter w500 15px lh 18
+  - [FRAME] Ikon mata @ 333,657 18x18  => ASET assets/icons/ikon-mata-18x18-54685E.svg
+  - [TEXT] Minimal 8 karakter, campuran huruf dan angka. @ 24,700 266x15 fill #54685E "Minimal 8 karakter, campuran huruf dan angka." font Inter w400 12px lh 15
+  - [RECTANGLE] Tombol utama @ 24,734 342x54 fill #23794F radius 27
+  - [TEXT] Buat akun → @ 145,751 101x19 fill #FFFFFF "Buat akun  →" font Inter w700 16px lh 19
+  - [TEXT] Nomor HP @ 24,452 59x15 fill #54685E "Nomor HP" font Inter w600 12px lh 15
+  - [RECTANGLE] Kolom isian @ 24,472 342x52 fill #FFFFFF stroke #CFC7AA 1 radius 16
+  - [FRAME] Ikon @ 40,489 18x18  => ASET assets/icons/ikon-18x18-54685E.svg
+  - [TEXT] 0812 3456 7890 @ 68,488 119x18 fill #14372D "0812 3456 7890" font Inter w500 15px lh 18
+  - [RECTANGLE] Tautan · Kembali @ 24,44 40x40 fill #FFFFFF@0.01
+  - [RECTANGLE] Tautan · Buat akun  → @ 24,734 342x54 fill #FFFFFF@0.01
+  - [TEXT] Label Nama lengkap @ 24,200 83x15 fill #54685E "Nama lengkap" font Inter w600 12px lh 15
+  - [RECTANGLE] Kolom isian @ 24,220 342x52 fill #FFFFFF stroke #CFC7AA 1 radius 16
+  - [FRAME] Ikon Orang @ 40,237 18x18  => ASET assets/icons/ikon-orang-18x18-54685E.svg
+  - [TEXT] Isi Nama lengkap @ 68,236 31x18 fill #14372D "Rina" font Inter w500 15px lh 18
+  - [TEXT] Label Posisi @ 24,284 35x15 fill #54685E "Posisi" font Inter w600 12px lh 15
+  - [RECTANGLE] Pilihan Posisi · Pemilik @ 24,304 165x52 fill #FFFFFF stroke #CFC7AA 1 radius 16
+  - [TEXT] Posisi Pemilik @ 40,313 50x17 fill #14372D "Pemilik" font Inter w700 14px lh 17
+  - [TEXT] Keterangan Pemilik @ 40,332 73x13 fill #6E7468 "Kelola warung" font Inter w400 11px lh 13
+  - [RECTANGLE] Pilihan Posisi · Penjaga @ 201,304 165x52 fill #23794F radius 16
+  - [TEXT] Posisi Penjaga @ 217,313 55x17 fill #FFFFFF "Penjaga" font Inter w700 14px lh 17
+  - [TEXT] Keterangan Penjaga @ 217,332 72x13 fill #D9E8DF "Catat dan jual" font Inter w400 11px lh 13
+  - [ELLIPSE] Tanda dipilih @ 332,320 20x20 fill #FFFFFF
+  - [TEXT] Centang @ 337,323 11x15 fill #23794F "✓" font Inter w700 12px lh 15
+  - [TEXT] Label Kode warung @ 24,368 77x15 fill #54685E "Kode warung" font Inter w600 12px lh 15
+  - [RECTANGLE] Kolom isian @ 24,388 342x52 fill #FFFFFF stroke #CFC7AA 1 radius 16
+  - [FRAME] Ikon Warung @ 40,405 18x18  => ASET assets/icons/ikon-warung-18x18-54685E.svg
+  - [TEXT] Isi Kode warung @ 68,404 98x18 fill #14372D "AZZAM-2026" font Inter w500 15px lh 18
+  - [RECTANGLE] Tautan · Posisi Pemilik @ 24,296 168x56 fill #FFFFFF@0.01

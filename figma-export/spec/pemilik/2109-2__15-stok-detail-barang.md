@@ -1,0 +1,73 @@
+# 15 · Stok - Detail barang
+
+- Figma node: `2109:2` (file `PYGhjINDLB7fWCguQ0TevK`)
+- Section: pemilik
+- Grup: -
+- Ukuran: 390x844
+- Screenshot: `screens/pemilik/2109-2__15-stok-detail-barang.png`
+
+Koordinat relatif ke pojok kiri-atas layar. Teks ditulis persis seperti di desain.
+
+- [FRAME] 15 · Stok - Detail barang @ 0,0 390x844 fill #F4EFE0 radius 28
+  - [TEXT] Status bar jam @ 28,13 36x16 fill #14372D "09.41" font Inter w600 13px lh 16
+  - [FRAME] Status bar ikon @ 300,15 62x12  => ASET assets/icons/status-bar-ikon-62x12-14372D.svg
+  - [ELLIPSE] Tombol kembali @ 24,48 40x40 fill #FFFFFF stroke #CFC7AA 1
+  - [FRAME] Ikon ChevL @ 35,59 18x18  => ASET assets/icons/ikon-chevl-18x18-14372D.svg
+  - [TEXT] Judul @ 76,56 131x24 fill #14372D "Detail barang" font Inter w700 20px lh 24
+  - [RECTANGLE] Kartu barang @ 24,100 342x104 fill #FFFFFF stroke #E4DCC3 1 radius 18 shadow 0,4 blur 14 #14382E@0.10
+  - [RECTANGLE] Bentuk @ 38,118 56x56 fill #EFE8D2 radius 14
+  - [FRAME] Ikon Stok @ 54,134 24x24  => ASET assets/icons/ikon-stok-24x24-23794F.svg
+  - [TEXT] Minyak Goreng 1 L @ 108,118 152x21 fill #14372D "Minyak Goreng 1 L" font Inter w700 17px lh 21
+  - [TEXT] Kode 8991234500011 @ 108,142 124x15 fill #6E7468 "Kode 8991234500011" font Inter w400 12px lh 15
+  - [RECTANGLE] Lencana @ 108,166 66x24 fill #F6DCD3 radius 12
+  - [TEXT] Lencana teks @ 108,171 66x13 fill #C8402D "Menipis" font Inter w700 11px lh 13 align center
+  - [RECTANGLE] Kartu angka @ 24,220 165x76 fill #FFFFFF stroke #E4DCC3 1 radius 16 shadow 0,4 blur 14 #14382E@0.10
+  - [TEXT] Stok sekarang @ 40,234 82x15 fill #6E7468 "Stok sekarang" font Inter w400 12px lh 15
+  - [TEXT] 3 pcs @ 40,254 65x29 fill #14372D "3 pcs" font Inter w800 24px lh 29
+  - [RECTANGLE] Kartu angka @ 201,220 165x76 fill #FFFFFF stroke #E4DCC3 1 radius 16 shadow 0,4 blur 14 #14382E@0.10
+  - [TEXT] Batas minimum @ 217,234 87x15 fill #6E7468 "Batas minimum" font Inter w400 12px lh 15
+  - [TEXT] 10 pcs @ 217,254 78x29 fill #14372D "10 pcs" font Inter w800 24px lh 29
+  - [RECTANGLE] Kartu harga @ 24,308 165x64 fill #FFFFFF stroke #E4DCC3 1 radius 16 shadow 0,4 blur 14 #14382E@0.10
+  - [TEXT] Harga beli @ 40,320 58x15 fill #6E7468 "Harga beli" font Inter w400 12px lh 15
+  - [TEXT] Rp 15.500 @ 40,340 80x19 fill #14372D "Rp 15.500" font Inter w700 16px lh 19
+  - [RECTANGLE] Kartu harga @ 201,308 165x64 fill #FFFFFF stroke #E4DCC3 1 radius 16 shadow 0,4 blur 14 #14382E@0.10
+  - [TEXT] Harga jual @ 217,320 57x15 fill #6E7468 "Harga jual" font Inter w400 12px lh 15
+  - [TEXT] Rp 18.000 @ 217,340 80x19 fill #14372D "Rp 18.000" font Inter w700 16px lh 19
+  - [TEXT] Kedaluwarsa @ 24,392 102x19 fill #14372D "Kedaluwarsa" font Inter w700 16px lh 19
+  - [RECTANGLE] Kartu batch @ 24,420 342x56 fill #FFFFFF stroke #E4DCC3 1 radius 16 shadow 0,4 blur 14 #14382E@0.10
+  - [TEXT] Batch 28 Okt 2026 @ 40,430 128x17 fill #14372D "Batch 28 Okt 2026" font Inter w600 14px lh 17
+  - [TEXT] Kedaluwarsa 14 Des 2026 @ 40,452 148x15 fill #6E7468 "Kedaluwarsa 14 Des 2026" font Inter w400 12px lh 15
+  - [TEXT] 3 pcs @ 300,438 50x18 fill #14372D "3 pcs" font Inter w700 15px lh 18 align right
+  - [TEXT] Riwayat terbaru @ 24,492 124x19 fill #14372D "Riwayat terbaru" font Inter w700 16px lh 19
+  - [RECTANGLE] Kartu riwayat @ 24,520 342x100 fill #FFFFFF stroke #E4DCC3 1 radius 16 shadow 0,4 blur 14 #14382E@0.10
+  - [TEXT] Terjual · hari ini 10.12 @ 40,534 140x17 fill #14372D "Terjual · hari ini 10.12" font Inter w600 14px lh 17
+  - [TEXT] −2 pcs @ 290,534 60x17 fill #C8402D "−2 pcs" font Inter w700 14px lh 17 align right
+  - [RECTANGLE] Garis @ 40,570 310x1 fill #E4DCC3
+  - [TEXT] Masuk · 28 Okt 2026 @ 40,584 141x17 fill #14372D "Masuk · 28 Okt 2026" font Inter w600 14px lh 17
+  - [TEXT] +24 pcs @ 290,584 60x17 fill #23794F "+24 pcs" font Inter w700 14px lh 17 align right
+  - [RECTANGLE] Tombol sekunder @ 24,634 166x48 fill #FFFFFF stroke #23794F 1.5 radius 24
+  - [TEXT] Catat barang masuk @ 24,649 166x17 fill #23794F "Catat barang masuk" font Inter w700 14px lh 17 align center
+  - [RECTANGLE] Tombol utama @ 200,634 166x48 fill #23794F radius 24
+  - [TEXT] Ubah barang @ 200,649 166x17 fill #FFFFFF "Ubah barang" font Inter w700 14px lh 17 align center
+  - [TEXT] Tambah ke rencana belanja @ 24,698 342x17 fill #23794F "Tambah ke rencana belanja" font Inter w700 14px lh 17 align center
+  - [FRAME] Navigasi @ 0,764 390x64
+    - [RECTANGLE] Bar navigasi @ 16,764 358x64 fill #14372D radius 32
+    - [FRAME] Ikon home @ 41,772 22x22  => ASET assets/icons/ikon-home-22x22-F4EFE0.svg
+    - [TEXT] Beranda @ 30,799 44x13 fill #F4EFE0 "Beranda" font Inter w500 11px lh 13
+    - [FRAME] Ikon cart @ 112,772 22x22  => ASET assets/icons/ikon-cart-22x22-F4EFE0.svg
+    - [TEXT] Kasir @ 110,799 27x13 fill #F4EFE0 "Kasir" font Inter w500 11px lh 13
+    - [FRAME] Ikon box @ 184,772 22x22  => ASET assets/icons/ikon-box-22x22-F8B62B.svg
+    - [TEXT] Stok @ 183,799 24x13 fill #F8B62B "Stok" font Inter w500 11px lh 13
+    - [FRAME] Ikon chart @ 256,772 22x22  => ASET assets/icons/ikon-chart-22x22-F4EFE0.svg
+    - [TEXT] Laporan @ 245,799 43x13 fill #F4EFE0 "Laporan" font Inter w500 11px lh 13
+    - [FRAME] Ikon inbox @ 327,772 22x22  => ASET assets/icons/ikon-inbox-22x22-F4EFE0.svg
+    - [TEXT] Kotak masuk @ 304,799 68x13 fill #F4EFE0 "Kotak masuk" font Inter w500 11px lh 13
+  - [RECTANGLE] Tautan · Nav Beranda @ 16,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kasir @ 88,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Stok @ 159,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Laporan @ 231,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kotak masuk @ 302,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Catat barang masuk @ 24,634 166x48 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Ubah barang @ 200,634 166x48 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Tambah ke rencana belanja @ 24,692 342x30 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Kembali @ 20,44 48x48 fill #FFFFFF@0.01 radius 18

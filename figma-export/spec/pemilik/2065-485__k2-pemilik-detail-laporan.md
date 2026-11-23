@@ -1,0 +1,57 @@
+# K2 · Pemilik - Detail laporan
+
+- Figma node: `2065:485` (file `PYGhjINDLB7fWCguQ0TevK`)
+- Section: pemilik
+- Grup: KOTAK MASUK LAPORAN  ·  2 layar
+- Ukuran: 390x844
+- Screenshot: `screens/pemilik/2065-485__k2-pemilik-detail-laporan.png`
+
+Koordinat relatif ke pojok kiri-atas layar. Teks ditulis persis seperti di desain.
+
+- [FRAME] K2 · Pemilik - Detail laporan @ 0,0 390x844 fill #F4EFE0 radius 28
+  - [TEXT] Status bar jam @ 28,13 36x16 fill #14372D "09.41" font Inter w600 13px lh 16
+  - [FRAME] Status bar ikon @ 300,15 62x12  => ASET assets/icons/status-bar-ikon-62x12-14372D.svg
+  - [TEXT] Laporan dari Rina @ 24,52 240x34 fill #14372D "Laporan dari Rina" font Inter w800 28px lh 34
+  - [TEXT] 17 Nov 2026, 10.05 @ 24,90 109x15 fill #6E7468 "17 Nov 2026, 10.05" font Inter w400 12px lh 15
+  - [RECTANGLE] Rectangle @ 321,60 45x22 fill #C8401E radius 11
+  - [TEXT] Baru @ 331,65 25x13 fill #FFFFFF "Baru" font Inter w600 11px lh 13
+  - [RECTANGLE] Kartu grafik @ 24,122 342x124 fill #FFFFFF stroke #E4DCC3 1 radius 20 shadow 0,4 blur 14 #14382E@0.10
+  - [TEXT] Pesan @ 40,138 35x15 fill #6E7468 "Pesan" font Inter w400 12px lh 15
+  - [TEXT] Gula pasir 1 kg habis. Tolong dibelikan lagi sebelum sore. @ 40,160 310x34 fill #14372D "Gula pasir 1 kg habis. Tolong dibelikan lagi sebelum sore." font Inter w500 14px lh 17
+  - [RECTANGLE] Kartu grafik @ 24,262 342x112 fill #FFFFFF stroke #E4DCC3 1 radius 20 shadow 0,4 blur 14 #14382E@0.10
+  - [TEXT] Lampiran @ 40,278 53x15 fill #6E7468 "Lampiran" font Inter w400 12px lh 15
+  - [RECTANGLE] Lencana @ 40,302 56x56 fill #E3EFE8 radius 14
+  - [FRAME] Ikon camera @ 57,319 22x22  => ASET assets/icons/ikon-camera-22x22-23794F.svg
+  - [RECTANGLE] Lencana @ 104,302 56x56 fill #E3EFE8 radius 14
+  - [FRAME] Ikon camera @ 121,319 22x22  => ASET assets/icons/ikon-camera-22x22-23794F.svg
+  - [RECTANGLE] Kartu grafik @ 24,390 342x64 fill #FFFFFF stroke #E4DCC3 1 radius 20 shadow 0,4 blur 14 #14382E@0.10
+  - [FRAME] Ikon receipt @ 40,412 20x20  => ASET assets/icons/ikon-receipt-20x20-23794F.svg
+  - [TEXT] Barang tertaut @ 72,407 83x15 fill #6E7468 "Barang tertaut" font Inter w400 12px lh 15
+  - [TEXT] Gula Pasir 1 kg · sisa 0 @ 72,426 148x17 fill #14372D "Gula Pasir 1 kg · sisa 0" font Inter w500 14px lh 17
+  - [FRAME] Ikon chev @ 332,413 18x18  => ASET assets/icons/ikon-chev-18x18-23794F.svg
+  - [TEXT] Balas ke Rina @ 24,474 90x17 fill #14372D "Balas ke Rina" font Inter w700 14px lh 17
+  - [RECTANGLE] Kolom uang diterima @ 24,500 342x56 fill #FFFFFF stroke #23794F 1.5 radius 18
+  - [TEXT] Tulis balasan… @ 40,519 97x17 fill #6E7468 "Tulis balasan…" font Inter w400 14px lh 17
+  - [RECTANGLE] Tombol transaksi baru @ 24,576 342x52 fill #23794F radius 26
+  - [TEXT] Kirim balasan @ 142,593 107x19 fill #FFFFFF "Kirim balasan" font Inter w700 16px lh 19
+  - [RECTANGLE] Tombol selesai @ 24,638 342x52 fill #FFFFFF stroke #CFC7AA 1.5 radius 26
+  - [TEXT] Tandai selesai @ 139,655 112x19 fill #14372D "Tandai selesai" font Inter w700 16px lh 19
+  - [FRAME] Navigasi @ 0,764 390x64
+    - [RECTANGLE] Bar navigasi @ 16,764 358x64 fill #14372D radius 32
+    - [FRAME] Ikon home @ 41,772 22x22  => ASET assets/icons/ikon-home-22x22-F4EFE0.svg
+    - [TEXT] Beranda @ 30,799 44x13 fill #F4EFE0 "Beranda" font Inter w500 11px lh 13
+    - [FRAME] Ikon cart @ 112,772 22x22  => ASET assets/icons/ikon-cart-22x22-F4EFE0.svg
+    - [TEXT] Kasir @ 110,799 27x13 fill #F4EFE0 "Kasir" font Inter w500 11px lh 13
+    - [FRAME] Ikon box @ 184,772 22x22  => ASET assets/icons/ikon-box-22x22-F4EFE0.svg
+    - [TEXT] Stok @ 183,799 24x13 fill #F4EFE0 "Stok" font Inter w500 11px lh 13
+    - [FRAME] Ikon chart @ 256,772 22x22  => ASET assets/icons/ikon-chart-22x22-F4EFE0.svg
+    - [TEXT] Laporan @ 245,799 43x13 fill #F4EFE0 "Laporan" font Inter w500 11px lh 13
+    - [FRAME] Ikon inbox @ 327,772 22x22  => ASET assets/icons/ikon-inbox-22x22-F8B62B.svg
+    - [TEXT] Kotak masuk @ 304,799 68x13 fill #F8B62B "Kotak masuk" font Inter w500 11px lh 13
+  - [RECTANGLE] Tautan · Kirim balasan @ 24,576 342x52 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Tandai selesai @ 24,638 342x52 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Beranda @ 16,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kasir @ 88,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Stok @ 159,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Laporan @ 231,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kotak masuk @ 302,764 72x64 fill #FFFFFF@0.01 radius 18

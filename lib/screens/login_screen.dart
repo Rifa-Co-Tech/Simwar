@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../services/auth_service.dart';
 import 'home_screen.dart';
 import 'register_screen_1.dart';
 
+/// SIMWAR - Layar Login (Pemilik / Penjaga)
+/// Diport persis dari Spesifikasi Desain Figma node 2073:3815 & SIMWAR_Login_Pemilik_SPEC.md
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -11,32 +15,33 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  // ── Palet Warna Desain Figma Baru ───────────────────────────
-  static const Color _bgGradienAtas = Color(0xFF1A4838);   // Dark forest green
-  static const Color _bgGradienBawah = Color(0xFF0C261F);  // Deep emerald
-  static const Color _kremTeks = Color(0xFFF4EFE0);        // Cream for SIMWAR
-  static const Color _emasKuning = Color(0xFFF8B62B);      // Gold for Azzam & accent
-  static const Color _hijauAksi = Color(0xFF23794F);       // Primary button green
-  static const Color _teksGelap = Color(0xFF14372D);       // Deep green text
-  static const Color _borderCard = Color(0xFFE4DCC3);      // Card border
-  static const Color _borderInput = Color(0xFFCFC7AA);     // Input border
-  static const Color _merahTenda = Color(0xFFC8401E);      // Red canopy/door accent
+  // ── Token Warna Desain Figma (Bagian 2 Spec) ────────────────────────
+  static const Color _hijauAtas = Color(0xFF1A4838);   // Gradien atas
+  static const Color _hijauBawah = Color(0xFF0C261F);  // Gradien bawah
+  static const Color _hijauTua = Color(0xFF14372D);    // Teks input & papan
+  static const Color _hijau = Color(0xFF23794F);       // Tab aktif & tombol Masuk
+  static const Color _krem = Color(0xFFF4EFE0);        // SIMWAR & status bar
+  static const Color _kuning = Color(0xFFF8B62B);      // Logo, Azzam, kanopi, papan
+  static const Color _merah = Color(0xFFC8401E);       // Palang, pintu, pot
+  static const Color _garis = Color(0xFFE4DCC3);       // Border kartu & segmen tab
+  static const Color _garisInput = Color(0xFFCFC7AA);  // Border input
+  static const Color _teks = Color(0xFF1F2D26);        // Teks tab sekunder & link
 
-  // ── State ───────────────────────────────────────────────────
+  // ── State Interaksi ──────────────────────────────────────────────────
   String _peranDipilih = 'Pemilik'; // 'Pemilik' | 'Penjaga'
-  bool _passwordVisible = false;
+  bool _sandiTerlihat = false;
   bool _isLoading = false;
   String? _errorMsg;
 
-  final _nomorHpCtrl = TextEditingController(text: '0812 3456 7890');
-  final _passwordCtrl = TextEditingController(text: '12345678');
+  final _teleponCtrl = TextEditingController(text: '0812 3456 7890');
+  final _sandiCtrl = TextEditingController(text: '12345678');
   final _formKey = GlobalKey<FormState>();
   final _authService = AuthService();
 
   @override
   void dispose() {
-    _nomorHpCtrl.dispose();
-    _passwordCtrl.dispose();
+    _teleponCtrl.dispose();
+    _sandiCtrl.dispose();
     super.dispose();
   }
 
@@ -46,14 +51,15 @@ class _LoginScreenState extends State<LoginScreen> {
       _peranDipilih = peran;
       _errorMsg = null;
       if (peran == 'Pemilik') {
-        _nomorHpCtrl.text = '0812 3456 7890';
+        _teleponCtrl.text = '0812 3456 7890';
       } else {
-        _nomorHpCtrl.text = '0813 9876 5432';
+        _teleponCtrl.text = '0813 9876 5432';
       }
     });
   }
 
-  // ── Handler Login ────────────────────────────────────────────
+  // ── Submit Login ─────────────────────────────────────────────────────
+  // TODO: Sambungkan ke endpoint login resmi & tujuan rute setelah login sukses (sesuai konfirmasi user)
   Future<void> _handleLogin() async {
     if (!_formKey.currentState!.validate()) return;
     setState(() {
@@ -63,8 +69,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
     try {
       final pengguna = await _authService.login(
-        nomorHp: _nomorHpCtrl.text.trim(),
-        password: _passwordCtrl.text,
+        nomorHp: _teleponCtrl.text.trim(),
+        password: _sandiCtrl.text,
         peran: _peranDipilih,
       );
 
@@ -80,13 +86,13 @@ class _LoginScreenState extends State<LoginScreen> {
       } else {
         setState(() {
           _errorMsg =
-              'Nomor HP atau kata sandi $_peranDipilih salah. Silakan periksa kembali.';
+              'Nomor telepon atau kata sandi $_peranDipilih salah. Silakan periksa kembali.';
         });
       }
     } catch (e) {
       if (!mounted) return;
       setState(() {
-        _errorMsg = 'Terjadi kesalahan: ${e.toString()}';
+        _errorMsg = 'Gagal masuk: ${e.toString()}';
       });
     } finally {
       if (mounted) {
@@ -97,9 +103,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-
+    debugPrint('>>> [DEBUG] LoginScreen build() running!');
     return Scaffold(
+      backgroundColor: _hijauBawah,
       body: Container(
         width: double.infinity,
         height: double.infinity,
@@ -107,92 +113,128 @@ class _LoginScreenState extends State<LoginScreen> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [_bgGradienAtas, _bgGradienBawah],
+            colors: [_hijauAtas, _hijauBawah],
           ),
         ),
         child: SafeArea(
           bottom: false,
           child: SingleChildScrollView(
             physics: const ClampingScrollPhysics(),
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight: screenHeight - MediaQuery.of(context).padding.top,
-              ),
-              child: IntrinsicHeight(
+            child: Center(
+              child: ConstrainedBox(
+                constraints: const BoxConstraints(maxWidth: 420),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const SizedBox(height: 16),
-
-                    // ── 1. HEADER BRANDING (SIMWAR Warung Azzam) ──────
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 24),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                    // ── BAGIAN ATAS: Dekorasi, Status Bar, Brand, Warung ──
+                    SizedBox(
+                      height: 424,
+                      child: Stack(
+                        clipBehavior: Clip.none,
                         children: [
-                          // Logo Box Emas
-                          Container(
-                            width: 44,
-                            height: 44,
-                            decoration: BoxDecoration(
-                              color: _emasKuning,
-                              borderRadius: BorderRadius.circular(14),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.15),
-                                  blurRadius: 8,
-                                  offset: const Offset(0, 2),
+                          // 1. Dekorasi Latar (Lingkaran & Titik Emas)
+                          Positioned(
+                            left: 0,
+                            top: 0,
+                            right: 0,
+                            height: 430,
+                            child: SvgPicture.asset(
+                              'assets/dekorasi.svg',
+                              fit: BoxFit.fill,
+                            ),
+                          ),
+
+                          // 2. Status Bar Visual (Figma Mock)
+                          Positioned(
+                            left: 28,
+                            right: 28,
+                            top: 13,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  '09.41',
+                                  style: GoogleFonts.inter(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w600,
+                                    color: _krem,
+                                  ),
+                                ),
+                                SvgPicture.asset(
+                                  'assets/status-bar.svg',
+                                  width: 62,
+                                  height: 12,
                                 ),
                               ],
                             ),
-                            child: const Center(
-                              child: Icon(
-                                Icons.storefront_rounded,
-                                color: _teksGelap,
-                                size: 26,
+                          ),
+
+                          // 3. Brand: Logo, Title SIMWAR, Subtitle Warung Azzam
+                          Positioned(
+                            left: 24,
+                            top: 40,
+                            child: Container(
+                              width: 44,
+                              height: 44,
+                              decoration: BoxDecoration(
+                                color: _kuning,
+                                borderRadius: BorderRadius.circular(14),
+                              ),
+                              child: Center(
+                                child: SvgPicture.asset(
+                                  'assets/ikon-stok.svg',
+                                  width: 24,
+                                  height: 24,
+                                ),
                               ),
                             ),
                           ),
-                          const SizedBox(height: 12),
 
-                          // Judul SIMWAR
-                          const Text(
-                            'SIMWAR',
-                            style: TextStyle(
-                              fontFamily: 'Inter',
-                              fontSize: 44,
-                              fontWeight: FontWeight.w900,
-                              color: _kremTeks,
-                              letterSpacing: 2.5,
-                              height: 1.0,
+                          Positioned(
+                            left: 24,
+                            top: 92,
+                            child: Text(
+                              'SIMWAR',
+                              style: GoogleFonts.fraunces(
+                                fontSize: 50,
+                                fontWeight: FontWeight.w900,
+                                color: _krem,
+                                letterSpacing: 3.0,
+                                height: 1.0,
+                              ),
                             ),
                           ),
-                          const SizedBox(height: 4),
 
-                          // Sub-judul Warung Azzam
-                          const Text(
-                            'Warung Azzam',
-                            style: TextStyle(
-                              fontFamily: 'Inter',
-                              fontSize: 22,
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.italic,
-                              color: _emasKuning,
+                          Positioned(
+                            left: 26,
+                            top: 150,
+                            child: Text(
+                              'Warung Azzam',
+                              style: GoogleFonts.fraunces(
+                                fontSize: 24,
+                                fontWeight: FontWeight.w700,
+                                fontStyle: FontStyle.italic,
+                                color: _kuning,
+                                height: 1.0,
+                              ),
+                            ),
+                          ),
+
+                          // 4. Ilustrasi Warung Azzam Geometri Tetap (390 x 230 @ top 190)
+                          Positioned(
+                            left: 0,
+                            right: 0,
+                            top: 190,
+                            child: Center(
+                              child: _buildIlustrasiWarung(),
                             ),
                           ),
                         ],
                       ),
                     ),
 
-                    const SizedBox(height: 16),
-
-                    // ── 2. ILUSTRASI WARUNG AZZAM SESUAI FIGMA ────────
-                    _buildIlustrasiWarung(),
-
-                    const Spacer(),
-
-                    // ── 3. FORM LOGIN BOTTOM CARD ────────────────────
-                    _buildFormCard(),
+                    // ── BAGIAN BAWAH: Kartu Form (Radius 36 top) ─────────
+                    _buildKartuForm(),
                   ],
                 ),
               ),
@@ -203,389 +245,530 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  // ── Ilustrasi Warung Azzam ───────────────────────────────────
+  // ── 4.4 Ilustrasi Warung Azzam (Geometri Tetap 390x230) ──────────────
   Widget _buildIlustrasiWarung() {
-    return Center(
-      child: SizedBox(
-        width: 320,
-        height: 175,
-        child: Stack(
-          alignment: Alignment.bottomCenter,
-          children: [
-            // Garis Tanah / Platform
-            Positioned(
-              bottom: 0,
-              child: Container(
-                width: 280,
-                height: 8,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF23794F).withOpacity(0.9),
-                  borderRadius: BorderRadius.circular(4),
-                ),
+    return SizedBox(
+      width: 390,
+      height: 230,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          // Tanah: left 58, top 198, w 274, h 8, rgba(35,121,79,.9), r4
+          Positioned(
+            left: 58,
+            top: 198,
+            child: Container(
+              width: 274,
+              height: 8,
+              decoration: BoxDecoration(
+                color: const Color(0xE623794F),
+                borderRadius: BorderRadius.circular(4),
               ),
             ),
+          ),
 
-            // Badan Toko
-            Positioned(
-              bottom: 8,
-              child: Container(
-                width: 210,
-                height: 110,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFE8E0C8),
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.12),
-                      blurRadius: 8,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
-                ),
-                child: Stack(
-                  children: [
-                    // Jendela Toko (Etalase)
-                    Positioned(
-                      left: 14,
-                      top: 40,
-                      child: Container(
-                        width: 100,
-                        height: 60,
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF14372D).withOpacity(0.95),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Stack(
-                          children: [
-                            // Rak 1
-                            Positioned(
-                              top: 24,
-                              left: 8,
-                              right: 8,
-                              child: Container(
-                                height: 3,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFFF4EFE0).withOpacity(0.85),
-                                  borderRadius: BorderRadius.circular(2),
-                                ),
-                              ),
-                            ),
-                            // Toples-toples di Rak 1
-                            Positioned(
-                              top: 10,
-                              left: 12,
-                              right: 12,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  _buildToplesItem(const Color(0xFFF8B62B)),
-                                  _buildToplesItem(const Color(0xFFC8401E)),
-                                  _buildToplesItem(const Color(0xFF23794F)),
-                                  _buildToplesItem(const Color(0xFFF4EFE0)),
-                                ],
-                              ),
-                            ),
-                            // Rak 2
-                            Positioned(
-                              top: 48,
-                              left: 8,
-                              right: 8,
-                              child: Container(
-                                height: 3,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xFFF4EFE0).withOpacity(0.85),
-                                  borderRadius: BorderRadius.circular(2),
-                                ),
-                              ),
-                            ),
-                            // Toples-toples di Rak 2
-                            Positioned(
-                              top: 34,
-                              left: 14,
-                              right: 14,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  _buildToplesItem(const Color(0xFFC8401E)),
-                                  _buildToplesItem(const Color(0xFFF8B62B)),
-                                  _buildToplesItem(const Color(0xFF23794F)),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-
-                    // Pintu Merah Toko
-                    Positioned(
-                      right: 20,
-                      top: 40,
-                      child: Container(
-                        width: 58,
-                        height: 70,
-                        decoration: const BoxDecoration(
-                          color: _merahTenda,
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(26),
-                            topRight: Radius.circular(26),
-                          ),
-                        ),
-                        child: Align(
-                          alignment: const Alignment(0.65, 0.1),
-                          child: Container(
-                            width: 6,
-                            height: 6,
-                            decoration: const BoxDecoration(
-                              color: _emasKuning,
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+          // Badan Toko: left 90, top 60, w 210, h 140, #e8e0c8, r10
+          Positioned(
+            left: 90,
+            top: 60,
+            child: Container(
+              width: 210,
+              height: 140,
+              decoration: BoxDecoration(
+                color: const Color(0xFFE8E0C8),
+                borderRadius: BorderRadius.circular(10),
               ),
             ),
+          ),
 
-            // Kanopi / Tenda Bergaris Kuning-Putih
-            Positioned(
-              bottom: 108,
-              child: SizedBox(
-                width: 240,
-                child: Column(
-                  children: [
-                    // Palang Merah Kanopi
-                    Container(
-                      width: 240,
-                      height: 10,
-                      decoration: BoxDecoration(
-                        color: _merahTenda,
-                        borderRadius: BorderRadius.circular(5),
-                      ),
-                    ),
-                    // Garis-garis Kanopi (Kuning - Putih)
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: List.generate(6, (i) {
-                        final isYellow = i % 2 == 0;
-                        return Container(
-                          width: 38,
-                          height: 24,
-                          decoration: BoxDecoration(
-                            color: isYellow ? _emasKuning : Colors.white,
-                            borderRadius: const BorderRadius.only(
-                              bottomLeft: Radius.circular(10),
-                              bottomRight: Radius.circular(10),
-                            ),
-                          ),
-                        );
-                      }),
-                    ),
-                  ],
-                ),
+          // Jendela: left 104, top 110, w 100, h 70, rgba(20,55,45,.95), r10
+          Positioned(
+            left: 104,
+            top: 110,
+            child: Container(
+              width: 100,
+              height: 70,
+              decoration: BoxDecoration(
+                color: const Color(0xF214372D),
+                borderRadius: BorderRadius.circular(10),
               ),
             ),
+          ),
 
-            // Papan "BUKA" di Atas Kanopi
-            Positioned(
-              top: 0,
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 4),
-                decoration: BoxDecoration(
-                  color: _emasKuning,
-                  borderRadius: BorderRadius.circular(12),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.15),
-                      blurRadius: 4,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                ),
-                child: const Text(
+          // Rak 1: left 112, top 136, w 84, h 4, rgba(244,239,224,.85), r2
+          Positioned(
+            left: 112,
+            top: 136,
+            child: Container(
+              width: 84,
+              height: 4,
+              decoration: BoxDecoration(
+                color: const Color(0xD9F4EFE0),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+          ),
+
+          // Rak 2: left 112, top 162, w 84, h 4, rgba(244,239,224,.85), r2
+          Positioned(
+            left: 112,
+            top: 162,
+            child: Container(
+              width: 84,
+              height: 4,
+              decoration: BoxDecoration(
+                color: const Color(0xD9F4EFE0),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+          ),
+
+          // Toples atas 1–4 (top 122, 14x14)
+          Positioned(
+            left: 116,
+            top: 122,
+            child: SvgPicture.asset('assets/toples-1.svg', width: 14, height: 14),
+          ),
+          Positioned(
+            left: 134,
+            top: 122,
+            child: SvgPicture.asset('assets/toples-2.svg', width: 14, height: 14),
+          ),
+          Positioned(
+            left: 152,
+            top: 122,
+            child: SvgPicture.asset('assets/toples-3.svg', width: 14, height: 14),
+          ),
+          Positioned(
+            left: 170,
+            top: 122,
+            child: SvgPicture.asset('assets/toples-4.svg', width: 14, height: 14),
+          ),
+
+          // Toples bawah 1–4 (top 148, 14x14)
+          Positioned(
+            left: 122,
+            top: 148,
+            child: SvgPicture.asset('assets/toples-3.svg', width: 14, height: 14),
+          ),
+          Positioned(
+            left: 140,
+            top: 148,
+            child: SvgPicture.asset('assets/toples-1.svg', width: 14, height: 14),
+          ),
+          Positioned(
+            left: 158,
+            top: 148,
+            child: SvgPicture.asset('assets/toples-4.svg', width: 14, height: 14),
+          ),
+          Positioned(
+            left: 176,
+            top: 148,
+            child: SvgPicture.asset('assets/toples-2.svg', width: 14, height: 14),
+          ),
+
+          // Pintu: left 222, top 128, w 60, h 72, #c8401e, r30 sudut atas
+          Positioned(
+            left: 222,
+            top: 128,
+            child: Container(
+              width: 60,
+              height: 72,
+              decoration: const BoxDecoration(
+                color: _merah,
+                borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
+              ),
+            ),
+          ),
+
+          // Gagang Pintu: left 266, top 162, 6x6
+          Positioned(
+            left: 266,
+            top: 162,
+            child: SvgPicture.asset('assets/gagang-pintu.svg', width: 6, height: 6),
+          ),
+
+          // Kanopi 1–6 (top 50, w 40, h 34, berselang kuning/putih)
+          Positioned(
+            left: 75,
+            top: 50,
+            child: Container(width: 40, height: 34, color: _kuning),
+          ),
+          Positioned(
+            left: 115,
+            top: 50,
+            child: Container(width: 40, height: 34, color: Colors.white),
+          ),
+          Positioned(
+            left: 155,
+            top: 50,
+            child: Container(width: 40, height: 34, color: _kuning),
+          ),
+          Positioned(
+            left: 195,
+            top: 50,
+            child: Container(width: 40, height: 34, color: Colors.white),
+          ),
+          Positioned(
+            left: 235,
+            top: 50,
+            child: Container(width: 40, height: 34, color: _kuning),
+          ),
+          Positioned(
+            left: 275,
+            top: 50,
+            child: Container(width: 40, height: 34, color: Colors.white),
+          ),
+
+          // Lengkung Kanopi 1–6 (top 72, w 40, h 24)
+          Positioned(
+            left: 75,
+            top: 72,
+            child: SvgPicture.asset('assets/lengkung-1.svg', width: 40, height: 24),
+          ),
+          Positioned(
+            left: 115,
+            top: 72,
+            child: SvgPicture.asset('assets/lengkung-2.svg', width: 40, height: 24),
+          ),
+          Positioned(
+            left: 155,
+            top: 72,
+            child: SvgPicture.asset('assets/lengkung-1.svg', width: 40, height: 24),
+          ),
+          Positioned(
+            left: 195,
+            top: 72,
+            child: SvgPicture.asset('assets/lengkung-2.svg', width: 40, height: 24),
+          ),
+          Positioned(
+            left: 235,
+            top: 72,
+            child: SvgPicture.asset('assets/lengkung-1.svg', width: 40, height: 24),
+          ),
+          Positioned(
+            left: 275,
+            top: 72,
+            child: SvgPicture.asset('assets/lengkung-2.svg', width: 40, height: 24),
+          ),
+
+          // Palang Kanopi: left 70, top 40, w 250, h 12, #c8401e, r6
+          Positioned(
+            left: 70,
+            top: 40,
+            child: Container(
+              width: 250,
+              height: 12,
+              decoration: BoxDecoration(
+                color: _merah,
+                borderRadius: BorderRadius.circular(6),
+              ),
+            ),
+          ),
+
+          // Papan "BUKA": left 145, top 12, w 100, h 24, #f8b62b, r12
+          Positioned(
+            left: 145,
+            top: 12,
+            child: Container(
+              width: 100,
+              height: 24,
+              decoration: BoxDecoration(
+                color: _kuning,
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Center(
+                child: Text(
                   'BUKA',
-                  style: TextStyle(
-                    fontFamily: 'Inter',
+                  style: GoogleFonts.inter(
                     fontSize: 11,
-                    fontWeight: FontWeight.w900,
-                    color: _teksGelap,
-                    letterSpacing: 1.4,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 1.32,
+                    color: _hijauTua,
                   ),
                 ),
               ),
             ),
+          ),
 
-            // Pot Tanaman di Kiri
-            Positioned(
-              left: 28,
-              bottom: 8,
-              child: Column(
-                children: [
-                  const Icon(
-                    Icons.eco_rounded,
-                    color: Color(0xFF23794F),
-                    size: 24,
-                  ),
-                  Container(
-                    width: 20,
-                    height: 14,
-                    decoration: BoxDecoration(
-                      color: _merahTenda,
-                      borderRadius: BorderRadius.circular(3),
-                    ),
-                  ),
-                ],
+          // Pot Tanaman: left 62, top 182, w 22, h 16, #c8401e, r4
+          Positioned(
+            left: 62,
+            top: 182,
+            child: Container(
+              width: 22,
+              height: 16,
+              decoration: BoxDecoration(
+                color: _merah,
+                borderRadius: BorderRadius.circular(4),
               ),
             ),
+          ),
 
-            // Kotak Buah di Kanan
-            Positioned(
-              right: 28,
-              bottom: 8,
-              child: Container(
-                width: 30,
-                height: 20,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFF4EFE0).withOpacity(0.95),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                child: const Center(
-                  child: Icon(
-                    Icons.apple_rounded,
-                    color: _emasKuning,
-                    size: 15,
-                  ),
-                ),
+          // Daun 1: left 58, top 154, w 28, h 28
+          Positioned(
+            left: 58,
+            top: 154,
+            child: SvgPicture.asset('assets/daun-1.svg', width: 28, height: 28),
+          ),
+
+          // Daun 2: left 72, top 144, w 20, h 26
+          Positioned(
+            left: 72,
+            top: 144,
+            child: SvgPicture.asset('assets/daun-2.svg', width: 20, height: 26),
+          ),
+
+          // Peti: left 312, top 176, w 34, h 22, rgba(244,239,224,.95), r4
+          Positioned(
+            left: 312,
+            top: 176,
+            child: Container(
+              width: 34,
+              height: 22,
+              decoration: BoxDecoration(
+                color: const Color(0xF2F4EFE0),
+                borderRadius: BorderRadius.circular(4),
               ),
             ),
-          ],
-        ),
+          ),
+
+          // Buah 1: left 316, top 164, 13x13
+          Positioned(
+            left: 316,
+            top: 164,
+            child: SvgPicture.asset('assets/buah-1.svg', width: 13, height: 13),
+          ),
+
+          // Buah 2: left 331, top 162, 13x13
+          Positioned(
+            left: 331,
+            top: 162,
+            child: SvgPicture.asset('assets/buah-2.svg', width: 13, height: 13),
+          ),
+        ],
       ),
     );
   }
 
-  Widget _buildToplesItem(Color color) {
-    return Container(
-      width: 13,
-      height: 13,
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(3),
-      ),
-    );
-  }
-
-  // ── Form Login Card (Bottom Sheet Style) ──────────────────────
-  Widget _buildFormCard() {
+  // ── 4.5 Kartu Form Login (Layout Normal Flex) ────────────────────────
+  Widget _buildKartuForm() {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(24, 28, 24, 32),
+      padding: const EdgeInsets.fromLTRB(24, 32, 24, 36),
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(36),
           topRight: Radius.circular(36),
         ),
+        border: Border(
+          top: BorderSide(color: _garis, width: 1),
+          left: BorderSide(color: _garis, width: 1),
+          right: BorderSide(color: _garis, width: 1),
+        ),
         boxShadow: [
           BoxShadow(
-            color: Color(0x1414372D),
-            blurRadius: 18,
-            offset: Offset(0, -4),
+            color: Color(0x1414382E),
+            blurRadius: 8,
+            offset: Offset(0, 2),
           ),
         ],
       ),
       child: Form(
         key: _formKey,
         child: Column(
-          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Sakelar Tab Pemilik / Penjaga
-            _buildPeranSelector(),
+            // 1. Segmen Tab Peran (342 x 52, r26, border _garis)
+            Container(
+              height: 52,
+              padding: const EdgeInsets.all(4),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(26),
+                border: Border.all(color: _garis, width: 1),
+              ),
+              child: Row(
+                children: [
+                  // Tab Pemilik
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => _switchPeran('Pemilik'),
+                      child: Container(
+                        height: 44,
+                        decoration: BoxDecoration(
+                          color: _peranDipilih == 'Pemilik'
+                              ? _hijau
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.circular(22),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Pemilik',
+                            style: GoogleFonts.inter(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                              color: _peranDipilih == 'Pemilik'
+                                  ? Colors.white
+                                  : _teks,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  // Tab Penjaga
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () => _switchPeran('Penjaga'),
+                      child: Container(
+                        height: 44,
+                        decoration: BoxDecoration(
+                          color: _peranDipilih == 'Penjaga'
+                              ? _hijau
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.circular(22),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Penjaga',
+                            style: GoogleFonts.inter(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w700,
+                              color: _peranDipilih == 'Penjaga'
+                                  ? Colors.white
+                                  : _teks,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
             const SizedBox(height: 20),
 
-            // Input Nomor HP
+            // 2. Input Telepon (h=52, r16, border _garisInput)
             Container(
               height: 52,
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: _borderInput, width: 1.2),
+                border: Border.all(color: _garisInput, width: 1),
               ),
-              child: TextFormField(
-                controller: _nomorHpCtrl,
-                keyboardType: TextInputType.phone,
-                style: const TextStyle(
-                  fontFamily: 'Inter',
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                  color: _teksGelap,
-                ),
-                decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  prefixIcon: Icon(Icons.phone_outlined, color: _hijauAksi, size: 20),
-                  hintText: '0812 3456 7890',
-                  hintStyle: TextStyle(color: Color(0xFF9EA399), fontSize: 14),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                ),
-                validator: (val) {
-                  if (val == null || val.trim().isEmpty) {
-                    return 'Nomor HP tidak boleh kosong';
-                  }
-                  return null;
-                },
-              ),
-            ),
-            const SizedBox(height: 14),
-
-            // Input Kata Sandi
-            Container(
-              height: 52,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(color: _borderInput, width: 1.2),
-              ),
-              child: TextFormField(
-                controller: _passwordCtrl,
-                obscureText: !_passwordVisible,
-                style: const TextStyle(
-                  fontFamily: 'Inter',
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                  color: _teksGelap,
-                ),
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  prefixIcon: const Icon(Icons.lock_outline, color: _hijauAksi, size: 20),
-                  suffixIcon: IconButton(
-                    icon: Icon(
-                      _passwordVisible
-                          ? Icons.visibility_outlined
-                          : Icons.visibility_off_outlined,
-                      color: const Color(0xFF6E7468),
-                      size: 20,
-                    ),
-                    onPressed: () {
-                      setState(() => _passwordVisible = !_passwordVisible);
-                    },
+              child: Row(
+                children: [
+                  const SizedBox(width: 14),
+                  SvgPicture.asset(
+                    'assets/ikon-telepon.svg',
+                    width: 18,
+                    height: 18,
                   ),
-                  hintText: '••••••••',
-                  hintStyle: const TextStyle(color: Color(0xFF9EA399), fontSize: 16),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                ),
-                validator: (val) {
-                  if (val == null || val.trim().isEmpty) {
-                    return 'Kata sandi tidak boleh kosong';
-                  }
-                  return null;
-                },
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: TextFormField(
+                      controller: _teleponCtrl,
+                      keyboardType: TextInputType.phone,
+                      style: GoogleFonts.inter(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: _hijauTua,
+                      ),
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        hintText: '0812 3456 7890',
+                        hintStyle: TextStyle(
+                          color: _hijauTua,
+                          fontSize: 15,
+                        ),
+                        isDense: true,
+                        contentPadding: EdgeInsets.zero,
+                      ),
+                      validator: (val) {
+                        if (val == null || val.trim().isEmpty) {
+                          return 'Nomor telepon wajib diisi';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 14),
+                ],
+              ),
+            ),
+            const SizedBox(height: 12),
+
+            // 3. Input Sandi (h=52, r16, border _garisInput, toggle mata)
+            Container(
+              height: 52,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: _garisInput, width: 1),
+              ),
+              child: Row(
+                children: [
+                  const SizedBox(width: 14),
+                  SvgPicture.asset(
+                    'assets/ikon-kunci.svg',
+                    width: 18,
+                    height: 18,
+                  ),
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: TextFormField(
+                      controller: _sandiCtrl,
+                      obscureText: !_sandiTerlihat,
+                      style: GoogleFonts.inter(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                        color: _hijauTua,
+                      ),
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        hintText: '••••••••',
+                        hintStyle: TextStyle(
+                          color: _hijauTua,
+                          fontSize: 15,
+                        ),
+                        isDense: true,
+                        contentPadding: EdgeInsets.zero,
+                      ),
+                      validator: (val) {
+                        if (val == null || val.trim().isEmpty) {
+                          return 'Kata sandi wajib diisi';
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: () {
+                      setState(() => _sandiTerlihat = !_sandiTerlihat);
+                    },
+                    child: Container(
+                      width: 44,
+                      height: 44,
+                      alignment: Alignment.center,
+                      child: SvgPicture.asset(
+                        'assets/ikon-mata.svg',
+                        width: 18,
+                        height: 18,
+                        colorFilter: _sandiTerlihat
+                            ? const ColorFilter.mode(_hijau, BlendMode.srcIn)
+                            : null,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                ],
               ),
             ),
 
-            // Pesan Error jika Login Gagal
+            // Tampilan Pesan Error jika ada
             if (_errorMsg != null) ...[
               const SizedBox(height: 12),
               Container(
@@ -597,13 +780,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 child: Row(
                   children: [
-                    const Icon(Icons.error_outline, color: Color(0xFFC8401E), size: 18),
+                    const Icon(Icons.error_outline, color: _merah, size: 18),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
                         _errorMsg!,
-                        style: const TextStyle(
-                          color: Color(0xFF9B1C1C),
+                        style: GoogleFonts.inter(
+                          color: const Color(0xFF9B1C1C),
                           fontSize: 12,
                           fontWeight: FontWeight.w500,
                         ),
@@ -616,13 +799,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
             const SizedBox(height: 20),
 
-            // Tombol Masuk →
+            // 4. Tombol Masuk (342 x 54, r27, hijau #23794F, teks putih Inter 700 16px)
             SizedBox(
               height: 54,
               child: ElevatedButton(
                 onPressed: _isLoading ? null : _handleLogin,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: _hijauAksi,
+                  backgroundColor: _hijau,
                   foregroundColor: Colors.white,
                   elevation: 0,
                   shape: RoundedRectangleBorder(
@@ -638,137 +821,58 @@ class _LoginScreenState extends State<LoginScreen> {
                           strokeWidth: 2.5,
                         ),
                       )
-                    : Text(
-                        'Masuk sebagai $_peranDipilih  →',
-                        style: const TextStyle(
-                          fontFamily: 'Inter',
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.3,
-                        ),
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Masuk',
+                            style: GoogleFonts.inter(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          const Text(
+                            '→',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
               ),
             ),
 
-            const SizedBox(height: 18),
+            const SizedBox(height: 28),
 
-            // Tautan Registrasi / Bantuan
+            // 5. Tautan Daftar (Inter 600 13px _teks)
             Center(
-              child: _peranDipilih == 'Pemilik'
-                  ? GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => const RegisterScreen1(),
-                          ),
-                        );
-                      },
-                      child: RichText(
-                        text: const TextSpan(
-                          text: 'Belum punya akun? ',
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            color: Color(0xFF6E7468),
-                            fontSize: 13,
-                          ),
-                          children: [
-                            TextSpan(
-                              text: 'Buat profil pemilik',
-                              style: TextStyle(
-                                color: _hijauAksi,
-                                fontWeight: FontWeight.bold,
-                                decoration: TextDecoration.underline,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                  : const Text(
-                      'Akun penjaga didaftarkan oleh Pemilik Warung',
-                      style: TextStyle(
-                        fontFamily: 'Inter',
-                        color: Color(0xFF6E7468),
-                        fontSize: 12.5,
-                        fontStyle: FontStyle.italic,
-                      ),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const RegisterScreen1(),
                     ),
+                  );
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                  child: Text(
+                    'Belum punya akun? Buat profil pemilik',
+                    style: GoogleFonts.inter(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600,
+                      color: _teks,
+                    ),
+                  ),
+                ),
+              ),
             ),
+            const SizedBox(height: 16),
           ],
         ),
-      ),
-    );
-  }
-
-  // ── Sakelar Tab [Pemilik | Penjaga] ───────────────────────────
-  Widget _buildPeranSelector() {
-    return Container(
-      height: 52,
-      padding: const EdgeInsets.all(4),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(26),
-        border: Border.all(color: _borderCard, width: 1.2),
-      ),
-      child: Row(
-        children: [
-          // Tab Pemilik
-          Expanded(
-            child: GestureDetector(
-              onTap: () => _switchPeran('Pemilik'),
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                height: 44,
-                decoration: BoxDecoration(
-                  color: _peranDipilih == 'Pemilik' ? _hijauAksi : Colors.transparent,
-                  borderRadius: BorderRadius.circular(22),
-                ),
-                child: Center(
-                  child: Text(
-                    'Pemilik',
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: _peranDipilih == 'Pemilik'
-                          ? Colors.white
-                          : const Color(0xFF1F2D26),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-
-          // Tab Penjaga
-          Expanded(
-            child: GestureDetector(
-              onTap: () => _switchPeran('Penjaga'),
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                height: 44,
-                decoration: BoxDecoration(
-                  color: _peranDipilih == 'Penjaga' ? _hijauAksi : Colors.transparent,
-                  borderRadius: BorderRadius.circular(22),
-                ),
-                child: Center(
-                  child: Text(
-                    'Penjaga',
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: _peranDipilih == 'Penjaga'
-                          ? Colors.white
-                          : const Color(0xFF1F2D26),
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

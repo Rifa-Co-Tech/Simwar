@@ -1,0 +1,61 @@
+# Stok - Detail barang
+
+- Figma node: `2110:3` (file `PYGhjINDLB7fWCguQ0TevK`)
+- Section: penjaga
+- Grup: -
+- Ukuran: 390x844
+- Screenshot: `screens/penjaga/2110-3__stok-detail-barang.png`
+
+Koordinat relatif ke pojok kiri-atas layar. Teks ditulis persis seperti di desain.
+
+- [FRAME] Stok - Detail barang @ 0,0 390x844 fill #F4EFE0 radius 28
+  - [TEXT] Status bar jam @ 28,13 36x16 fill #14372D "09.41" font Inter w600 13px lh 16
+  - [FRAME] Status bar ikon @ 300,15 62x12  => ASET assets/icons/status-bar-ikon-62x12-14372D.svg
+  - [ELLIPSE] Tombol kembali @ 24,48 40x40 fill #FFFFFF stroke #CFC7AA 1
+  - [FRAME] Ikon ChevL @ 35,59 18x18  => ASET assets/icons/ikon-chevl-18x18-14372D.svg
+  - [TEXT] Judul @ 76,56 131x24 fill #14372D "Detail barang" font Inter w700 20px lh 24
+  - [RECTANGLE] Kartu barang @ 24,100 342x104 fill #FFFFFF stroke #E4DCC3 1 radius 18 shadow 0,4 blur 14 #14382E@0.10
+  - [RECTANGLE] Bentuk @ 38,118 56x56 fill #EFE8D2 radius 14
+  - [FRAME] Ikon Stok @ 54,134 24x24  => ASET assets/icons/ikon-stok-24x24-23794F.svg
+  - [TEXT] Minyak Goreng 1 L @ 108,118 152x21 fill #14372D "Minyak Goreng 1 L" font Inter w700 17px lh 21
+  - [TEXT] Kode 8991234500011 @ 108,142 124x15 fill #6E7468 "Kode 8991234500011" font Inter w400 12px lh 15
+  - [RECTANGLE] Lencana @ 108,166 66x24 fill #F6DCD3 radius 12
+  - [TEXT] Lencana teks @ 108,171 66x13 fill #C8402D "Menipis" font Inter w700 11px lh 13 align center
+  - [RECTANGLE] Kartu angka @ 24,220 165x76 fill #FFFFFF stroke #E4DCC3 1 radius 16 shadow 0,4 blur 14 #14382E@0.10
+  - [TEXT] Stok sekarang @ 40,234 82x15 fill #6E7468 "Stok sekarang" font Inter w400 12px lh 15
+  - [TEXT] 3 pcs @ 40,254 65x29 fill #14372D "3 pcs" font Inter w800 24px lh 29
+  - [RECTANGLE] Kartu angka @ 201,220 165x76 fill #FFFFFF stroke #E4DCC3 1 radius 16 shadow 0,4 blur 14 #14382E@0.10
+  - [TEXT] Batas minimum @ 217,234 87x15 fill #6E7468 "Batas minimum" font Inter w400 12px lh 15
+  - [TEXT] 10 pcs @ 217,254 78x29 fill #14372D "10 pcs" font Inter w800 24px lh 29
+  - [TEXT] Kedaluwarsa @ 24,316 102x19 fill #14372D "Kedaluwarsa" font Inter w700 16px lh 19
+  - [RECTANGLE] Kartu batch @ 24,344 342x56 fill #FFFFFF stroke #E4DCC3 1 radius 16 shadow 0,4 blur 14 #14382E@0.10
+  - [TEXT] Batch 28 Okt 2026 @ 40,354 128x17 fill #14372D "Batch 28 Okt 2026" font Inter w600 14px lh 17
+  - [TEXT] Kedaluwarsa 14 Des 2026 @ 40,376 148x15 fill #6E7468 "Kedaluwarsa 14 Des 2026" font Inter w400 12px lh 15
+  - [TEXT] 3 pcs @ 300,362 50x18 fill #14372D "3 pcs" font Inter w700 15px lh 18 align right
+  - [TEXT] Riwayat terbaru @ 24,416 124x19 fill #14372D "Riwayat terbaru" font Inter w700 16px lh 19
+  - [RECTANGLE] Kartu riwayat @ 24,444 342x100 fill #FFFFFF stroke #E4DCC3 1 radius 16 shadow 0,4 blur 14 #14382E@0.10
+  - [TEXT] Terjual · hari ini 10.12 @ 40,458 140x17 fill #14372D "Terjual · hari ini 10.12" font Inter w600 14px lh 17
+  - [TEXT] −2 pcs @ 290,458 60x17 fill #C8402D "−2 pcs" font Inter w700 14px lh 17 align right
+  - [RECTANGLE] Garis @ 40,494 310x1 fill #E4DCC3
+  - [TEXT] Masuk · 28 Okt 2026 @ 40,508 141x17 fill #14372D "Masuk · 28 Okt 2026" font Inter w600 14px lh 17
+  - [TEXT] +24 pcs @ 290,508 60x17 fill #23794F "+24 pcs" font Inter w700 14px lh 17 align right
+  - [RECTANGLE] Tombol sekunder @ 24,568 166x48 fill #FFFFFF stroke #23794F 1.5 radius 24
+  - [TEXT] Catat barang masuk @ 24,583 166x17 fill #23794F "Catat barang masuk" font Inter w700 14px lh 17 align center
+  - [RECTANGLE] Tombol utama @ 200,568 166x48 fill #23794F radius 24
+  - [TEXT] Laporkan ke pemilik @ 200,583 166x17 fill #FFFFFF "Laporkan ke pemilik" font Inter w700 14px lh 17 align center
+  - [FRAME] Navigasi @ 0,764 390x64
+    - [RECTANGLE] Bar navigasi @ 16,764 358x64 fill #14372D radius 32
+    - [FRAME] Ikon home @ 50,772 22x22  => ASET assets/icons/ikon-home-22x22-F4EFE0.svg
+    - [TEXT] Beranda @ 39,799 44x13 fill #F4EFE0 "Beranda" font Inter w500 11px lh 13
+    - [FRAME] Ikon cart @ 139,772 22x22  => ASET assets/icons/ikon-cart-22x22-F4EFE0.svg
+    - [TEXT] Kasir @ 137,799 27x13 fill #F4EFE0 "Kasir" font Inter w500 11px lh 13
+    - [FRAME] Ikon box @ 229,772 22x22  => ASET assets/icons/ikon-box-22x22-F8B62B.svg
+    - [TEXT] Stok @ 228,799 24x13 fill #F8B62B "Stok" font Inter w500 11px lh 13
+    - [FRAME] Ikon flag @ 318,772 22x22  => ASET assets/icons/ikon-flag-22x22-F4EFE0.svg
+    - [TEXT] Lapor @ 314,799 31x13 fill #F4EFE0 "Lapor" font Inter w500 11px lh 13
+  - [RECTANGLE] Tautan · Nav Beranda @ 25,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kasir @ 115,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Lapor @ 294,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Catat barang masuk @ 24,568 166x48 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Laporkan ke pemilik @ 200,568 166x48 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Kembali @ 20,44 48x48 fill #FFFFFF@0.01 radius 18

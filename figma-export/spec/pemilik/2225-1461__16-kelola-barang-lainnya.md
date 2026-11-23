@@ -1,0 +1,104 @@
+# 16 · Kelola barang - Lainnya
+
+- Figma node: `2225:1461` (file `PYGhjINDLB7fWCguQ0TevK`)
+- Section: pemilik
+- Grup: -
+- Ukuran: 390x844
+- Screenshot: `screens/pemilik/2225-1461__16-kelola-barang-lainnya.png`
+
+Koordinat relatif ke pojok kiri-atas layar. Teks ditulis persis seperti di desain.
+
+- [FRAME] 16 · Kelola barang - Lainnya @ 0,0 390x844 fill #F4EFE0 radius 28
+  - [ELLIPSE] Ellipse @ 24,48 40x40 fill #FFFFFF stroke #CFC7AA 1
+  - [TEXT] ‹ @ 39,50 10x31 fill #14372D "‹" font Inter w500 26px lh 31
+  - [TEXT] Kelola barang @ 76,56 134x24 fill #14372D "Kelola barang" font Inter w700 20px lh 24
+  - [TEXT] 134 jenis barang · Lainnya @ 76,82 135x13 fill #6E7468 "134 jenis barang · Lainnya" font Inter w400 11px lh 13
+  - [RECTANGLE] Rectangle @ 24,104 342x48 fill #FFFFFF stroke #CFC7AA 1 radius 16
+  - [TEXT] Cari nama barang atau kode batang @ 68,119 220x16 fill #14372D "Cari nama barang atau kode batang" font Inter w400 13px lh 16
+  - [RECTANGLE] Rectangle @ 322,114 32x28 fill #FFFFFF stroke #23794F 1.5 radius 8
+  - [FRAME] Ikon Telepon @ 40,119 18x18  => ASET assets/icons/ikon-telepon-18x18-6E7468.svg
+  - [TEXT] Status bar jam @ 28,13 36x16 fill #14372D "09.41" font Inter w600 13px lh 16
+  - [FRAME] Status bar ikon @ 300,15 62x12  => ASET assets/icons/status-bar-ikon-62x12-14372D.svg
+  - [FRAME] Navigasi @ 0,764 390x64
+    - [RECTANGLE] Bar navigasi @ 16,764 358x64 fill #14372D radius 32
+    - [FRAME] Ikon home @ 41,772 22x22  => ASET assets/icons/ikon-home-22x22-F4EFE0.svg
+    - [TEXT] Beranda @ 30,799 44x13 fill #F4EFE0 "Beranda" font Inter w500 11px lh 13
+    - [FRAME] Ikon cart @ 112,772 22x22  => ASET assets/icons/ikon-cart-22x22-F4EFE0.svg
+    - [TEXT] Kasir @ 110,799 27x13 fill #F4EFE0 "Kasir" font Inter w500 11px lh 13
+    - [FRAME] Ikon box @ 184,772 22x22  => ASET assets/icons/ikon-box-22x22-F8B62B.svg
+    - [TEXT] Stok @ 183,799 24x13 fill #F8B62B "Stok" font Inter w500 11px lh 13
+    - [FRAME] Ikon chart @ 256,772 22x22  => ASET assets/icons/ikon-chart-22x22-F4EFE0.svg
+    - [TEXT] Laporan @ 245,799 43x13 fill #F4EFE0 "Laporan" font Inter w500 11px lh 13
+    - [FRAME] Ikon inbox @ 327,772 22x22  => ASET assets/icons/ikon-inbox-22x22-F4EFE0.svg
+    - [TEXT] Kotak masuk @ 304,799 68x13 fill #F4EFE0 "Kotak masuk" font Inter w500 11px lh 13
+  - [RECTANGLE] Tautan · Nav Beranda @ 16,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kasir @ 88,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Stok @ 159,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Laporan @ 231,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kotak masuk @ 302,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Kembali @ 20,44 48x48 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Chip Semua @ -266,164 72x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] Teks chip Semua @ -250,173 40x15 fill #14372D "Semua" font Inter w600 12px lh 15
+  - [RECTANGLE] Chip Makanan @ -186,164 86x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] Teks chip Makanan @ -170,173 54x15 fill #14372D "Makanan" font Inter w600 12px lh 15
+  - [RECTANGLE] Chip Minuman @ -92,164 86x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] Teks chip Minuman @ -76,173 54x15 fill #14372D "Minuman" font Inter w600 12px lh 15
+  - [RECTANGLE] Chip Sembako @ 2,164 86x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] Teks chip Sembako @ 18,173 54x15 fill #14372D "Sembako" font Inter w600 12px lh 15
+  - [RECTANGLE] Tautan · Kategori Sembako @ 2,164 86x34 fill #FFFFFF@0.01 radius 17
+  - [RECTANGLE] Chip Alat mandi @ 96,164 94x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] Teks chip Alat mandi @ 112,173 62x15 fill #14372D "Alat mandi" font Inter w600 12px lh 15
+  - [RECTANGLE] Tautan · Kategori Alat mandi @ 96,164 94x34 fill #FFFFFF@0.01 radius 17
+  - [RECTANGLE] Chip Skincare @ 198,164 83x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] Teks chip Skincare @ 214,173 51x15 fill #14372D "Skincare" font Inter w600 12px lh 15
+  - [RECTANGLE] Tautan · Kategori Skincare @ 198,164 83x34 fill #FFFFFF@0.01 radius 17
+  - [RECTANGLE] Chip Lainnya @ 289,164 77x34 fill #23794F radius 17
+  - [TEXT] Teks chip Lainnya @ 305,173 45x15 fill #FFFFFF "Lainnya" font Inter w600 12px lh 15
+  - [RECTANGLE] Kartu barang @ 24,214 342x74 fill #FFFFFF stroke #E4DCC3 1 radius 18
+  - [RECTANGLE] Tile barang @ 38,227 48x48 fill #EFE8D2 radius 12
+  - [TEXT] Nama barang @ 98,228 167x17 fill #1F2D26 "Rokok Gudang Garam 12" font Inter w700 14px lh 17
+  - [TEXT] Kode dan harga @ 98,249 138x13 fill #6E7468 "8991116157356 · Rp 28.000" font Inter w400 10.5px lh 13
+  - [TEXT] Stok @ 98,266 35x13 fill #1F2D26 "Stok 5" font Inter w700 11px lh 13
+  - [TEXT] Ubah @ 319,262 31x15 fill #1F2D26 "Ubah" font Inter w600 12px lh 15
+  - [RECTANGLE] Tautan · Ubah @ 24,214 342x74 fill #FFFFFF@0.01
+  - [RECTANGLE] Kartu barang @ 24,300 342x74 fill #FFFFFF stroke #E4DCC3 1 radius 18
+  - [RECTANGLE] Tile barang @ 38,313 48x48 fill #EFE8D2 radius 12
+  - [TEXT] Nama barang @ 98,314 73x17 fill #1F2D26 "Baterai AA" font Inter w700 14px lh 17
+  - [TEXT] Kode dan harga @ 98,335 136x13 fill #6E7468 "8991906696976 · Rp 6.500" font Inter w400 10.5px lh 13
+  - [TEXT] Stok @ 98,352 42x13 fill #1F2D26 "Stok 20" font Inter w700 11px lh 13
+  - [TEXT] Ubah @ 319,348 31x15 fill #1F2D26 "Ubah" font Inter w600 12px lh 15
+  - [RECTANGLE] Tautan · Ubah @ 24,300 342x74 fill #FFFFFF@0.01
+  - [RECTANGLE] Kartu barang @ 24,386 342x74 fill #FFFFFF stroke #E4DCC3 1 radius 18
+  - [RECTANGLE] Tile barang @ 38,399 48x48 fill #EFE8D2 radius 12
+  - [TEXT] Nama barang @ 98,400 66x17 fill #1F2D26 "Korek Api" font Inter w700 14px lh 17
+  - [TEXT] Kode dan harga @ 98,421 136x13 fill #6E7468 "8991248133665 · Rp 3.000" font Inter w400 10.5px lh 13
+  - [TEXT] Stok @ 98,438 42x13 fill #1F2D26 "Stok 50" font Inter w700 11px lh 13
+  - [TEXT] Ubah @ 319,434 31x15 fill #1F2D26 "Ubah" font Inter w600 12px lh 15
+  - [RECTANGLE] Tautan · Ubah @ 24,386 342x74 fill #FFFFFF@0.01
+  - [RECTANGLE] Kartu barang @ 24,472 342x74 fill #FFFFFF stroke #E4DCC3 1 radius 18
+  - [RECTANGLE] Tile barang @ 38,485 48x48 fill #EFE8D2 radius 12
+  - [TEXT] Nama barang @ 98,486 98x17 fill #1F2D26 "Plastik Kresek" font Inter w700 14px lh 17
+  - [TEXT] Kode dan harga @ 98,507 136x13 fill #6E7468 "8991044341067 · Rp 5.000" font Inter w400 10.5px lh 13
+  - [TEXT] Stok @ 98,524 40x13 fill #1F2D26 "Stok 16" font Inter w700 11px lh 13
+  - [TEXT] Ubah @ 319,520 31x15 fill #1F2D26 "Ubah" font Inter w600 12px lh 15
+  - [RECTANGLE] Tautan · Ubah @ 24,472 342x74 fill #FFFFFF@0.01
+  - [RECTANGLE] Kartu barang @ 24,558 342x74 fill #FFFFFF stroke #E4DCC3 1 radius 18
+  - [RECTANGLE] Tile barang @ 38,571 48x48 fill #EFE8D2 radius 12
+  - [TEXT] Nama barang @ 98,572 29x17 fill #1F2D26 "Lilin" font Inter w700 14px lh 17
+  - [TEXT] Kode dan harga @ 98,593 135x13 fill #6E7468 "8991273826861 · Rp 2.500" font Inter w400 10.5px lh 13
+  - [TEXT] Stok @ 98,610 40x13 fill #1F2D26 "Stok 18" font Inter w700 11px lh 13
+  - [TEXT] Ubah @ 319,606 31x15 fill #1F2D26 "Ubah" font Inter w600 12px lh 15
+  - [RECTANGLE] Tautan · Ubah @ 24,558 342x74 fill #FFFFFF@0.01
+  - [RECTANGLE] Kartu barang @ 24,644 342x74 fill #FFFFFF stroke #E4DCC3 1 radius 18
+  - [RECTANGLE] Tile barang @ 38,657 48x48 fill #EFE8D2 radius 12
+  - [TEXT] Nama barang @ 98,658 121x17 fill #1F2D26 "Obat Sakit Kepala" font Inter w700 14px lh 17
+  - [TEXT] Kode dan harga @ 98,679 135x13 fill #6E7468 "8991817093496 · Rp 4.000" font Inter w400 10.5px lh 13
+  - [RECTANGLE] Tautan · Ubah @ 24,644 342x74 fill #FFFFFF@0.01
+  - [TEXT] Stok 36 @ 98,696 42x13 fill #1F2D26 "Stok 36" font Inter w700 11px lh 13
+  - [TEXT] Ubah @ 319,692 31x15 fill #14372D "Ubah" font Inter w600 12px lh 15
+  - [RECTANGLE] Rectangle @ 190,692 176x50 fill #F8B62B radius 25
+  - [TEXT] + Tambah barang @ 212,708 132x18 fill #14372D "+  Tambah barang" font Inter w700 15px lh 18
+  - [RECTANGLE] Tautan · + Tambah barang @ 190,692 176x50 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Ubah @ 190,692 176x50 fill #FFFFFF@0.01 radius 18
+  - [TEXT] Stok @ 98,696 40x13 fill #1F2D26 "Stok 16" font Inter w700 11px lh 13
+  - [TEXT] Ubah @ 319,692 31x15 fill #1F2D26 "Ubah" font Inter w600 12px lh 15

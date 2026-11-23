@@ -1,0 +1,106 @@
+# Beranda (Pemilik)
+
+- Figma node: `2058:2` (file `PYGhjINDLB7fWCguQ0TevK`)
+- Section: pemilik
+- Grup: BERANDA & NOTIFIKASI  ·  3 layar
+- Ukuran: 390x844
+- Screenshot: `screens/pemilik/2058-2__beranda-pemilik.png`
+
+Koordinat relatif ke pojok kiri-atas layar. Teks ditulis persis seperti di desain.
+
+- [FRAME] Beranda (Pemilik) @ 0,0 390x844 fill #F4EFE0 radius 28
+  - [TEXT] Status bar jam @ 28,13 36x16 fill #14372D "09.41" font Inter w600 13px lh 16
+  - [FRAME] Status bar ikon @ 300,15 62x12  => ASET assets/icons/status-bar-ikon-62x12-14372D.svg
+  - [TEXT] Selamat sore, @ 24,50 78x15 fill #6E7468 "Selamat sore," font Inter w400 12px lh 15
+  - [TEXT] Warung Azzam @ 24,66 198x31 fill #14372D "Warung Azzam" font Inter w800 26px lh 31
+  - [FRAME] Ikon pin @ 24,101 14x14  => ASET assets/icons/ikon-pin-14x14-23794F.svg
+  - [TEXT] Jl. Garuda Sakti Km 1, Tampan @ 44,100 171x15 fill #6E7468 "Jl. Garuda Sakti Km 1, Tampan" font Inter w400 12px lh 15
+  - [ELLIPSE] Avatar @ 322,52 44x44 fill #E3EFE8
+  - [TEXT] A @ 337,62 14x22 fill #23794F "A" font Inter w700 18px lh 22
+  - [RECTANGLE] Lencana @ 307,100 59x22 fill #E3EFE8 radius 11
+  - [TEXT] Pemilik @ 317,105 39x13 fill #23794F "Pemilik" font Inter w600 11px lh 13
+  - [RECTANGLE] Kartu laba @ 24,132 342x112 fill #14372D radius 24
+  - [TEXT] Penjualan hari ini @ 44,148 105x16 fill #B9CFC4 "Penjualan hari ini" font Inter w500 13px lh 16
+  - [TEXT] Rp 1.800.000 @ 44,168 202x36 fill #F8B62B "Rp 1.800.000" font Inter w800 30px lh 36
+  - [TEXT] Laba Rp 312.000 · 86 barang terjual @ 44,212 211x15 fill #B9CFC4 "Laba Rp 312.000  ·  86 barang terjual" font Inter w500 12px lh 15
+  - [RECTANGLE] Bentuk @ 232,146 116x26 fill #FFFFFF@0.16 radius 13
+  - [TEXT] +8% dari kemarin @ 244,153 92x13 fill #FFFFFF "+8% dari kemarin" font Inter w500 11px lh 13
+  - [RECTANGLE] Tombol transaksi baru @ 24,256 342x52 fill #23794F radius 26
+  - [TEXT] Mulai jual (Kasir) @ 129,273 132x19 fill #FFFFFF "Mulai jual (Kasir)" font Inter w700 16px lh 19
+  - [TEXT] Penjualan 7 hari terakhi @ 24,326 120x19 fill #14372D "Perlu perhatian" font Inter w700 16px lh 19
+  - [RECTANGLE] Kartu grafik @ 24,354 342x108 fill #FFFFFF stroke #E4DCC3 1 radius 20 shadow 0,4 blur 14 #14382E@0.10
+  - [RECTANGLE] Ubin Stok menipis @ 58,372 46x46 fill #F5B82E@0.30 radius 14
+  - [FRAME] Ikon alert @ 70,384 22x22  => ASET assets/icons/ikon-alert-22x22-B7791F.svg
+  - [ELLIPSE] Lencana angka @ 91,366 18x18 fill #E0A100
+  - [TEXT] 5 @ 96,369 7x13 fill #FFFFFF "5" font Inter w600 11px lh 13
+  - [TEXT] Stok menipis @ 43,426 76x13 fill #6E7468 "Stok menipis" font Inter w400 11px lh 13 align center
+  - [RECTANGLE] Ubin Kedaluwarsa @ 172,372 46x46 fill #C8401E@0.14 radius 14
+  - [FRAME] Ikon cal @ 184,384 22x22  => ASET assets/icons/ikon-cal-22x22-C8401E.svg
+  - [ELLIPSE] Lencana angka @ 205,366 18x18 fill #C8401E
+  - [TEXT] 3 @ 210,369 8x13 fill #FFFFFF "3" font Inter w600 11px lh 13
+  - [TEXT] Kedaluwarsa @ 157,426 76x13 fill #6E7468 "Kedaluwarsa" font Inter w400 11px lh 13 align center
+  - [RECTANGLE] Ubin Laporan baru @ 286,372 46x46 fill #E3EFE8 radius 14
+  - [FRAME] Ikon inbox @ 298,384 22x22  => ASET assets/icons/ikon-inbox-22x22-23794F.svg
+  - [ELLIPSE] Lencana angka @ 319,366 18x18 fill #C8401E
+  - [TEXT] 2 @ 324,369 7x13 fill #FFFFFF "2" font Inter w600 11px lh 13
+  - [TEXT] Laporan baru @ 271,426 76x13 fill #6E7468 "Laporan baru" font Inter w400 11px lh 13 align center
+  - [TEXT] Penjualan 7 hari terakhi @ 24,480 45x19 fill #14372D "Menu" font Inter w700 16px lh 19
+  - [RECTANGLE] Kartu grafik @ 24,508 342x196 fill #FFFFFF stroke #E4DCC3 1 radius 20 shadow 0,4 blur 14 #14382E@0.10
+  - [RECTANGLE] Ubin Barang masuk @ 44,524 46x46 fill #E3EFE8 radius 14
+  - [FRAME] Ikon inn @ 56,536 22x22  => ASET assets/icons/ikon-inn-22x22-23794F.svg
+  - [TEXT] Barang masuk @ 29,578 76x13 fill #6E7468 "Barang masuk" font Inter w400 11px lh 13 align center
+  - [RECTANGLE] Ubin Kelola barang @ 129,524 46x46 fill #E3EFE8 radius 14
+  - [FRAME] Ikon box @ 141,536 22x22  => ASET assets/icons/ikon-box-22x22-23794F.svg
+  - [TEXT] Kelola barang @ 114,578 76x13 fill #6E7468 "Kelola barang" font Inter w400 11px lh 13 align center
+  - [RECTANGLE] Ubin Rencana belanja @ 215,524 46x46 fill #E3EFE8 radius 14
+  - [FRAME] Ikon clip @ 227,536 22x22  => ASET assets/icons/ikon-clip-22x22-23794F.svg
+  - [TEXT] Rencana belanja @ 200,578 76x26 fill #6E7468 "Rencana belanja" font Inter w400 11px lh 13 align center
+  - [RECTANGLE] Ubin Kasbon @ 300,524 46x46 fill #E3EFE8 radius 14
+  - [FRAME] Ikon wallet @ 312,536 22x22  => ASET assets/icons/ikon-wallet-22x22-23794F.svg
+  - [TEXT] Kasbon @ 285,578 76x13 fill #6E7468 "Kasbon" font Inter w400 11px lh 13 align center
+  - [RECTANGLE] Ubin Riwayat transaksi @ 44,612 46x46 fill #E3EFE8 radius 14
+  - [FRAME] Ikon receipt @ 56,624 22x22  => ASET assets/icons/ikon-receipt-22x22-23794F.svg
+  - [TEXT] Riwayat transaksi @ 29,666 76x26 fill #6E7468 "Riwayat transaksi" font Inter w400 11px lh 13 align center
+  - [RECTANGLE] Ubin Laba per barang @ 129,612 46x46 fill #E3EFE8 radius 14
+  - [FRAME] Ikon trend @ 141,624 22x22  => ASET assets/icons/ikon-trend-22x22-23794F.svg
+  - [TEXT] Laba per barang @ 114,666 76x26 fill #6E7468 "Laba per barang" font Inter w400 11px lh 13 align center
+  - [RECTANGLE] Ubin Tim warung @ 215,612 46x46 fill #E3EFE8 radius 14
+  - [FRAME] Ikon users @ 227,624 22x22  => ASET assets/icons/ikon-users-22x22-23794F.svg
+  - [TEXT] Tim warung @ 200,666 76x13 fill #6E7468 "Tim warung" font Inter w400 11px lh 13 align center
+  - [FRAME] Navigasi @ 0,764 390x64
+    - [RECTANGLE] Bar navigasi @ 16,764 358x64 fill #14372D radius 32
+    - [FRAME] Ikon home @ 41,772 22x22  => ASET assets/icons/ikon-home-22x22-F8B62B.svg
+    - [TEXT] Beranda @ 30,799 44x13 fill #F8B62B "Beranda" font Inter w500 11px lh 13
+    - [FRAME] Ikon cart @ 112,772 22x22  => ASET assets/icons/ikon-cart-22x22-F4EFE0.svg
+    - [TEXT] Kasir @ 110,799 27x13 fill #F4EFE0 "Kasir" font Inter w500 11px lh 13
+    - [FRAME] Ikon box @ 184,772 22x22  => ASET assets/icons/ikon-box-22x22-F4EFE0.svg
+    - [TEXT] Stok @ 183,799 24x13 fill #F4EFE0 "Stok" font Inter w500 11px lh 13
+    - [FRAME] Ikon chart @ 256,772 22x22  => ASET assets/icons/ikon-chart-22x22-F4EFE0.svg
+    - [TEXT] Laporan @ 245,799 43x13 fill #F4EFE0 "Laporan" font Inter w500 11px lh 13
+    - [FRAME] Ikon inbox @ 327,772 22x22  => ASET assets/icons/ikon-inbox-22x22-F4EFE0.svg
+    - [TEXT] Kotak masuk @ 304,799 68x13 fill #F4EFE0 "Kotak masuk" font Inter w500 11px lh 13
+  - [RECTANGLE] Tautan · Mulai jual (Kasir) @ 24,256 342x52 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Stok menipis @ 41,366 80x79 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Kedaluwarsa @ 155,366 80x79 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Laporan baru @ 269,366 80x79 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Barang masuk @ 27,518 80x79 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Kelola barang @ 112,518 80x79 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Rencana belanja @ 198,518 80x92 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Kasbon @ 283,518 80x79 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Riwayat transaksi @ 27,606 80x92 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Laba per barang @ 112,606 80x92 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Tim warung @ 198,606 80x79 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · A @ 322,52 44x44 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Penjualan hari ini @ 24,132 342x112 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kasir @ 88,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Stok @ 159,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Laporan @ 231,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kotak masuk @ 302,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [ELLIPSE] Lonceng notifikasi @ 272,54 40x40 fill #FFFFFF stroke #E4DCC3 1 shadow 0,4 blur 14 #14382E@0.10
+  - [FRAME] Ikon lonceng @ 282,64 20x20  => ASET assets/icons/ikon-lonceng-20x20-14372D.svg
+  - [ELLIPSE] Penanda baru @ 297,55 11x11 fill #C8401E stroke #FFFFFF 2
+  - [RECTANGLE] Tautan · Notifikasi @ 268,50 48x48 fill #FFFFFF@0.01
+  - [RECTANGLE] Ubin Nama & harga barang @ 301,612 46x46 fill #E3EFE8 radius 14
+  - [TEXT] Daftar barang @ 286,666 76x13 fill #6E7468 "Daftar barang" font Inter w400 11px lh 13 align center
+  - [RECTANGLE] Tautan · Daftar barang @ 284,606 80x92 fill #FFFFFF@0.01 radius 18
+  - [FRAME] Ikon daftar @ 313,624 22x22  => ASET assets/icons/ikon-daftar-22x22-23794F.svg

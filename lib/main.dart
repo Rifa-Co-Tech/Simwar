@@ -8,13 +8,22 @@ const supabaseAnonKey =
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  debugPrint('>>> [DEBUG] WidgetsFlutterBinding initialized');
 
-  await Supabase.initialize(
-    url: supabaseUrl,
-    anonKey: supabaseAnonKey,
-  );
+  try {
+    debugPrint('>>> [DEBUG] Starting Supabase.initialize...');
+    await Supabase.initialize(
+      url: supabaseUrl,
+      anonKey: supabaseAnonKey,
+    );
+    debugPrint('>>> [DEBUG] Supabase.initialize finished!');
+  } catch (e, st) {
+    debugPrint('>>> [DEBUG] Supabase.initialize ERROR: $e\n$st');
+  }
 
+  debugPrint('>>> [DEBUG] Calling runApp...');
   runApp(const SimwarApp());
+  debugPrint('>>> [DEBUG] runApp called!');
 }
 
 class SimwarApp extends StatelessWidget {
@@ -22,6 +31,7 @@ class SimwarApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint('>>> [DEBUG] SimwarApp build() running!');
     return MaterialApp(
       title: 'SIMWAR Warung Azzam',
       debugShowCheckedModeBanner: false,

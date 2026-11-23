@@ -1,0 +1,73 @@
+# Stok - Kedaluwarsa
+
+- Figma node: `2073:3127` (file `PYGhjINDLB7fWCguQ0TevK`)
+- Section: penjaga
+- Grup: STOK  ·  4 layar
+- Ukuran: 390x844
+- Screenshot: `screens/penjaga/2073-3127__stok-kedaluwarsa.png`
+
+Koordinat relatif ke pojok kiri-atas layar. Teks ditulis persis seperti di desain.
+
+- [FRAME] Stok - Kedaluwarsa @ 0,0 390x844 fill #F4EFE0 radius 28
+  - [RECTANGLE] Tautan · Detail barang @ 24,472 342x72 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Detail barang @ 24,388 342x72 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Detail barang @ 24,304 342x72 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Detail barang @ 24,220 342x72 fill #FFFFFF@0.01 radius 18
+  - [TEXT] Kedaluwarsa @ 24,52 178x34 fill #14372D "Kedaluwarsa" font Inter w700 28px lh 34
+  - [TEXT] Diurutkan dari yang paling dekat · per 1 Nov 2026 @ 24,90 292x15 fill #6E7468 "Diurutkan dari yang paling dekat · per 1 Nov 2026" font Inter w400 12.5px lh 15
+  - [RECTANGLE] Rectangle @ 24,118 342x40 fill #FFFFFF stroke #E4DCC3 1 radius 20
+  - [RECTANGLE] Rectangle @ 28,121 166x34 fill #23794F radius 17
+  - [TEXT] Kedaluwarsa @ 70,129 83x16 fill #FFFFFF "Kedaluwarsa" font Inter w700 13px lh 16
+  - [TEXT] Stok menipis @ 238,129 83x16 fill #1F2D26 "Stok menipis" font Inter w700 13px lh 16
+  - [RECTANGLE] Rectangle @ 24,170 64x34 fill #23794F radius 17
+  - [TEXT] Semua @ 36,179 40x15 fill #FFFFFF "Semua" font Inter w600 12px lh 15
+  - [RECTANGLE] Rectangle @ 96,170 86x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] ≤ 7 hari @ 117,179 44x15 fill #14372D "≤ 7 hari" font Inter w600 12px lh 15
+  - [RECTANGLE] Rectangle @ 190,170 93x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] ≤ 30 hari @ 210,179 52x15 fill #14372D "≤ 30 hari" font Inter w600 12px lh 15
+  - [RECTANGLE] Rectangle @ 24,220 342x72 fill #FFFFFF stroke #E4DCC3 1 radius 18 shadow 0,2 blur 8 #14382E@0.08
+  - [RECTANGLE] Rectangle @ 38,230 52x52 fill #F7E1DA radius 12
+  - [TEXT] 12 pcs @ 44,245 40x22 fill #14372D "12 pcs" font Inter w700 22px lh 27
+  - [TEXT] Biskuit Marie @ 102,236 90x17 fill #1F2D26 "Biskuit Marie" font Inter w700 14px lh 17
+  - [TEXT] 5 Nov 2026 @ 102,258 61x13 fill #6E7468 "5 Nov 2026" font Inter w400 11px lh 13
+  - [RECTANGLE] Rectangle @ 274,234 78x22 fill #C8401E radius 11
+  - [TEXT] 4 hari lagi @ 288,239 50x13 fill #FFFFFF "4 hari lagi" font Inter w600 10.5px lh 13
+  - [RECTANGLE] Rectangle @ 24,304 342x72 fill #FFFFFF stroke #E4DCC3 1 radius 18 shadow 0,2 blur 8 #14382E@0.08
+  - [RECTANGLE] Rectangle @ 38,314 52x52 fill #FDF0CF radius 12
+  - [TEXT] 30 pcs @ 42,329 44x22 fill #14372D "30 pcs" font Inter w700 22px lh 27
+  - [TEXT] Sampo Sachet @ 102,320 99x17 fill #1F2D26 "Sampo Sachet" font Inter w700 14px lh 17
+  - [TEXT] 20 Nov 2026 @ 102,342 68x13 fill #6E7468 "20 Nov 2026" font Inter w400 11px lh 13
+  - [RECTANGLE] Rectangle @ 274,318 78x22 fill #F8B62B radius 11
+  - [TEXT] 19 hari lagi @ 286,323 55x13 fill #14372D "19 hari lagi" font Inter w600 10.5px lh 13
+  - [RECTANGLE] Rectangle @ 24,388 342x72 fill #FFFFFF stroke #E4DCC3 1 radius 18 shadow 0,2 blur 8 #14382E@0.08
+  - [RECTANGLE] Rectangle @ 38,398 52x52 fill #EFE8D2 radius 12
+  - [TEXT] 3 pcs @ 48,413 32x22 fill #14372D "3 pcs" font Inter w700 22px lh 27
+  - [TEXT] Minyak Goreng 1 L @ 102,404 125x17 fill #1F2D26 "Minyak Goreng 1 L" font Inter w700 14px lh 17
+  - [TEXT] 5 Jan 2027 @ 102,426 58x13 fill #6E7468 "5 Jan 2027" font Inter w400 11px lh 13
+  - [RECTANGLE] Rectangle @ 274,402 78x22 fill #E3EFE8 radius 11
+  - [TEXT] 65 hari lagi @ 285,407 57x13 fill #23794F "65 hari lagi" font Inter w600 10.5px lh 13
+  - [RECTANGLE] Rectangle @ 24,472 342x72 fill #FFFFFF stroke #E4DCC3 1 radius 18 shadow 0,2 blur 8 #14382E@0.08
+  - [RECTANGLE] Rectangle @ 38,482 52x52 fill #EFE8D2 radius 12
+  - [TEXT] 46 pcs @ 42,497 44x22 fill #14372D "46 pcs" font Inter w700 18px lh 22
+  - [TEXT] Indomie Goreng Spesial @ 102,488 163x17 fill #1F2D26 "Indomie Goreng Spesial" font Inter w700 14px lh 17
+  - [TEXT] 12 Mar 2027 @ 102,510 65x13 fill #6E7468 "12 Mar 2027" font Inter w400 11px lh 13
+  - [RECTANGLE] Rectangle @ 274,486 78x22 fill #E3EFE8 radius 11
+  - [TEXT] 131 hari lagi @ 283,491 60x13 fill #23794F "131 hari lagi" font Inter w600 10.5px lh 13
+  - [TEXT] Status bar jam @ 28,13 36x16 fill #14372D "09.41" font Inter w600 13px lh 16
+  - [FRAME] Status bar ikon @ 300,15 62x12  => ASET assets/icons/status-bar-ikon-62x12-14372D.svg
+  - [FRAME] Navigasi @ 0,764 390x64
+    - [RECTANGLE] Bar navigasi @ 16,764 358x64 fill #14372D radius 32
+    - [FRAME] Ikon home @ 50,772 22x22  => ASET assets/icons/ikon-home-22x22-F4EFE0.svg
+    - [TEXT] Beranda @ 39,799 44x13 fill #F4EFE0 "Beranda" font Inter w500 11px lh 13
+    - [FRAME] Ikon cart @ 139,772 22x22  => ASET assets/icons/ikon-cart-22x22-F4EFE0.svg
+    - [TEXT] Kasir @ 137,799 27x13 fill #F4EFE0 "Kasir" font Inter w500 11px lh 13
+    - [FRAME] Ikon box @ 229,772 22x22  => ASET assets/icons/ikon-box-22x22-F8B62B.svg
+    - [TEXT] Stok @ 228,799 24x13 fill #F8B62B "Stok" font Inter w500 11px lh 13
+    - [FRAME] Ikon flag @ 318,772 22x22  => ASET assets/icons/ikon-flag-22x22-F4EFE0.svg
+    - [TEXT] Lapor @ 314,799 31x13 fill #F4EFE0 "Lapor" font Inter w500 11px lh 13
+  - [RECTANGLE] Tautan · Stok menipis @ 24,118 342x40 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Beranda @ 25,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kasir @ 115,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Lapor @ 294,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Filter ≤ 7 hari @ 96,170 86x34 fill #FFFFFF@0.01 radius 17
+  - [RECTANGLE] Tautan · Filter ≤ 30 hari @ 190,170 93x34 fill #FFFFFF@0.01 radius 17

@@ -1,0 +1,68 @@
+# Pilih tanggal (kalender)
+
+- Figma node: `2109:156` (file `PYGhjINDLB7fWCguQ0TevK`)
+- Section: pemilik
+- Grup: -
+- Ukuran: 390x844
+- Screenshot: `screens/pemilik/2109-156__pilih-tanggal-kalender.png`
+
+Koordinat relatif ke pojok kiri-atas layar. Teks ditulis persis seperti di desain.
+
+- [FRAME] Pilih tanggal (kalender) @ 0,0 390x844 fill #F4EFE0 radius 28
+  - [TEXT] Status bar jam @ 28,13 36x16 fill #14372D "09.41" font Inter w600 13px lh 16
+  - [FRAME] Status bar ikon @ 300,15 62x12  => ASET assets/icons/status-bar-ikon-62x12-14372D.svg
+  - [ELLIPSE] Tombol kembali @ 24,48 40x40 fill #FFFFFF stroke #CFC7AA 1
+  - [FRAME] Ikon ChevL @ 35,59 18x18  => ASET assets/icons/ikon-chevl-18x18-14372D.svg
+  - [TEXT] Judul @ 76,56 208x24 fill #14372D "Tanggal kedaluwarsa" font Inter w700 20px lh 24
+  - [RECTANGLE] Kartu kalender @ 24,100 342x420 fill #FFFFFF stroke #E4DCC3 1 radius 22 shadow 0,4 blur 14 #14382E@0.10
+  - [ELLIPSE] Bulan sebelumnya @ 38,114 36x36 fill #F4EFE0 stroke #E4DCC3 1
+  - [TEXT] ‹ @ 38,118 36x24 fill #14372D "‹" font Inter w700 20px lh 24 align center
+  - [ELLIPSE] Bulan berikutnya @ 316,114 36x36 fill #F4EFE0 stroke #E4DCC3 1
+  - [TEXT] › @ 316,118 36x24 fill #14372D "›" font Inter w700 20px lh 24 align center
+  - [TEXT] Januari 2027 @ 74,122 242x21 fill #14372D "Januari 2027" font Inter w700 17px lh 21 align center
+  - [TEXT] Sen @ 36,170 46x15 fill #6E7468 "Sen" font Inter w500 12px lh 15 align center
+  - [TEXT] Sel @ 82,170 46x15 fill #6E7468 "Sel" font Inter w500 12px lh 15 align center
+  - [TEXT] Rab @ 128,170 46x15 fill #6E7468 "Rab" font Inter w500 12px lh 15 align center
+  - [TEXT] Kam @ 174,170 46x15 fill #6E7468 "Kam" font Inter w500 12px lh 15 align center
+  - [TEXT] Jum @ 220,170 46x15 fill #6E7468 "Jum" font Inter w500 12px lh 15 align center
+  - [TEXT] Sab @ 266,170 46x15 fill #6E7468 "Sab" font Inter w500 12px lh 15 align center
+  - [TEXT] Min @ 312,170 46x15 fill #6E7468 "Min" font Inter w500 12px lh 15 align center
+  - [TEXT] 1 @ 220,207 46x17 fill #14372D "1" font Inter w400 14px lh 17 align center
+  - [TEXT] 2 @ 266,207 46x17 fill #14372D "2" font Inter w500 14px lh 17 align center
+  - [TEXT] 3 @ 312,207 46x17 fill #C8402D "3" font Inter w500 14px lh 17 align center
+  - [TEXT] 4 @ 36,259 46x17 fill #14372D "4" font Inter w400 14px lh 17 align center
+  - [ELLIPSE] Tanggal dipilih @ 85,248 40x40 fill #23794F
+  - [TEXT] 5 @ 82,259 46x17 fill #FFFFFF "5" font Inter w700 14px lh 17 align center
+  - [TEXT] 6 @ 128,259 46x17 fill #14372D "6" font Inter w400 14px lh 17 align center
+  - [TEXT] 7 @ 174,259 46x17 fill #14372D "7" font Inter w400 14px lh 17 align center
+  - [TEXT] 8 @ 220,259 46x17 fill #14372D "8" font Inter w400 14px lh 17 align center
+  - [TEXT] 9 @ 266,259 46x17 fill #14372D "9" font Inter w500 14px lh 17 align center
+  - [TEXT] 10 @ 312,259 46x17 fill #C8402D "10" font Inter w500 14px lh 17 align center
+  - [TEXT] 11 @ 36,311 46x17 fill #14372D "11" font Inter w400 14px lh 17 align center
+  - [TEXT] 12 @ 82,311 46x17 fill #14372D "12" font Inter w400 14px lh 17 align center
+  - [TEXT] 13 @ 128,311 46x17 fill #14372D "13" font Inter w400 14px lh 17 align center
+  - [TEXT] 14 @ 174,311 46x17 fill #14372D "14" font Inter w400 14px lh 17 align center
+  - [TEXT] 15 @ 220,311 46x17 fill #14372D "15" font Inter w400 14px lh 17 align center
+  - [TEXT] 16 @ 266,311 46x17 fill #14372D "16" font Inter w500 14px lh 17 align center
+  - [TEXT] 17 @ 312,311 46x17 fill #C8402D "17" font Inter w500 14px lh 17 align center
+  - [TEXT] 18 @ 36,363 46x17 fill #14372D "18" font Inter w400 14px lh 17 align center
+  - [TEXT] 19 @ 82,363 46x17 fill #14372D "19" font Inter w400 14px lh 17 align center
+  - [TEXT] 20 @ 128,363 46x17 fill #14372D "20" font Inter w400 14px lh 17 align center
+  - [TEXT] 21 @ 174,363 46x17 fill #14372D "21" font Inter w400 14px lh 17 align center
+  - [TEXT] 22 @ 220,363 46x17 fill #14372D "22" font Inter w400 14px lh 17 align center
+  - [TEXT] 23 @ 266,363 46x17 fill #14372D "23" font Inter w500 14px lh 17 align center
+  - [TEXT] 24 @ 312,363 46x17 fill #C8402D "24" font Inter w500 14px lh 17 align center
+  - [TEXT] 25 @ 36,415 46x17 fill #14372D "25" font Inter w400 14px lh 17 align center
+  - [TEXT] 26 @ 82,415 46x17 fill #14372D "26" font Inter w400 14px lh 17 align center
+  - [TEXT] 27 @ 128,415 46x17 fill #14372D "27" font Inter w400 14px lh 17 align center
+  - [TEXT] 28 @ 174,415 46x17 fill #14372D "28" font Inter w400 14px lh 17 align center
+  - [TEXT] 29 @ 220,415 46x17 fill #14372D "29" font Inter w400 14px lh 17 align center
+  - [TEXT] 30 @ 266,415 46x17 fill #14372D "30" font Inter w500 14px lh 17 align center
+  - [TEXT] 31 @ 312,415 46x17 fill #C8402D "31" font Inter w500 14px lh 17 align center
+  - [TEXT] Dipilih: 05 / 01 / 2027 @ 24,540 342x16 fill #6E7468 "Dipilih: 05 / 01 / 2027" font Inter w500 13px lh 16 align center
+  - [RECTANGLE] Tombol utama @ 24,700 342x52 fill #23794F radius 26
+  - [TEXT] Pilih tanggal ini @ 24,716 342x19 fill #FFFFFF "Pilih tanggal ini" font Inter w700 16px lh 19 align center
+  - [TEXT] Batal @ 24,768 342x17 fill #23794F "Batal" font Inter w700 14px lh 17 align center
+  - [RECTANGLE] Tautan · Pilih tanggal ini @ 24,700 342x52 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Batal @ 24,760 342x32 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Kembali @ 20,44 48x48 fill #FFFFFF@0.01 radius 18

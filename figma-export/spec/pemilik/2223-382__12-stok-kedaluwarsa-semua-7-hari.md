@@ -1,0 +1,52 @@
+# 12 · Stok - Kedaluwarsa - Semua · ≤ 7 hari
+
+- Figma node: `2223:382` (file `PYGhjINDLB7fWCguQ0TevK`)
+- Section: pemilik
+- Grup: PROFIL & TIM WARUNG  ·  9 layar
+- Ukuran: 390x844
+- Screenshot: `screens/pemilik/2223-382__12-stok-kedaluwarsa-semua-7-hari.png`
+
+Koordinat relatif ke pojok kiri-atas layar. Teks ditulis persis seperti di desain.
+
+- [FRAME] 12 · Stok - Kedaluwarsa - Semua · ≤ 7 hari @ 0,0 390x844 fill #F4EFE0 radius 28
+  - [RECTANGLE] Tautan · Detail barang @ 24,220 342x72 fill #FFFFFF@0.01 radius 18
+  - [TEXT] Kedaluwarsa @ 24,52 178x34 fill #14372D "Kedaluwarsa" font Inter w700 28px lh 34
+  - [TEXT] Diurutkan dari yang paling dekat · per 1 Nov 2026 @ 24,90 292x15 fill #6E7468 "Diurutkan dari yang paling dekat · per 1 Nov 2026" font Inter w400 12.5px lh 15
+  - [RECTANGLE] Rectangle @ 24,118 342x40 fill #FFFFFF stroke #E4DCC3 1 radius 20
+  - [RECTANGLE] Rectangle @ 28,121 166x34 fill #23794F radius 17
+  - [TEXT] Kedaluwarsa @ 70,129 83x16 fill #FFFFFF "Kedaluwarsa" font Inter w700 13px lh 16
+  - [TEXT] Stok menipis @ 238,129 83x16 fill #1F2D26 "Stok menipis" font Inter w700 13px lh 16
+  - [RECTANGLE] Rectangle @ 24,170 64x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] Semua @ 36,179 40x15 fill #14372D "Semua" font Inter w600 12px lh 15
+  - [RECTANGLE] Rectangle @ 96,170 86x34 fill #23794F radius 17
+  - [TEXT] ≤ 7 hari @ 117,179 44x15 fill #FFFFFF "≤ 7 hari" font Inter w600 12px lh 15
+  - [RECTANGLE] Rectangle @ 190,170 93x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] ≤ 30 hari @ 210,179 52x15 fill #14372D "≤ 30 hari" font Inter w600 12px lh 15
+  - [RECTANGLE] Rectangle @ 24,220 342x72 fill #FFFFFF stroke #E4DCC3 1 radius 18 shadow 0,2 blur 8 #14382E@0.08
+  - [RECTANGLE] Rectangle @ 38,230 52x52 fill #F7E1DA radius 12
+  - [TEXT] 12 pcs @ 44,245 40x22 fill #14372D "12 pcs" font Inter w700 22px lh 27
+  - [TEXT] Biskuit Marie @ 102,236 90x17 fill #1F2D26 "Biskuit Marie" font Inter w700 14px lh 17
+  - [TEXT] 5 Nov 2026 @ 102,258 61x13 fill #6E7468 "5 Nov 2026" font Inter w400 11px lh 13
+  - [RECTANGLE] Rectangle @ 274,234 78x22 fill #C8401E radius 11
+  - [TEXT] 4 hari lagi @ 288,239 50x13 fill #FFFFFF "4 hari lagi" font Inter w600 10.5px lh 13
+  - [TEXT] Status bar jam @ 28,13 36x16 fill #14372D "09.41" font Inter w600 13px lh 16
+  - [FRAME] Status bar ikon @ 300,15 62x12  => ASET assets/icons/status-bar-ikon-62x12-14372D.svg
+  - [FRAME] Navigasi @ 0,764 390x64
+    - [RECTANGLE] Bar navigasi @ 16,764 358x64 fill #14372D radius 32
+    - [FRAME] Ikon home @ 41,772 22x22  => ASET assets/icons/ikon-home-22x22-F4EFE0.svg
+    - [TEXT] Beranda @ 30,799 44x13 fill #F4EFE0 "Beranda" font Inter w500 11px lh 13
+    - [FRAME] Ikon cart @ 112,772 22x22  => ASET assets/icons/ikon-cart-22x22-F4EFE0.svg
+    - [TEXT] Kasir @ 110,799 27x13 fill #F4EFE0 "Kasir" font Inter w500 11px lh 13
+    - [FRAME] Ikon box @ 184,772 22x22  => ASET assets/icons/ikon-box-22x22-F8B62B.svg
+    - [TEXT] Stok @ 183,799 24x13 fill #F8B62B "Stok" font Inter w500 11px lh 13
+    - [FRAME] Ikon chart @ 256,772 22x22  => ASET assets/icons/ikon-chart-22x22-F4EFE0.svg
+    - [TEXT] Laporan @ 245,799 43x13 fill #F4EFE0 "Laporan" font Inter w500 11px lh 13
+    - [FRAME] Ikon inbox @ 327,772 22x22  => ASET assets/icons/ikon-inbox-22x22-F4EFE0.svg
+    - [TEXT] Kotak masuk @ 304,799 68x13 fill #F4EFE0 "Kotak masuk" font Inter w500 11px lh 13
+  - [RECTANGLE] Tautan · Stok menipis @ 24,118 342x40 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Beranda @ 16,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kasir @ 88,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Laporan @ 231,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kotak masuk @ 302,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Filter Semua @ 24,170 64x34 fill #FFFFFF@0.01 radius 17
+  - [RECTANGLE] Tautan · Filter ≤ 30 hari @ 190,170 93x34 fill #FFFFFF@0.01 radius 17

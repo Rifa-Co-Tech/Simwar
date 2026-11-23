@@ -1,0 +1,81 @@
+# 45 · Laporan kas dan laba · 7 hari
+
+- Figma node: `2224:196` (file `PYGhjINDLB7fWCguQ0TevK`)
+- Section: pemilik
+- Grup: PROFIL & TIM WARUNG  ·  9 layar
+- Ukuran: 390x844
+- Screenshot: `screens/pemilik/2224-196__45-laporan-kas-dan-laba-7-hari.png`
+
+Koordinat relatif ke pojok kiri-atas layar. Teks ditulis persis seperti di desain.
+
+- [FRAME] 45 · Laporan kas dan laba · 7 hari @ 0,0 390x844 fill #F4EFE0 radius 28
+  - [TEXT] Status bar jam @ 28,13 36x16 fill #14372D "09.41" font Inter w600 13px lh 16
+  - [FRAME] Status bar ikon @ 300,15 62x12  => ASET assets/icons/status-bar-ikon-62x12-14372D.svg
+  - [TEXT] Laporan @ 24,52 113x34 fill #14372D "Laporan" font Inter w800 28px lh 34
+  - [TEXT] Kas, QRIS, dan laba waru @ 24,90 248x15 fill #6E7468 "Pemasukan, laba, dan rekap barang warung" font Inter w400 12px lh 15
+  - [RECTANGLE] Bentuk @ 24,166 82x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] Hari ini @ 45,176 41x15 fill #14372D "Hari ini" font Inter w600 12px lh 15
+  - [RECTANGLE] Bentuk @ 114,166 74x34 fill #23794F radius 17
+  - [TEXT] 7 hari @ 135,176 33x15 fill #FFFFFF "7 hari" font Inter w600 12px lh 15
+  - [RECTANGLE] Bentuk @ 196,166 92x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] Bulan ini @ 217,176 50x15 fill #14372D "Bulan ini" font Inter w600 12px lh 15
+  - [RECTANGLE] Kartu laba @ 24,216 342x132 fill #14372D radius 24
+  - [TEXT] Estimasi laba 7 hari terakhir @ 44,236 171x16 fill #B9CFC4 "Estimasi laba 7 hari terakhir" font Inter w500 13px lh 16
+  - [TEXT] Rp 2.184.000 @ 44,256 239x44 fill #F8B62B "Rp 2.184.000" font Inter w800 36px lh 44
+  - [RECTANGLE] Bentuk @ 44,306 152x26 fill #FFFFFF@0.16 radius 13
+  - [TEXT] Naik 8% dari 7 hari sebelumnya @ 65,313 164x13 fill #FFFFFF "Naik 8% dari 7 hari sebelumnya" font Inter w500 11px lh 13
+  - [FRAME] Ikon Chart @ 308,244 36x36  => ASET assets/icons/ikon-chart-36x36-F8B62B.svg
+  - [RECTANGLE] Kartu Tunai @ 24,364 165x104 fill #FFFFFF stroke #E4DCC3 1 radius 20 shadow 0,4 blur 14 #14382E@0.10
+  - [RECTANGLE] Bentuk @ 40,380 38x38 fill #E3EFE8 radius 12
+  - [FRAME] Ikon Cash @ 49,389 20x20  => ASET assets/icons/ikon-cash-20x20-23794F.svg
+  - [RECTANGLE] Lencana @ 129,386 44x24 fill #E3EFE8 radius 12
+  - [TEXT] 69% @ 139,392 24x13 fill #23794F "69%" font Inter w600 11px lh 13
+  - [TEXT] Tunai @ 40,426 31x15 fill #6E7468 "Tunai" font Inter w400 12px lh 15
+  - [TEXT] Rp 8.680.000 @ 40,442 115x21 fill #14372D "Rp 8.680.000" font Inter w700 17px lh 21
+  - [RECTANGLE] Kartu QRIS @ 201,364 165x104 fill #FFFFFF stroke #E4DCC3 1 radius 20 shadow 0,4 blur 14 #14382E@0.10
+  - [RECTANGLE] Bentuk @ 217,380 38x38 fill #E3EFE8 radius 12
+  - [FRAME] Ikon Qr @ 226,389 20x20  => ASET assets/icons/ikon-qr-20x20-23794F.svg
+  - [RECTANGLE] Lencana @ 306,386 44x24 fill #E3EFE8 radius 12
+  - [TEXT] 31% @ 317,392 22x13 fill #23794F "31%" font Inter w600 11px lh 13
+  - [TEXT] QRIS @ 217,426 28x15 fill #6E7468 "QRIS" font Inter w400 12px lh 15
+  - [TEXT] Rp 3.920.000 @ 217,442 115x21 fill #14372D "Rp 3.920.000" font Inter w700 17px lh 21
+  - [TEXT] Penjualan 7 hari terakhi @ 24,476 190x19 fill #14372D "Penjualan 7 hari terakhir" font Inter w700 16px lh 19
+  - [RECTANGLE] Kartu grafik @ 24,504 342x150 fill #FFFFFF stroke #E4DCC3 1 radius 20 shadow 0,4 blur 14 #14382E@0.10
+  - [RECTANGLE] Batang Rab @ 44,574 28x46 fill #23794F radius 8
+  - [TEXT] Rab @ 48,630 21x13 fill #6E7468 "Rab" font Inter w400 11px lh 13
+  - [RECTANGLE] Batang Kam @ 90,564 28x56 fill #23794F radius 8
+  - [TEXT] Kam @ 92,630 23x13 fill #6E7468 "Kam" font Inter w400 11px lh 13
+  - [RECTANGLE] Batang Jum @ 135,583 28x37 fill #23794F radius 8
+  - [TEXT] Jum @ 138,630 22x13 fill #6E7468 "Jum" font Inter w400 11px lh 13
+  - [RECTANGLE] Batang Sab @ 181,558 28x62 fill #23794F radius 8
+  - [TEXT] Sab @ 185,630 21x13 fill #6E7468 "Sab" font Inter w400 11px lh 13
+  - [RECTANGLE] Batang Min @ 227,569 28x51 fill #23794F radius 8
+  - [TEXT] Min @ 231,630 19x13 fill #6E7468 "Min" font Inter w400 11px lh 13
+  - [RECTANGLE] Batang Sen @ 272,550 28x70 fill #23794F radius 8
+  - [TEXT] Sen @ 276,630 20x13 fill #6E7468 "Sen" font Inter w400 11px lh 13
+  - [RECTANGLE] Batang Sel @ 318,540 28x80 fill #F8B62B radius 8
+  - [TEXT] Sel @ 324,630 17x13 fill #14372D "Sel" font Inter w700 11px lh 13
+  - [RECTANGLE] Toggle luar @ 24,118 342x36 fill #FFFFFF stroke #E4DCC3 1 radius 20
+  - [RECTANGLE] Toggle pill @ 28,121 166x30 fill #23794F radius 17
+  - [TEXT] Toggle teks aktif @ 78,128 67x16 fill #FFFFFF "Ringkasan" font Inter w700 13px lh 16
+  - [TEXT] Toggle teks pasif @ 233,128 88x16 fill #1F2D26 "Rekap barang" font Inter w700 13px lh 16
+  - [FRAME] Navigasi @ 0,764 390x64
+    - [RECTANGLE] Bar navigasi @ 16,764 358x64 fill #14372D radius 32
+    - [FRAME] Ikon home @ 41,772 22x22  => ASET assets/icons/ikon-home-22x22-F4EFE0.svg
+    - [TEXT] Beranda @ 30,799 44x13 fill #F4EFE0 "Beranda" font Inter w500 11px lh 13
+    - [FRAME] Ikon cart @ 112,772 22x22  => ASET assets/icons/ikon-cart-22x22-F4EFE0.svg
+    - [TEXT] Kasir @ 110,799 27x13 fill #F4EFE0 "Kasir" font Inter w500 11px lh 13
+    - [FRAME] Ikon box @ 184,772 22x22  => ASET assets/icons/ikon-box-22x22-F4EFE0.svg
+    - [TEXT] Stok @ 183,799 24x13 fill #F4EFE0 "Stok" font Inter w500 11px lh 13
+    - [FRAME] Ikon chart @ 256,772 22x22  => ASET assets/icons/ikon-chart-22x22-F8B62B.svg
+    - [TEXT] Laporan @ 245,799 43x13 fill #F8B62B "Laporan" font Inter w500 11px lh 13
+    - [FRAME] Ikon inbox @ 327,772 22x22  => ASET assets/icons/ikon-inbox-22x22-F4EFE0.svg
+    - [TEXT] Kotak masuk @ 304,799 68x13 fill #F4EFE0 "Kotak masuk" font Inter w500 11px lh 13
+  - [RECTANGLE] Tautan · Rekap barang @ 24,118 342x36 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · QRIS @ 201,364 165x104 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Beranda @ 16,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kasir @ 88,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Stok @ 159,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kotak masuk @ 302,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Filter Hari ini @ 24,166 82x34 fill #FFFFFF@0.01 radius 17
+  - [RECTANGLE] Tautan · Filter Bulan ini @ 196,166 92x34 fill #FFFFFF@0.01 radius 17

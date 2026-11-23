@@ -1,0 +1,78 @@
+# 33 · Catat masuk - Pasokan distributor
+
+- Figma node: `2021:149` (file `PYGhjINDLB7fWCguQ0TevK`)
+- Section: pemilik
+- Grup: STOK & KELOLA BARANG  ·  9 layar
+- Ukuran: 390x844
+- Screenshot: `screens/pemilik/2021-149__33-catat-masuk-pasokan-distributor.png`
+
+Koordinat relatif ke pojok kiri-atas layar. Teks ditulis persis seperti di desain.
+
+- [FRAME] 33 · Catat masuk - Pasokan distributor @ 0,0 390x844 fill #F4EFE0 radius 28
+  - [ELLIPSE] Ellipse @ 24,48 40x40 fill #FFFFFF stroke #CFC7AA 1
+  - [TEXT] ‹ @ 39,50 10x31 fill #14372D "‹" font Inter w500 26px lh 31
+  - [TEXT] Catat barang masuk @ 76,56 198x24 fill #14372D "Catat barang masuk" font Inter w700 20px lh 24
+  - [RECTANGLE] Rectangle @ 24,100 342x44 fill #FFFFFF stroke #E4DCC3 1 radius 22
+  - [RECTANGLE] Rectangle @ 28,104 166x36 fill #23794F radius 18
+  - [TEXT] Pasokan distributor @ 48,114 125x16 fill #FFFFFF "Pasokan distributor" font Inter w700 13px lh 16
+  - [TEXT] Titipan warga @ 235,114 88x16 fill #1F2D26 "Titipan warga" font Inter w700 13px lh 16
+  - [RECTANGLE] Rectangle @ 24,160 166x54 fill #FFFFFF stroke #CFC7AA 1 radius 14
+  - [TEXT] Distributor @ 38,167 50x12 fill #14372D "Distributor" font Inter w400 10px lh 12
+  - [TEXT] Berkah Jaya @ 38,183 84x17 fill #14372D "Berkah Jaya" font Inter w700 14px lh 17
+  - [RECTANGLE] Rectangle @ 200,160 166x54 fill #FFFFFF stroke #CFC7AA 1 radius 14
+  - [TEXT] No. faktur @ 214,167 47x12 fill #14372D "No. faktur" font Inter w400 10px lh 12
+  - [TEXT] INV-2026-1043 @ 214,183 109x17 fill #14372D "INV-2026-1043" font Inter w700 14px lh 17
+  - [TEXT] Barang diterima (2) @ 24,232 111x15 fill #6E7468 "Barang diterima (2)" font Inter w500 12px lh 15
+  - [TEXT] + Tambah barang @ 264,232 102x15 fill #1F2D26 "+ Tambah barang" font Inter w600 12px lh 15
+  - [RECTANGLE] Rectangle @ 24,254 342x200 fill #FFFFFF stroke #E4DCC3 1 radius 18 shadow 0,2 blur 8 #14382E@0.08
+  - [TEXT] Minyak Goreng 1 L @ 40,268 125x17 fill #1F2D26 "Minyak Goreng 1 L" font Inter w700 14px lh 17
+  - [RECTANGLE] Rectangle @ 40,300 310x66 fill #FFFFFF stroke #E4DCC3 1 radius 12 shadow 0,2 blur 8 #14382E@0.08
+  - [TEXT] Jumlah diterima @ 50,306 76x12 fill #1F2D26 "Jumlah diterima" font Inter w400 10px lh 12
+  - [ELLIPSE] Ellipse @ 127,324 32x32 fill #FFFFFF stroke #23794F 1.5
+  - [TEXT] − @ 136,329 14x24 fill #14372D "−" font Inter w500 20px lh 24
+  - [TEXT] 22 @ 182,328 26x24 fill #14372D "22" font Inter w700 20px lh 24
+  - [ELLIPSE] Ellipse @ 231,324 32x32 fill #FFFFFF stroke #23794F 1.5
+  - [TEXT] + @ 240,329 14x24 fill #14372D "+" font Inter w500 20px lh 24
+  - [TEXT] Tanggal kedaluwarsa @ 40,378 100x12 fill #6E7468 "Tanggal kedaluwarsa" font Inter w400 10px lh 12
+  - [RECTANGLE] Rectangle @ 40,394 310x46 fill #FFFFFF stroke #CFC7AA 1 radius 12
+  - [TEXT] 05 / 01 / 2027 @ 56,407 95x17 fill #14372D "05 / 01 / 2027" font Inter w700 14px lh 17
+  - [RECTANGLE] Rectangle @ 24,466 342x152 fill #FFFFFF stroke #E4DCC3 1 radius 18 shadow 0,2 blur 8 #14382E@0.08
+  - [TEXT] Biskuit Marie @ 40,480 90x17 fill #1F2D26 "Biskuit Marie" font Inter w700 14px lh 17
+  - [RECTANGLE] Rectangle @ 260,480 90x22 fill #E3EFE8 radius 11
+  - [TEXT] Isi tanggal @ 278,485 53x13 fill #23794F "Isi tanggal" font Inter w600 10.5px lh 13
+  - [TEXT] Jumlah diterima @ 40,512 83x13 fill #6E7468 "Jumlah diterima" font Inter w400 11px lh 13
+  - [ELLIPSE] Ellipse @ 226,500 32x32 fill #FFFFFF stroke #23794F 1.5
+  - [TEXT] − @ 235,505 14x24 fill #14372D "−" font Inter w500 20px lh 24
+  - [TEXT] 12 @ 268,504 23x24 fill #14372D "12" font Inter w700 20px lh 24
+  - [ELLIPSE] Ellipse @ 302,500 32x32 fill #FFFFFF stroke #23794F 1.5
+  - [TEXT] + @ 311,505 14x24 fill #14372D "+" font Inter w500 20px lh 24
+  - [TEXT] Tanggal kedaluwarsa @ 40,548 100x12 fill #6E7468 "Tanggal kedaluwarsa" font Inter w400 10px lh 12
+  - [RECTANGLE] Rectangle @ 40,564 310x46 fill #FFFFFF stroke #CFC7AA 1 radius 12
+  - [TEXT] Pilih tanggal @ 56,577 81x17 fill #14372D "Pilih tanggal" font Inter w400 14px lh 17
+  - [RECTANGLE] Rectangle @ 24,650 342x54 fill #23794F radius 27
+  - [TEXT] Simpan 2 barang @ 129,667 132x19 fill #FFFFFF "Simpan 2 barang" font Inter w700 16px lh 19
+  - [TEXT] Status bar jam @ 28,13 36x16 fill #14372D "09.41" font Inter w600 13px lh 16
+  - [FRAME] Status bar ikon @ 300,15 62x12  => ASET assets/icons/status-bar-ikon-62x12-14372D.svg
+  - [FRAME] Navigasi @ 0,764 390x64
+    - [RECTANGLE] Bar navigasi @ 16,764 358x64 fill #14372D radius 32
+    - [FRAME] Ikon home @ 41,772 22x22  => ASET assets/icons/ikon-home-22x22-F4EFE0.svg
+    - [TEXT] Beranda @ 30,799 44x13 fill #F4EFE0 "Beranda" font Inter w500 11px lh 13
+    - [FRAME] Ikon cart @ 112,772 22x22  => ASET assets/icons/ikon-cart-22x22-F4EFE0.svg
+    - [TEXT] Kasir @ 110,799 27x13 fill #F4EFE0 "Kasir" font Inter w500 11px lh 13
+    - [FRAME] Ikon box @ 184,772 22x22  => ASET assets/icons/ikon-box-22x22-F8B62B.svg
+    - [TEXT] Stok @ 183,799 24x13 fill #F8B62B "Stok" font Inter w500 11px lh 13
+    - [FRAME] Ikon chart @ 256,772 22x22  => ASET assets/icons/ikon-chart-22x22-F4EFE0.svg
+    - [TEXT] Laporan @ 245,799 43x13 fill #F4EFE0 "Laporan" font Inter w500 11px lh 13
+    - [FRAME] Ikon inbox @ 327,772 22x22  => ASET assets/icons/ikon-inbox-22x22-F4EFE0.svg
+    - [TEXT] Kotak masuk @ 304,799 68x13 fill #F4EFE0 "Kotak masuk" font Inter w500 11px lh 13
+  - [RECTANGLE] Tautan · Simpan 2 barang @ 24,650 342x54 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Titipan warga @ 24,100 342x44 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Beranda @ 16,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kasir @ 88,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Stok @ 159,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Laporan @ 231,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kotak masuk @ 302,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Kembali @ 20,44 48x48 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Tambah barang @ 254,222 122x35 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Pilih tanggal @ 40,394 310x46 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Pilih tanggal @ 40,564 310x46 fill #FFFFFF@0.01 radius 18

@@ -1,0 +1,52 @@
+# Riwayat transaksi - Tunai
+
+- Figma node: `2119:263` (file `PYGhjINDLB7fWCguQ0TevK`)
+- Section: penjaga
+- Grup: KASIR · KERANJANG (varian hapus barang & kosong)  ·  7 layar
+- Ukuran: 390x844
+- Screenshot: `screens/penjaga/2119-263__riwayat-transaksi-tunai.png`
+
+Koordinat relatif ke pojok kiri-atas layar. Teks ditulis persis seperti di desain.
+
+- [FRAME] Riwayat transaksi - Tunai @ 0,0 390x844 fill #F4EFE0 radius 28
+  - [TEXT] Status bar jam @ 28,13 36x16 fill #14372D "09.41" font Inter w600 13px lh 16
+  - [FRAME] Status bar ikon @ 300,15 62x12  => ASET assets/icons/status-bar-ikon-62x12-14372D.svg
+  - [TEXT] Transaksi @ 24,52 136x34 fill #14372D "Transaksi" font Inter w800 28px lh 34
+  - [TEXT] Kas, QRIS, dan laba waru @ 24,90 121x15 fill #6E7468 "Hari ini · 17 Nov 2026" font Inter w400 12px lh 15
+  - [RECTANGLE] Bentuk @ 24,118 72x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] Semua @ 40,128 40x15 fill #14372D "Semua" font Inter w600 12px lh 15
+  - [RECTANGLE] Bentuk @ 104,118 68x34 fill #23794F radius 17
+  - [TEXT] Tunai @ 122,128 32x15 fill #FFFFFF "Tunai" font Inter w600 12px lh 15
+  - [RECTANGLE] Bentuk @ 180,118 64x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] QRIS @ 198,128 29x15 fill #14372D "QRIS" font Inter w600 12px lh 15
+  - [RECTANGLE] Bentuk @ 252,118 78x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] Kasbon @ 269,128 44x15 fill #14372D "Kasbon" font Inter w600 12px lh 15
+  - [RECTANGLE] Kartu grafik @ 24,172 342x136 fill #FFFFFF stroke #E4DCC3 1 radius 20 shadow 0,4 blur 14 #14382E@0.10
+  - [TEXT] TRX-0142 · 09.41 @ 40,184 119x17 fill #14372D "TRX-0142 · 09.41" font Inter w700 14px lh 17
+  - [TEXT] Tunai · oleh Rina · 4 barang @ 40,206 154x15 fill #6E7468 "Tunai · oleh Rina · 4 barang" font Inter w400 12px lh 15
+  - [TEXT] Rp 28.000 @ 278,184 72x17 fill #14372D "Rp 28.000" font Inter w700 14px lh 17
+  - [RECTANGLE] Garis pemisah @ 40,236 310x1 fill #E8E3D1
+  - [TEXT] TRX-0138 · 08.55 @ 40,246 121x17 fill #14372D "TRX-0138 · 08.55" font Inter w700 14px lh 17
+  - [TEXT] Tunai · oleh Rina @ 40,268 93x15 fill #6E7468 "Tunai · oleh Rina" font Inter w400 12px lh 15
+  - [TEXT] Rp 12.500 @ 280,246 70x17 fill #14372D "Rp 12.500" font Inter w700 14px lh 17
+  - [RECTANGLE] Rectangle @ 273,268 77x22 fill #C8401E radius 11
+  - [TEXT] Dibatalkan @ 283,273 57x13 fill #FFFFFF "Dibatalkan" font Inter w600 11px lh 13
+  - [TEXT] Ketuk transaksi untuk ubah atau batalkan. @ 24,324 238x15 fill #6E7468 "Ketuk transaksi untuk ubah atau batalkan." font Inter w400 12px lh 15
+  - [FRAME] Navigasi @ 0,764 390x64
+    - [RECTANGLE] Bar navigasi @ 16,764 358x64 fill #14372D radius 32
+    - [FRAME] Ikon home @ 50,772 22x22  => ASET assets/icons/ikon-home-22x22-F4EFE0.svg
+    - [TEXT] Beranda @ 39,799 44x13 fill #F4EFE0 "Beranda" font Inter w500 11px lh 13
+    - [FRAME] Ikon cart @ 139,772 22x22  => ASET assets/icons/ikon-cart-22x22-F8B62B.svg
+    - [TEXT] Kasir @ 137,799 27x13 fill #F8B62B "Kasir" font Inter w500 11px lh 13
+    - [FRAME] Ikon box @ 229,772 22x22  => ASET assets/icons/ikon-box-22x22-F4EFE0.svg
+    - [TEXT] Stok @ 228,799 24x13 fill #F4EFE0 "Stok" font Inter w500 11px lh 13
+    - [FRAME] Ikon flag @ 318,772 22x22  => ASET assets/icons/ikon-flag-22x22-F4EFE0.svg
+    - [TEXT] Lapor @ 314,799 31x13 fill #F4EFE0 "Lapor" font Inter w500 11px lh 13
+  - [RECTANGLE] Tautan · /^TRX-/ @ 30,173 142x40 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Beranda @ 25,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kasir @ 115,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Stok @ 204,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Lapor @ 294,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Filter Semua @ 24,118 72x34 fill #FFFFFF@0.01
+  - [RECTANGLE] Tautan · Filter QRIS @ 180,118 64x34 fill #FFFFFF@0.01
+  - [RECTANGLE] Tautan · Filter Kasbon @ 252,118 78x34 fill #FFFFFF@0.01

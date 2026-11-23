@@ -223,7 +223,7 @@ class _RegisterScreen1State extends State<RegisterScreen1> {
                   width: double.infinity,
                   height: 48,
                   child: ElevatedButton(
-                    onPressed: _onLanjut,
+                    onPressed: _isSendingOtp ? null : _onLanjut,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: _hijauTua,
                       foregroundColor: Colors.white,
@@ -232,13 +232,22 @@ class _RegisterScreen1State extends State<RegisterScreen1> {
                       ),
                       elevation: 0,
                     ),
-                    child: const Text(
-                      'Lanjut',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
+                    child: _isSendingOtp
+                        ? const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                              strokeWidth: 2,
+                            ),
+                          )
+                        : const Text(
+                            'Lanjut',
+                            style: TextStyle(
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
                   ),
                 ),
               ],

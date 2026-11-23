@@ -1,0 +1,60 @@
+# 48c · Kasbon - Detail pelanggan (Lunas)
+
+- Figma node: `2234:191` (file `PYGhjINDLB7fWCguQ0TevK`)
+- Section: pemilik
+- Grup: -
+- Ukuran: 390x844
+- Screenshot: `screens/pemilik/2234-191__48c-kasbon-detail-pelanggan-lunas.png`
+
+Koordinat relatif ke pojok kiri-atas layar. Teks ditulis persis seperti di desain.
+
+- [FRAME] 48c · Kasbon - Detail pelanggan (Lunas) @ 0,0 390x844 fill #F4EFE0 radius 28
+  - [TEXT] Status bar jam @ 28,13 36x16 fill #14372D "09.41" font Inter w600 13px lh 16
+  - [FRAME] Status bar ikon @ 300,15 62x12  => ASET assets/icons/status-bar-ikon-62x12-14372D.svg
+  - [TEXT] Pak Rahmat @ 24,52 163x34 fill #14372D "Pak Rahmat" font Inter w800 28px lh 34
+  - [TEXT] Kas, QRIS, dan laba waru @ 24,90 271x15 fill #6E7468 "Kasbon sejak 29 Okt 2026 · Lunas 20 Nov 2026" font Inter w400 12px lh 15
+  - [RECTANGLE] Kartu laba @ 24,118 342x100 fill #14372D radius 24
+  - [TEXT] Sisa utang @ 44,136 66x16 fill #B9CFC4 "Sisa utang" font Inter w500 13px lh 16
+  - [TEXT] Rp 0 @ 44,160 72x39 fill #F8B62B "Rp 0" font Inter w800 32px lh 39
+  - [TEXT] Penjualan 7 hari terakhi @ 24,238 63x19 fill #14372D "Riwayat" font Inter w700 16px lh 19
+  - [RECTANGLE] Kartu grafik @ 24,266 342x276 fill #FFFFFF stroke #E4DCC3 1 radius 20 shadow 0,4 blur 14 #14382E@0.10
+  - [TEXT] Belanja 6 barang @ 40,278 115x17 fill #14372D "Belanja 6 barang" font Inter w700 14px lh 17
+  - [TEXT] 29 Okt 2026 @ 40,298 72x15 fill #6E7468 "29 Okt 2026" font Inter w400 12px lh 15
+  - [TEXT] + Rp 180.000 @ 257,288 93x17 fill #14372D "+ Rp 180.000" font Inter w700 14px lh 17
+  - [RECTANGLE] Garis pemisah @ 40,324 310x1 fill #E8E3D1
+  - [TEXT] Belanja 5 barang @ 40,330 114x17 fill #14372D "Belanja 5 barang" font Inter w700 14px lh 17
+  - [TEXT] 5 Nov 2026 @ 40,350 67x15 fill #6E7468 "5 Nov 2026" font Inter w400 12px lh 15
+  - [TEXT] + Rp 190.000 @ 257,340 93x17 fill #14372D "+ Rp 190.000" font Inter w700 14px lh 17
+  - [RECTANGLE] Garis pemisah @ 40,376 310x1 fill #E8E3D1
+  - [TEXT] Bayar sebagian (tunai) @ 40,382 155x17 fill #14372D "Bayar sebagian (tunai)" font Inter w700 14px lh 17
+  - [TEXT] 11 Nov 2026 @ 40,402 71x15 fill #6E7468 "11 Nov 2026" font Inter w400 12px lh 15
+  - [TEXT] − Rp 100.000 @ 257,392 93x17 fill #23794F "− Rp 100.000" font Inter w700 14px lh 17
+  - [RECTANGLE] Garis pemisah @ 40,428 310x1 fill #E8E3D1
+  - [TEXT] Belanja 3 barang @ 40,434 115x17 fill #14372D "Belanja 3 barang" font Inter w700 14px lh 17
+  - [TEXT] 14 Nov 2026 @ 40,454 73x15 fill #6E7468 "14 Nov 2026" font Inter w400 12px lh 15
+  - [TEXT] + Rp 150.000 @ 258,444 92x17 fill #14372D "+ Rp 150.000" font Inter w700 14px lh 17
+  - [RECTANGLE] Tombol transaksi baru @ 24,684 342x52 fill #C7CCC7 radius 26
+  - [TEXT] Kasbon sudah lunas @ 116,701 158x19 fill #FFFFFF "Kasbon sudah lunas" font Inter w700 16px lh 19
+  - [FRAME] Navigasi @ 0,764 390x64
+    - [RECTANGLE] Bar navigasi @ 16,764 358x64 fill #14372D radius 32
+    - [FRAME] Ikon home @ 41,772 22x22  => ASET assets/icons/ikon-home-22x22-F4EFE0.svg
+    - [TEXT] Beranda @ 30,799 44x13 fill #F4EFE0 "Beranda" font Inter w500 11px lh 13
+    - [FRAME] Ikon cart @ 112,772 22x22  => ASET assets/icons/ikon-cart-22x22-F8B62B.svg
+    - [TEXT] Kasir @ 110,799 27x13 fill #F8B62B "Kasir" font Inter w500 11px lh 13
+    - [FRAME] Ikon box @ 184,772 22x22  => ASET assets/icons/ikon-box-22x22-F4EFE0.svg
+    - [TEXT] Stok @ 183,799 24x13 fill #F4EFE0 "Stok" font Inter w500 11px lh 13
+    - [FRAME] Ikon chart @ 256,772 22x22  => ASET assets/icons/ikon-chart-22x22-F4EFE0.svg
+    - [TEXT] Laporan @ 245,799 43x13 fill #F4EFE0 "Laporan" font Inter w500 11px lh 13
+    - [FRAME] Ikon inbox @ 327,772 22x22  => ASET assets/icons/ikon-inbox-22x22-F4EFE0.svg
+    - [TEXT] Kotak masuk @ 304,799 68x13 fill #F4EFE0 "Kotak masuk" font Inter w500 11px lh 13
+  - [RECTANGLE] Tautan · Nav Beranda @ 16,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kasir @ 88,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Stok @ 159,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Laporan @ 231,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kotak masuk @ 302,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Garis pemisah @ 40,480 310x1 fill #E8E3D1
+  - [TEXT] Lunasi (tunai) @ 40,486 96x17 fill #14372D "Lunasi (tunai)" font Inter w700 14px lh 17
+  - [TEXT] 20 Nov 2026 @ 40,506 74x15 fill #6E7468 "20 Nov 2026" font Inter w400 12px lh 15
+  - [TEXT] − Rp 420.000 @ 255,496 95x17 fill #23794F "− Rp 420.000" font Inter w700 14px lh 17
+  - [RECTANGLE] Penanda Lunas @ 293,134 55x22 fill #E3EFE8 radius 11
+  - [TEXT] Penanda teks Lunas @ 305,139 31x13 fill #23794F "Lunas" font Inter w600 10.5px lh 13

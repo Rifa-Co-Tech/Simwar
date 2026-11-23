@@ -1,0 +1,52 @@
+# L3 · Penjaga - Laporan saya · Selesai
+
+- Figma node: `2225:404` (file `PYGhjINDLB7fWCguQ0TevK`)
+- Section: penjaga
+- Grup: KASIR · KERANJANG (varian hapus barang & kosong)  ·  7 layar
+- Ukuran: 390x844
+- Screenshot: `screens/penjaga/2225-404__l3-penjaga-laporan-saya-selesai.png`
+
+Koordinat relatif ke pojok kiri-atas layar. Teks ditulis persis seperti di desain.
+
+- [FRAME] L3 · Penjaga - Laporan saya · Selesai @ 0,0 390x844 fill #F4EFE0 radius 28
+  - [TEXT] Status bar jam @ 28,13 36x16 fill #14372D "09.41" font Inter w600 13px lh 16
+  - [FRAME] Status bar ikon @ 300,15 62x12  => ASET assets/icons/status-bar-ikon-62x12-14372D.svg
+  - [TEXT] Laporan saya @ 24,52 184x34 fill #14372D "Laporan saya" font Inter w800 28px lh 34
+  - [TEXT] Semua laporan yang kamu kirim @ 24,90 181x15 fill #6E7468 "Semua laporan yang kamu kirim" font Inter w400 12px lh 15
+  - [RECTANGLE] Bentuk @ 24,118 72x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] Semua @ 40,128 40x15 fill #14372D "Semua" font Inter w600 12px lh 15
+  - [RECTANGLE] Bentuk @ 104,118 92x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] Menunggu @ 119,128 63x15 fill #14372D "Menunggu" font Inter w600 12px lh 15
+  - [RECTANGLE] Bentuk @ 204,118 78x34 fill #23794F radius 17
+  - [TEXT] Selesai @ 222,128 42x15 fill #FFFFFF "Selesai" font Inter w600 12px lh 15
+  - [RECTANGLE] Kartu grafik @ 24,172 342x172 fill #FFFFFF stroke #E4DCC3 1 radius 20 shadow 0,4 blur 14 #14382E@0.10
+  - [TEXT] Bu Aminah minta kasbon lagi… @ 40,184 209x17 fill #14372D "Bu Aminah minta kasbon lagi…" font Inter w700 14px lh 17
+  - [TEXT] Selesai ditangani @ 40,206 97x15 fill #6E7468 "Selesai ditangani" font Inter w400 12px lh 15
+  - [TEXT] 15 Nov @ 311,186 39x15 fill #6E7468 "15 Nov" font Inter w400 12px lh 15
+  - [RECTANGLE] Lencana @ 291,210 59x22 fill #E3EFE8 radius 11
+  - [TEXT] Selesai @ 301,215 39x13 fill #23794F "Selesai" font Inter w600 11px lh 13
+  - [TEXT] Lampu depan warung mati. @ 40,258 186x17 fill #14372D "Lampu depan warung mati." font Inter w700 14px lh 17
+  - [TEXT] Selesai ditangani @ 40,280 97x15 fill #6E7468 "Selesai ditangani" font Inter w400 12px lh 15
+  - [TEXT] 12 Nov @ 311,260 39x15 fill #6E7468 "12 Nov" font Inter w400 12px lh 15
+  - [RECTANGLE] Lencana @ 291,284 59x22 fill #E3EFE8 radius 11
+  - [TEXT] Selesai @ 301,289 39x13 fill #23794F "Selesai" font Inter w600 11px lh 13
+  - [RECTANGLE] Tombol transaksi baru @ 24,690 342x56 fill #23794F radius 28
+  - [TEXT] + Buat laporan baru @ 118,709 154x19 fill #FFFFFF "+ Buat laporan baru" font Inter w700 16px lh 19
+  - [FRAME] Navigasi @ 0,764 390x64
+    - [RECTANGLE] Bar navigasi @ 16,764 358x64 fill #14372D radius 32
+    - [FRAME] Ikon home @ 50,772 22x22  => ASET assets/icons/ikon-home-22x22-F4EFE0.svg
+    - [TEXT] Beranda @ 39,799 44x13 fill #F4EFE0 "Beranda" font Inter w500 11px lh 13
+    - [FRAME] Ikon cart @ 139,772 22x22  => ASET assets/icons/ikon-cart-22x22-F4EFE0.svg
+    - [TEXT] Kasir @ 137,799 27x13 fill #F4EFE0 "Kasir" font Inter w500 11px lh 13
+    - [FRAME] Ikon box @ 229,772 22x22  => ASET assets/icons/ikon-box-22x22-F4EFE0.svg
+    - [TEXT] Stok @ 228,799 24x13 fill #F4EFE0 "Stok" font Inter w500 11px lh 13
+    - [FRAME] Ikon flag @ 318,772 22x22  => ASET assets/icons/ikon-flag-22x22-F8B62B.svg
+    - [TEXT] Lapor @ 314,799 31x13 fill #F8B62B "Lapor" font Inter w500 11px lh 13
+  - [RECTANGLE] Tautan · + Buat laporan baru @ 24,690 342x56 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Beranda @ 25,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kasir @ 115,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Stok @ 204,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Lapor @ 294,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Garis pemisah @ 40,246 310x1 fill #E8E3D1
+  - [RECTANGLE] Tautan · Filter Semua @ 24,118 72x34 fill #FFFFFF@0.01 radius 17
+  - [RECTANGLE] Tautan · Filter Menunggu @ 104,118 92x34 fill #FFFFFF@0.01 radius 17

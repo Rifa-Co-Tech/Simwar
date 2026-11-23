@@ -1,0 +1,92 @@
+# Daftar barang · Alat mandi
+
+- Figma node: `2218:368` (file `PYGhjINDLB7fWCguQ0TevK`)
+- Section: pemilik
+- Grup: -
+- Ukuran: 390x844
+- Screenshot: `screens/pemilik/2218-368__daftar-barang-alat-mandi.png`
+
+Koordinat relatif ke pojok kiri-atas layar. Teks ditulis persis seperti di desain.
+
+- [FRAME] Daftar barang · Alat mandi @ 0,0 390x844 fill #F4EFE0 radius 28
+  - [TEXT] Status bar jam @ 28,13 36x16 fill #14372D "09.41" font Inter w600 13px lh 16
+  - [FRAME] Status bar ikon @ 300,15 62x12  => ASET assets/icons/status-bar-ikon-62x12-14372D.svg
+  - [FRAME] Navigasi @ 0,764 390x64
+    - [RECTANGLE] Bar navigasi @ 16,764 358x64 fill #14372D radius 32
+    - [FRAME] Ikon home @ 41,772 22x22  => ASET assets/icons/ikon-home-22x22-F8B62B.svg
+    - [TEXT] Beranda @ 30,799 44x13 fill #F8B62B "Beranda" font Inter w500 11px lh 13
+    - [FRAME] Ikon cart @ 112,772 22x22  => ASET assets/icons/ikon-cart-22x22-F4EFE0.svg
+    - [TEXT] Kasir @ 110,799 27x13 fill #F4EFE0 "Kasir" font Inter w500 11px lh 13
+    - [FRAME] Ikon box @ 184,772 22x22  => ASET assets/icons/ikon-box-22x22-F4EFE0.svg
+    - [TEXT] Stok @ 183,799 24x13 fill #F4EFE0 "Stok" font Inter w500 11px lh 13
+    - [FRAME] Ikon chart @ 256,772 22x22  => ASET assets/icons/ikon-chart-22x22-F4EFE0.svg
+    - [TEXT] Laporan @ 245,799 43x13 fill #F4EFE0 "Laporan" font Inter w500 11px lh 13
+    - [FRAME] Ikon inbox @ 327,772 22x22  => ASET assets/icons/ikon-inbox-22x22-F4EFE0.svg
+    - [TEXT] Kotak masuk @ 304,799 68x13 fill #F4EFE0 "Kotak masuk" font Inter w500 11px lh 13
+  - [RECTANGLE] Tautan · Nav Beranda @ 16,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kasir @ 88,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Stok @ 159,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Laporan @ 231,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kotak masuk @ 302,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [ELLIPSE] Tombol kembali @ 24,46 40x40 fill #FFFFFF stroke #CFC7AA 1
+  - [FRAME] Ikon ChevL @ 35,57 18x18  => ASET assets/icons/ikon-chevl-18x18-14372D.svg
+  - [TEXT] Judul @ 76,48 135x24 fill #14372D "Daftar barang" font Inter w700 20px lh 24
+  - [TEXT] Subjudul @ 76,74 158x15 fill #6E7468 "36 jenis barang · Alat mandi" font Inter w400 12px lh 15
+  - [RECTANGLE] Tautan · Kembali @ 20,42 48x48 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Kolom cari @ 24,104 342x48 fill #FFFFFF stroke #CFC7AA 1 radius 16
+  - [FRAME] Ikon Cari @ 40,119 18x18  => ASET assets/icons/ikon-cari-18x18-6E7468.svg
+  - [TEXT] Teks cari @ 68,119 237x17 fill #6E7468 "Cari nama barang atau kode batang" font Inter w400 14px lh 17
+  - [RECTANGLE] Chip Semua @ -90,164 72x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] Teks chip Semua @ -74,173 40x15 fill #14372D "Semua" font Inter w600 12px lh 15
+  - [RECTANGLE] Chip Makanan @ -10,164 86x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] Teks chip Makanan @ 6,173 54x15 fill #14372D "Makanan" font Inter w600 12px lh 15
+  - [RECTANGLE] Tautan · Kategori Makanan @ 0,164 76x34 fill #FFFFFF@0.01 radius 17
+  - [RECTANGLE] Chip Minuman @ 84,164 86x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] Teks chip Minuman @ 100,173 54x15 fill #14372D "Minuman" font Inter w600 12px lh 15
+  - [RECTANGLE] Tautan · Kategori Minuman @ 84,164 86x34 fill #FFFFFF@0.01 radius 17
+  - [RECTANGLE] Chip Sembako @ 178,164 86x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] Teks chip Sembako @ 194,173 54x15 fill #14372D "Sembako" font Inter w600 12px lh 15
+  - [RECTANGLE] Tautan · Kategori Sembako @ 178,164 86x34 fill #FFFFFF@0.01 radius 17
+  - [RECTANGLE] Chip Alat mandi @ 272,164 94x34 fill #23794F radius 17
+  - [TEXT] Teks chip Alat mandi @ 288,173 62x15 fill #FFFFFF "Alat mandi" font Inter w600 12px lh 15
+  - [RECTANGLE] Chip Skincare @ 374,164 83x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] Teks chip Skincare @ 390,173 51x15 fill #14372D "Skincare" font Inter w600 12px lh 15
+  - [RECTANGLE] Tautan · Kategori Skincare @ 374,164 16x34 fill #FFFFFF@0.01 radius 17
+  - [RECTANGLE] Chip Lainnya @ 465,164 77x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] Teks chip Lainnya @ 481,173 45x15 fill #14372D "Lainnya" font Inter w600 12px lh 15
+  - [RECTANGLE] Kartu barang @ 24,214 342x70 fill #FFFFFF stroke #E4DCC3 1 radius 18
+  - [RECTANGLE] Tile barang @ 36,227 44x44 fill #EFE8D2 radius 12
+  - [FRAME] Ikon Stok @ 47,238 22x22  => ASET assets/icons/ikon-stok-22x22-23794F.svg
+  - [TEXT] Nama barang @ 94,229 152x17 fill #14372D "Sabun Mandi Lifebuoy" font Inter w700 14px lh 17
+  - [TEXT] Harga dan stok @ 94,251 68x15 fill #6E7468 "Stok 24 pcs" font Inter w400 12px lh 15
+  - [TEXT] Harga @ 282,229 68x18 fill #14372D "Rp 4.500" font Inter w700 15px lh 18
+  - [RECTANGLE] Kartu barang @ 24,292 342x70 fill #FFFFFF stroke #E4DCC3 1 radius 18
+  - [RECTANGLE] Tile barang @ 36,305 44x44 fill #EFE8D2 radius 12
+  - [FRAME] Ikon Stok @ 47,316 22x22  => ASET assets/icons/ikon-stok-22x22-23794F.svg
+  - [TEXT] Nama barang @ 94,307 99x17 fill #14372D "Sampo Sachet" font Inter w700 14px lh 17
+  - [TEXT] Harga dan stok @ 94,329 68x15 fill #6E7468 "Stok 30 pcs" font Inter w400 12px lh 15
+  - [TEXT] Harga @ 285,307 65x18 fill #14372D "Rp 1.500" font Inter w700 15px lh 18
+  - [RECTANGLE] Kartu barang @ 24,370 342x70 fill #FFFFFF stroke #E4DCC3 1 radius 18
+  - [RECTANGLE] Tile barang @ 36,383 44x44 fill #EFE8D2 radius 12
+  - [FRAME] Ikon Stok @ 47,394 22x22  => ASET assets/icons/ikon-stok-22x22-23794F.svg
+  - [TEXT] Nama barang @ 94,385 147x17 fill #14372D "Pasta Gigi Pepsodent" font Inter w700 14px lh 17
+  - [TEXT] Harga dan stok @ 94,407 66x15 fill #6E7468 "Stok 15 pcs" font Inter w400 12px lh 15
+  - [TEXT] Harga @ 282,385 68x18 fill #14372D "Rp 8.500" font Inter w700 15px lh 18
+  - [RECTANGLE] Kartu barang @ 24,448 342x70 fill #FFFFFF stroke #E4DCC3 1 radius 18
+  - [RECTANGLE] Tile barang @ 36,461 44x44 fill #EFE8D2 radius 12
+  - [FRAME] Ikon Stok @ 47,472 22x22  => ASET assets/icons/ikon-stok-22x22-23794F.svg
+  - [TEXT] Nama barang @ 94,463 66x17 fill #14372D "Sikat Gigi" font Inter w700 14px lh 17
+  - [TEXT] Harga dan stok @ 94,485 68x15 fill #6E7468 "Stok 20 pcs" font Inter w400 12px lh 15
+  - [TEXT] Harga @ 282,463 68x18 fill #14372D "Rp 6.000" font Inter w700 15px lh 18
+  - [RECTANGLE] Kartu barang @ 24,526 342x70 fill #FFFFFF stroke #E4DCC3 1 radius 18
+  - [RECTANGLE] Tile barang @ 36,539 44x44 fill #EFE8D2 radius 12
+  - [FRAME] Ikon Stok @ 47,550 22x22  => ASET assets/icons/ikon-stok-22x22-23794F.svg
+  - [TEXT] Nama barang @ 94,541 131x17 fill #14372D "Deterjen Rinso 1 kg" font Inter w700 14px lh 17
+  - [TEXT] Harga dan stok @ 94,563 66x15 fill #6E7468 "Stok 10 pcs" font Inter w400 12px lh 15
+  - [TEXT] Harga @ 277,541 73x18 fill #14372D "Rp 17.000" font Inter w700 15px lh 18
+  - [RECTANGLE] Kartu barang @ 24,604 342x70 fill #FFFFFF stroke #E4DCC3 1 radius 18
+  - [RECTANGLE] Tile barang @ 36,617 44x44 fill #EFE8D2 radius 12
+  - [FRAME] Ikon Stok @ 47,628 22x22  => ASET assets/icons/ikon-stok-22x22-23794F.svg
+  - [TEXT] Nama barang @ 94,619 83x17 fill #14372D "Tisu Gulung" font Inter w700 14px lh 17
+  - [TEXT] Harga dan stok @ 94,641 68x15 fill #6E7468 "Stok 22 pcs" font Inter w400 12px lh 15
+  - [TEXT] Harga @ 283,619 67x18 fill #14372D "Rp 6.500" font Inter w700 15px lh 18

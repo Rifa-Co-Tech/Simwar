@@ -208,7 +208,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
           decoration: BoxDecoration(
             color: const Color(0xFFFDF1DA),
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: const Color(0xFFF5C842).withOpacity(0.5)),
+            border: Border.all(color: const Color(0xFFF5C842).withValues(alpha: 0.5)),
           ),
           child: const Text(
             'Akun penjaga? Minta pemilik warung mereset kata sandi dari menu Tim warung.',

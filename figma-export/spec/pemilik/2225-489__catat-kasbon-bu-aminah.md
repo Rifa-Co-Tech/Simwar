@@ -1,0 +1,70 @@
+# Catat kasbon · Bu Aminah
+
+- Figma node: `2225:489` (file `PYGhjINDLB7fWCguQ0TevK`)
+- Section: pemilik
+- Grup: PROFIL & TIM WARUNG  ·  9 layar
+- Ukuran: 390x844
+- Screenshot: `screens/pemilik/2225-489__catat-kasbon-bu-aminah.png`
+
+Koordinat relatif ke pojok kiri-atas layar. Teks ditulis persis seperti di desain.
+
+- [FRAME] Catat kasbon · Bu Aminah @ 0,0 390x844 fill #F4EFE0 radius 28
+  - [TEXT] Status bar jam @ 28,13 36x16 fill #14372D "09.41" font Inter w600 13px lh 16
+  - [FRAME] Status bar ikon @ 300,15 62x12  => ASET assets/icons/status-bar-ikon-62x12-14372D.svg
+  - [TEXT] Catat kasbon @ 24,52 185x34 fill #14372D "Catat kasbon" font Inter w800 28px lh 34
+  - [TEXT] Pilih pelanggan, lalu masukkan barangnya @ 24,90 236x15 fill #6E7468 "Pilih pelanggan, lalu masukkan barangnya" font Inter w400 12px lh 15
+  - [TEXT] Nama pelanggan @ 24,126 115x17 fill #14372D "Nama pelanggan" font Inter w700 14px lh 17
+  - [RECTANGLE] Kolom uang diterima @ 24,152 342x54 fill #FFFFFF stroke #23794F 1.5 radius 16
+  - [TEXT] Bu Aminah @ 40,169 77x18 fill #14372D "Bu Aminah" font Inter w500 15px lh 18
+  - [RECTANGLE] Tombol transaksi baru @ 24,690 342x56 fill #23794F radius 28
+  - [TEXT] Masukkan ke kasir → @ 111,708 168x19 fill #FFFFFF "Masukkan ke kasir  →" font Inter w700 16px lh 19
+  - [FRAME] Navigasi @ 0,764 390x64
+    - [RECTANGLE] Bar navigasi @ 16,764 358x64 fill #14372D radius 32
+    - [FRAME] Ikon home @ 41,772 22x22  => ASET assets/icons/ikon-home-22x22-F4EFE0.svg
+    - [TEXT] Beranda @ 30,799 44x13 fill #F4EFE0 "Beranda" font Inter w500 11px lh 13
+    - [FRAME] Ikon cart @ 112,772 22x22  => ASET assets/icons/ikon-cart-22x22-F8B62B.svg
+    - [TEXT] Kasir @ 110,799 27x13 fill #F8B62B "Kasir" font Inter w500 11px lh 13
+    - [FRAME] Ikon box @ 184,772 22x22  => ASET assets/icons/ikon-box-22x22-F4EFE0.svg
+    - [TEXT] Stok @ 183,799 24x13 fill #F4EFE0 "Stok" font Inter w500 11px lh 13
+    - [FRAME] Ikon chart @ 256,772 22x22  => ASET assets/icons/ikon-chart-22x22-F4EFE0.svg
+    - [TEXT] Laporan @ 245,799 43x13 fill #F4EFE0 "Laporan" font Inter w500 11px lh 13
+    - [FRAME] Ikon inbox @ 327,772 22x22  => ASET assets/icons/ikon-inbox-22x22-F4EFE0.svg
+    - [TEXT] Kotak masuk @ 304,799 68x13 fill #F4EFE0 "Kotak masuk" font Inter w500 11px lh 13
+  - [RECTANGLE] Tautan · Simpan kasbon @ 24,690 342x56 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Beranda @ 16,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kasir @ 88,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Stok @ 159,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Laporan @ 231,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kotak masuk @ 302,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [TEXT] Label Barang @ 24,222 152x17 fill #14372D "Barang yang dikasbon" font Inter w700 14px lh 17
+  - [TEXT] Hitungan barang @ 267,224 99x15 fill #6E7468 "3 jenis · 4 barang" font Inter w500 12px lh 15
+  - [RECTANGLE] Kartu barang @ 24,248 342x50 fill #FFFFFF stroke #E4DCC3 1 radius 16
+  - [RECTANGLE] Tile barang @ 34,255 36x36 fill #EFE8D2 radius 10
+  - [FRAME] Ikon Stok @ 42,263 20x20  => ASET assets/icons/ikon-stok-20x20-23794F.svg
+  - [TEXT] Nama barang @ 80,256 151x16 fill #14372D "Indomie Goreng Spesial" font Inter w700 13px lh 16
+  - [TEXT] Rincian barang @ 80,275 67x13 fill #6E7468 "2 × Rp 3.500" font Inter w400 11px lh 13
+  - [TEXT] Harga barang @ 291,264 61x17 fill #14372D "Rp 7.000" font Inter w700 14px lh 17
+  - [RECTANGLE] Kartu barang @ 24,306 342x50 fill #FFFFFF stroke #E4DCC3 1 radius 16
+  - [RECTANGLE] Tile barang @ 34,313 36x36 fill #EFE8D2 radius 10
+  - [FRAME] Ikon Stok @ 42,321 20x20  => ASET assets/icons/ikon-stok-20x20-23794F.svg
+  - [TEXT] Nama barang @ 80,314 100x16 fill #14372D "Teh Botol Sosro" font Inter w700 13px lh 16
+  - [TEXT] Rincian barang @ 80,333 66x13 fill #6E7468 "1 × Rp 5.000" font Inter w400 11px lh 13
+  - [TEXT] Harga barang @ 289,322 63x17 fill #14372D "Rp 5.000" font Inter w700 14px lh 17
+  - [RECTANGLE] Kartu barang @ 24,364 342x50 fill #FFFFFF stroke #E4DCC3 1 radius 16
+  - [RECTANGLE] Tile barang @ 34,371 36x36 fill #EFE8D2 radius 10
+  - [FRAME] Ikon Stok @ 42,379 20x20  => ASET assets/icons/ikon-stok-20x20-23794F.svg
+  - [TEXT] Nama barang @ 80,372 116x16 fill #14372D "Minyak Goreng 1 L" font Inter w700 13px lh 16
+  - [TEXT] Rincian barang @ 80,391 71x13 fill #6E7468 "1 × Rp 16.000" font Inter w400 11px lh 13
+  - [TEXT] Harga barang @ 282,380 70x17 fill #14372D "Rp 16.000" font Inter w700 14px lh 17
+  - [RECTANGLE] Tombol Pindai @ 24,424 165x44 fill #14372D radius 22
+  - [FRAME] Ikon Scan @ 40,436 20x20  => ASET assets/icons/ikon-scan-20x20-F8B62B.svg
+  - [TEXT] Teks Pindai @ 68,438 88x16 fill #FFFFFF "Pindai barang" font Inter w700 13px lh 16
+  - [RECTANGLE] Tombol Ketik manual @ 201,424 165x44 fill #FFFFFF stroke #23794F 1.5 radius 22
+  - [FRAME] Ikon Pensil @ 217,436 20x20  => ASET assets/icons/ikon-pensil-20x20-23794F.svg
+  - [TEXT] Teks Ketik manual @ 245,438 83x16 fill #14372D "Ketik manual" font Inter w700 13px lh 16
+  - [RECTANGLE] Tautan · Pindai @ 24,424 165x44 fill #FFFFFF@0.01 radius 22
+  - [RECTANGLE] Tautan · Ketik manual @ 201,424 165x44 fill #FFFFFF@0.01 radius 22
+  - [RECTANGLE] Kartu total kasbon @ 24,484 342x64 fill #14372D radius 20
+  - [TEXT] Label total kasbon @ 44,496 145x15 fill #B9CFC4 "Total kasbon · Bu Aminah" font Inter w500 12px lh 15
+  - [TEXT] Nilai total kasbon @ 44,513 115x27 fill #FFFFFF "Rp 28.000" font Inter w800 22px lh 27
+  - [TEXT] Jumlah barang total @ 294,520 52x15 fill #B9CFC4 "4 barang" font Inter w500 12px lh 15

@@ -1,0 +1,62 @@
+# Kasbon - Daftar (setelah Lunas)
+
+- Figma node: `2245:509` (file `PYGhjINDLB7fWCguQ0TevK`)
+- Section: penjaga
+- Grup: KASBON  ·  14 layar
+- Ukuran: 390x844
+- Screenshot: `screens/penjaga/2245-509__kasbon-daftar-setelah-lunas.png`
+
+Koordinat relatif ke pojok kiri-atas layar. Teks ditulis persis seperti di desain.
+
+- [FRAME] Kasbon - Daftar (setelah Lunas) @ 0,0 390x844 fill #F4EFE0 radius 28
+  - [TEXT] Status bar jam @ 28,13 36x16 fill #14372D "09.41" font Inter w600 13px lh 16
+  - [FRAME] Status bar ikon @ 300,15 62x12  => ASET assets/icons/status-bar-ikon-62x12-14372D.svg
+  - [TEXT] Kasbon @ 24,52 106x34 fill #14372D "Kasbon" font Inter w800 28px lh 34
+  - [TEXT] Kas, QRIS, dan laba waru @ 24,90 143x15 fill #6E7468 "Utang pelanggan warung" font Inter w400 12px lh 15
+  - [RECTANGLE] Kartu laba @ 24,118 342x100 fill #14372D radius 24
+  - [TEXT] Total belum dibayar @ 44,136 123x16 fill #B9CFC4 "Total belum dibayar" font Inter w500 13px lh 16
+  - [TEXT] Rp 530.000 @ 44,160 190x39 fill #F8B62B "Rp 530.000" font Inter w800 32px lh 39
+  - [RECTANGLE] Bentuk @ 258,134 90x26 fill #FFFFFF@0.16 radius 13
+  - [TEXT] 3 pelanggan @ 270,141 66x13 fill #FFFFFF "3 pelanggan" font Inter w500 11px lh 13
+  - [TEXT] Penjualan 7 hari terakhi @ 24,238 96x19 fill #14372D "Belum lunas" font Inter w700 16px lh 19
+  - [RECTANGLE] Kartu grafik @ 24,266 342x246 fill #FFFFFF stroke #E4DCC3 1 radius 20 shadow 0,4 blur 14 #14382E@0.10
+  - [TEXT] Bu Aminah @ 40,278 74x17 fill #14372D "Bu Aminah" font Inter w700 14px lh 17
+  - [TEXT] Sejak 3 Nov · 2 transaksi @ 40,300 140x15 fill #6E7468 "Sejak 3 Nov · 2 transaksi" font Inter w400 12px lh 15
+  - [TEXT] Rp 285.000 @ 269,278 81x17 fill #14372D "Rp 285.000" font Inter w700 14px lh 17
+  - [RECTANGLE] Garis pemisah @ 40,334 310x1 fill #E8E3D1
+  - [TEXT] Ibu Rahmah @ 40,344 81x17 fill #14372D "Ibu Rahmah" font Inter w700 14px lh 17
+  - [TEXT] Sejak 10 Nov · 1 transaksi @ 40,366 144x15 fill #6E7468 "Sejak 10 Nov · 1 transaksi" font Inter w400 12px lh 15
+  - [TEXT] Rp 95.000 @ 278,344 72x17 fill #14372D "Rp 95.000" font Inter w700 14px lh 17
+  - [RECTANGLE] Garis pemisah @ 40,400 310x1 fill #E8E3D1
+  - [TEXT] Mas Dimas @ 40,410 75x17 fill #14372D "Mas Dimas" font Inter w700 14px lh 17
+  - [TEXT] Sejak 14 Nov · 1 transaksi @ 40,432 144x15 fill #6E7468 "Sejak 14 Nov · 1 transaksi" font Inter w400 12px lh 15
+  - [TEXT] Rp 150.000 @ 270,410 80x17 fill #14372D "Rp 150.000" font Inter w700 14px lh 17
+  - [TEXT] Lihat semua pelanggan › @ 40,482 154x16 fill #23794F "Lihat semua pelanggan ›" font Inter w600 13px lh 16
+  - [RECTANGLE] Tombol transaksi baru @ 24,690 342x56 fill #23794F radius 28
+  - [TEXT] + Catat kasbon baru @ 116,709 159x19 fill #FFFFFF "+ Catat kasbon baru" font Inter w700 16px lh 19
+  - [FRAME] Navigasi @ 0,764 390x64
+    - [RECTANGLE] Bar navigasi @ 16,764 358x64 fill #14372D radius 32
+    - [FRAME] Ikon home @ 50,772 22x22  => ASET assets/icons/ikon-home-22x22-F4EFE0.svg
+    - [TEXT] Beranda @ 39,799 44x13 fill #F4EFE0 "Beranda" font Inter w500 11px lh 13
+    - [FRAME] Ikon cart @ 139,772 22x22  => ASET assets/icons/ikon-cart-22x22-F8B62B.svg
+    - [TEXT] Kasir @ 137,799 27x13 fill #F8B62B "Kasir" font Inter w500 11px lh 13
+    - [FRAME] Ikon box @ 229,772 22x22  => ASET assets/icons/ikon-box-22x22-F4EFE0.svg
+    - [TEXT] Stok @ 228,799 24x13 fill #F4EFE0 "Stok" font Inter w500 11px lh 13
+    - [FRAME] Ikon flag @ 318,772 22x22  => ASET assets/icons/ikon-flag-22x22-F4EFE0.svg
+    - [TEXT] Lapor @ 314,799 31x13 fill #F4EFE0 "Lapor" font Inter w500 11px lh 13
+  - [TEXT] Penjualan 7 hari terakhi @ 24,538 97x19 fill #14372D "Sudah lunas" font Inter w700 16px lh 19
+  - [RECTANGLE] Kartu sudah lunas @ 24,566 342x78 fill #FFFFFF stroke #E4DCC3 1 radius 20 shadow 0,4 blur 14 #14382E@0.10
+  - [TEXT] Pak Rahmat @ 40,578 81x17 fill #14372D "Pak Rahmat" font Inter w700 14px lh 17
+  - [TEXT] Lunas 20 Nov · 3 transaksi @ 40,600 151x15 fill #6E7468 "Lunas 20 Nov · 3 transaksi" font Inter w400 12px lh 15
+  - [TEXT] Rp 420.000 @ 268,578 82x17 fill #14372D "Rp 420.000" font Inter w700 14px lh 17
+  - [RECTANGLE] Penanda Lunas @ 295,604 55x22 fill #E3EFE8 radius 11
+  - [TEXT] Penanda teks Lunas @ 307,609 31x13 fill #23794F "Lunas" font Inter w600 10.5px lh 13
+  - [RECTANGLE] Tautan · + Catat kasbon baru @ 24,690 342x56 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · /^(Pak Rahmat|Bu Aminah|Ibu  @ 30,267 94x40 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · /^(Pak Rahmat|Bu Aminah|Ibu  @ 30,572 330x62 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · /^(Pak Rahmat|Bu Aminah|Ibu  @ 30,333 101x40 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · /^(Pak Rahmat|Bu Aminah|Ibu  @ 30,399 95x40 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Beranda @ 25,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kasir @ 115,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Stok @ 204,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Lapor @ 294,764 72x64 fill #FFFFFF@0.01 radius 18

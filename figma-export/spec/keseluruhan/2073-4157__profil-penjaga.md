@@ -1,0 +1,63 @@
+# Profil (Penjaga)
+
+- Figma node: `2073:4157` (file `PYGhjINDLB7fWCguQ0TevK`)
+- Section: keseluruhan
+- Grup: -
+- Ukuran: 390x844
+- Screenshot: `screens/keseluruhan/2073-4157__profil-penjaga.png`
+
+Koordinat relatif ke pojok kiri-atas layar. Teks ditulis persis seperti di desain.
+
+- [FRAME] Profil (Penjaga) @ 0,0 390x844 fill #F4EFE0 radius 28
+  - [RECTANGLE] Tautan · Bantuan @ 200,520 166x88 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Peringatan @ 24,520 166x88 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Ganti sandi @ 200,420 166x88 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Ubah profil @ 24,420 166x88 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Rectangle @ 0,0 390x300 fill #FFFFFF stroke #E4DCC3 1 shadow 0,2 blur 8 #14382E@0.08
+  - [TEXT] Profil @ 24,48 52x24 fill #14372D "Profil" font Inter w700 20px lh 24
+  - [ELLIPSE] Ellipse @ 137,84 116x116 fill #F4EFE0 stroke #F8B62B 3
+  - [ELLIPSE] Ellipse @ 147,94 96x96 fill #F4EFE0 stroke #F8B62B 3
+  - [TEXT] R @ 180,112 31x56 fill #14372D "R" font Inter w700 46px lh 56
+  - [TEXT] Rina @ 165,208 60x34 fill #14372D "Rina" font Inter w700 28px lh 34
+  - [RECTANGLE] Rectangle @ 100,248 190x24 fill #FFFFFF stroke #E4DCC3 1 radius 12
+  - [TEXT] Penjaga · Warung Azzam @ 131,254 128x13 fill #1F2D26 "Penjaga · Warung Azzam" font Inter w700 10.5px lh 13
+  - [RECTANGLE] Rectangle @ 24,290 166x72 fill #FFFFFF stroke #E4DCC3 1 radius 16 shadow 0,2 blur 8 #14382E@0.08
+  - [TEXT] 86 @ 40,296 37x34 fill #14372D "86" font Inter w700 28px lh 34
+  - [TEXT] dicatat hari ini @ 40,336 74x13 fill #6E7468 "dicatat hari ini" font Inter w400 11px lh 13
+  - [RECTANGLE] Rectangle @ 200,290 166x72 fill #FFFFFF stroke #E4DCC3 1 radius 16 shadow 0,2 blur 8 #14382E@0.08
+  - [TEXT] 312 @ 216,296 50x34 fill #14372D "312" font Inter w700 28px lh 34
+  - [TEXT] dicatat bulan ini @ 216,336 83x13 fill #6E7468 "dicatat bulan ini" font Inter w400 11px lh 13
+  - [TEXT] Pengaturan @ 24,386 97x21 fill #1F2D26 "Pengaturan" font Inter w700 17px lh 21
+  - [RECTANGLE] Rectangle @ 24,420 166x88 fill #FFFFFF stroke #E4DCC3 1 radius 18 shadow 0,2 blur 8 #14382E@0.08
+  - [ELLIPSE] Ellipse @ 38,432 30x30 fill #E3EFE8
+  - [TEXT] Ubah profil @ 38,470 70x16 fill #1F2D26 "Ubah profil" font Inter w700 13px lh 16
+  - [TEXT] Nama dan foto @ 38,488 70x12 fill #6E7468 "Nama dan foto" font Inter w400 10px lh 12
+  - [RECTANGLE] Rectangle @ 200,420 166x88 fill #FFFFFF stroke #E4DCC3 1 radius 18 shadow 0,2 blur 8 #14382E@0.08
+  - [ELLIPSE] Ellipse @ 214,432 30x30 fill #E3EFE8
+  - [TEXT] Ganti sandi @ 214,470 72x16 fill #1F2D26 "Ganti sandi" font Inter w700 13px lh 16
+  - [TEXT] Amankan akun @ 214,488 70x12 fill #6E7468 "Amankan akun" font Inter w400 10px lh 12
+  - [RECTANGLE] Rectangle @ 24,520 166x88 fill #FFFFFF stroke #E4DCC3 1 radius 18 shadow 0,2 blur 8 #14382E@0.08
+  - [ELLIPSE] Ellipse @ 38,532 30x30 fill #E3EFE8
+  - [TEXT] Peringatan @ 38,570 70x16 fill #1F2D26 "Peringatan" font Inter w700 13px lh 16
+  - [TEXT] Kedaluwarsa dan stok @ 38,588 104x12 fill #6E7468 "Kedaluwarsa dan stok" font Inter w400 10px lh 12
+  - [RECTANGLE] Rectangle @ 200,520 166x88 fill #FFFFFF stroke #E4DCC3 1 radius 18 shadow 0,2 blur 8 #14382E@0.08
+  - [ELLIPSE] Ellipse @ 214,532 30x30 fill #E3EFE8
+  - [TEXT] Bantuan @ 214,570 53x16 fill #1F2D26 "Bantuan" font Inter w700 13px lh 16
+  - [TEXT] Cara pakai @ 214,588 51x12 fill #6E7468 "Cara pakai" font Inter w400 10px lh 12
+  - [RECTANGLE] Rectangle @ 24,630 342x50 fill #FFFFFF stroke #C8401E 1.5 radius 25
+  - [TEXT] Keluar dari akun @ 140,645 111x17 fill #C8401E "Keluar dari akun" font Inter w700 14px lh 17
+  - [TEXT] Status bar jam @ 28,13 36x16 fill #14372D "09.41" font Inter w600 13px lh 16
+  - [FRAME] Status bar ikon @ 300,15 62x12  => ASET assets/icons/status-bar-ikon-62x12-14372D.svg
+  - [FRAME] Navigasi @ 0,764 390x64
+    - [RECTANGLE] Bar navigasi @ 16,764 358x64 fill #14372D radius 32
+    - [FRAME] Ikon home @ 50,772 22x22  => ASET assets/icons/ikon-home-22x22-F8B62B.svg
+    - [TEXT] Beranda @ 39,799 44x13 fill #F8B62B "Beranda" font Inter w500 11px lh 13
+    - [FRAME] Ikon cart @ 139,772 22x22  => ASET assets/icons/ikon-cart-22x22-F4EFE0.svg
+    - [TEXT] Kasir @ 137,799 27x13 fill #F4EFE0 "Kasir" font Inter w500 11px lh 13
+    - [FRAME] Ikon box @ 229,772 22x22  => ASET assets/icons/ikon-box-22x22-F4EFE0.svg
+    - [TEXT] Stok @ 228,799 24x13 fill #F4EFE0 "Stok" font Inter w500 11px lh 13
+    - [FRAME] Ikon flag @ 318,772 22x22  => ASET assets/icons/ikon-flag-22x22-F4EFE0.svg
+    - [TEXT] Lapor @ 314,799 31x13 fill #F4EFE0 "Lapor" font Inter w500 11px lh 13
+  - [RECTANGLE] Tautan · Keluar dari akun @ 24,630 342x50 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Beranda @ 25,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Lapor @ 294,764 72x64 fill #FFFFFF@0.01 radius 18

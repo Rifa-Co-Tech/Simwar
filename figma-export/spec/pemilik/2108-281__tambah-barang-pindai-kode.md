@@ -1,0 +1,69 @@
+# Tambah barang - Pindai kode
+
+- Figma node: `2108:281` (file `PYGhjINDLB7fWCguQ0TevK`)
+- Section: pemilik
+- Grup: STOK & KELOLA BARANG  ·  9 layar
+- Ukuran: 390x844
+- Screenshot: `screens/pemilik/2108-281__tambah-barang-pindai-kode.png`
+
+Koordinat relatif ke pojok kiri-atas layar. Teks ditulis persis seperti di desain.
+
+- [FRAME] Tambah barang - Pindai kode @ 0,0 390x844 fill #0D241C radius 28
+  - [TEXT] Status bar jam @ 28,13 36x16 fill #FFFFFF "09.41" font Inter w600 13px lh 16
+  - [FRAME] Status bar ikon @ 300,15 62x12  => ASET assets/icons/status-bar-ikon-62x12-FFFFFF.svg
+  - [ELLIPSE] Tombol kembali @ 24,48 40x40 fill #FFFFFF stroke #CFC7AA 1
+  - [FRAME] Ikon ChevL @ 35,59 18x18  => ASET assets/icons/ikon-chevl-18x18-14372D.svg
+  - [TEXT] Judul @ 76,56 187x24 fill #FFFFFF "Pindai kode batang" font Inter w700 20px lh 24
+  - [RECTANGLE] Pratinjau kamera @ 0,110 390x470 fill #17392E
+  - [RECTANGLE] Kemasan @ 120,225 150x190 fill #F8F3E6 radius 12
+  - [RECTANGLE] Label atas @ 120,225 150x46 fill #C8402D radius 12/12/0/0
+  - [TEXT] Merek @ 120,238 150x16 fill #FFFFFF "Teh Botol Sosro" font Inter w700 13px lh 16 align center
+  - [RECTANGLE] Label kode @ 138,320 114x76 fill #FFFFFF radius 6
+  - [RECTANGLE] Garis kode @ 146,328 3x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 150,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 154,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 158,328 3x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 162,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 166,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 169,328 3x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 173,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 177,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 181,328 3x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 185,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 189,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 193,328 3x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 197,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 201,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 205,328 3x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 208,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 212,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 216,328 3x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 220,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 224,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 228,328 3x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 232,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 236,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 240,328 3x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 244,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 247,328 1x46 fill #14372D
+  - [TEXT] Angka kode @ 138,378 114x10 fill #14372D "8 992761 136017" font Inter w500 8px lh 10 align center
+  - [RECTANGLE] Sudut bingkai @ 60,200 34x5 fill #F8B62B radius 2.5
+  - [RECTANGLE] Sudut bingkai @ 60,200 5x34 fill #F8B62B radius 2.5
+  - [RECTANGLE] Sudut bingkai @ 296,200 34x5 fill #F8B62B radius 2.5
+  - [RECTANGLE] Sudut bingkai @ 325,200 5x34 fill #F8B62B radius 2.5
+  - [RECTANGLE] Sudut bingkai @ 60,465 34x5 fill #F8B62B radius 2.5
+  - [RECTANGLE] Sudut bingkai @ 60,436 5x34 fill #F8B62B radius 2.5
+  - [RECTANGLE] Sudut bingkai @ 296,465 34x5 fill #F8B62B radius 2.5
+  - [RECTANGLE] Sudut bingkai @ 325,436 5x34 fill #F8B62B radius 2.5
+  - [RECTANGLE] Garis pindai @ 72,335 246x3 fill #F8B62B radius 2 shadow 0,0 blur 10 #F8B62B@0.80
+  - [RECTANGLE] Petunjuk uji coba @ 95,490 200x30 fill #FFFFFF@0.16 radius 15
+  - [TEXT] Teks uji coba @ 95,497 200x15 fill #FFFFFF "Ketuk bingkai untuk mencoba" font Inter w500 12px lh 15 align center
+  - [RECTANGLE] Panel pindai @ 0,640 390x204 fill #FFFFFF radius 28/28/0/0 shadow 0,4 blur 14 #14382E@0.10
+  - [RECTANGLE] Gagang @ 165,652 60x5 fill #E4DCC3 radius 3
+  - [TEXT] Siap memindai @ 24,674 123x21 fill #14372D "Siap memindai" font Inter w700 17px lh 21
+  - [TEXT] Petunjuk @ 24,700 342x32 fill #6E7468 "Arahkan kamera ke kode batang di kemasan barang baru." font Inter w400 13px lh 16
+  - [RECTANGLE] Tombol sekunder @ 24,752 342x52 fill #FFFFFF stroke #23794F 1.5 radius 26
+  - [TEXT] Batal, kembali ke form @ 24,768 342x19 fill #23794F "Batal, kembali ke form" font Inter w700 16px lh 19 align center
+  - [RECTANGLE] Tautan · Kembali @ 20,44 48x48 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Simulasi kode terbaca @ 60,200 270x270 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Batal ke form @ 24,752 342x52 fill #FFFFFF@0.01 radius 18

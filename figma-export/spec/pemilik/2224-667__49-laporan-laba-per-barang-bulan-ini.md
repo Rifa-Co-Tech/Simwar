@@ -1,0 +1,76 @@
+# 49 · Laporan - Laba per barang · Bulan ini
+
+- Figma node: `2224:667` (file `PYGhjINDLB7fWCguQ0TevK`)
+- Section: pemilik
+- Grup: KOTAK MASUK LAPORAN  ·  2 layar
+- Ukuran: 390x844
+- Screenshot: `screens/pemilik/2224-667__49-laporan-laba-per-barang-bulan-ini.png`
+
+Koordinat relatif ke pojok kiri-atas layar. Teks ditulis persis seperti di desain.
+
+- [FRAME] 49 · Laporan - Laba per barang · Bulan ini @ 0,0 390x844 fill #F4EFE0 radius 28
+  - [TEXT] Status bar jam @ 28,13 36x16 fill #14372D "09.41" font Inter w600 13px lh 16
+  - [FRAME] Status bar ikon @ 300,15 62x12  => ASET assets/icons/status-bar-ikon-62x12-14372D.svg
+  - [TEXT] Laba per barang @ 24,52 223x34 fill #14372D "Laba per barang" font Inter w800 28px lh 34
+  - [TEXT] Kas, QRIS, dan laba waru @ 24,90 171x15 fill #6E7468 "Paling untung dan kurang laku" font Inter w400 12px lh 15
+  - [RECTANGLE] Bentuk @ 24,118 82x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] Hari ini @ 45,128 41x15 fill #14372D "Hari ini" font Inter w600 12px lh 15
+  - [RECTANGLE] Bentuk @ 114,118 74x34 fill #23794F radius 17
+  - [TEXT] 7 hari @ 135,128 33x15 fill #FFFFFF "7 hari" font Inter w600 12px lh 15
+  - [RECTANGLE] Bentuk @ 196,118 92x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] Bulan ini @ 217,128 50x15 fill #14372D "Bulan ini" font Inter w600 12px lh 15
+  - [TEXT] Penjualan 7 hari terakhi @ 24,172 109x19 fill #14372D "Laba terbesar" font Inter w700 16px lh 19
+  - [RECTANGLE] Kartu grafik @ 24,200 342x174 fill #FFFFFF stroke #E4DCC3 1 radius 20 shadow 0,4 blur 14 #14382E@0.10
+  - [TEXT] Indomie Goreng Spesial @ 40,212 163x17 fill #14372D "Indomie Goreng Spesial" font Inter w700 14px lh 17
+  - [TEXT] Terjual 4800 pcs @ 40,234 95x15 fill #6E7468 "Terjual 4800 pcs" font Inter w400 12px lh 15
+  - [TEXT] Rp 3.360.000 @ 255,212 95x17 fill #14372D "Rp 3.360.000" font Inter w700 14px lh 17
+  - [TEXT] + Rp 700 / pcs @ 267,234 83x15 fill #6E7468 "+ Rp 700 / pcs" font Inter w400 12px lh 15
+  - [RECTANGLE] Garis pemisah @ 40,258 310x1 fill #E8E3D1
+  - [TEXT] Rokok Gudang Garam 12 @ 40,266 167x17 fill #14372D "Rokok Gudang Garam 12" font Inter w700 14px lh 17
+  - [TEXT] Terjual 840 pcs @ 40,288 88x15 fill #6E7468 "Terjual 840 pcs" font Inter w400 12px lh 15
+  - [TEXT] Rp 2.940.000 @ 255,266 95x17 fill #14372D "Rp 2.940.000" font Inter w700 14px lh 17
+  - [TEXT] + Rp 3.500 / pcs @ 256,288 94x15 fill #6E7468 "+ Rp 3.500 / pcs" font Inter w400 12px lh 15
+  - [RECTANGLE] Garis pemisah @ 40,312 310x1 fill #E8E3D1
+  - [TEXT] Minyak Goreng 1 L @ 40,320 125x17 fill #14372D "Minyak Goreng 1 L" font Inter w700 14px lh 17
+  - [TEXT] Terjual 660 pcs @ 40,342 88x15 fill #6E7468 "Terjual 660 pcs" font Inter w400 12px lh 15
+  - [TEXT] Rp 1.980.000 @ 258,320 92x17 fill #14372D "Rp 1.980.000" font Inter w700 14px lh 17
+  - [TEXT] + Rp 3.000 / pcs @ 256,342 94x15 fill #6E7468 "+ Rp 3.000 / pcs" font Inter w400 12px lh 15
+  - [TEXT] Penjualan 7 hari terakhi @ 24,394 93x19 fill #14372D "Kurang laku" font Inter w700 16px lh 19
+  - [RECTANGLE] Kartu grafik @ 24,422 342x174 fill #FFFFFF stroke #E4DCC3 1 radius 20 shadow 0,4 blur 14 #14382E@0.10
+  - [TEXT] Lotion Citra 100 ml @ 40,434 129x17 fill #14372D "Lotion Citra 100 ml" font Inter w700 14px lh 17
+  - [TEXT] Terjual 2 pcs dalam 30 hari @ 40,456 153x15 fill #6E7468 "Terjual 2 pcs dalam 30 hari" font Inter w400 12px lh 15
+  - [TEXT] Sisa 6 pcs @ 280,434 70x17 fill #14372D "Sisa 6 pcs" font Inter w700 14px lh 17
+  - [RECTANGLE] Rectangle @ 267,456 83x22 fill #F8B62B radius 11
+  - [TEXT] Kurang laku @ 277,461 63x13 fill #14372D "Kurang laku" font Inter w600 11px lh 13
+  - [RECTANGLE] Garis pemisah @ 40,480 310x1 fill #E8E3D1
+  - [TEXT] Sampo Sachet @ 40,488 99x17 fill #14372D "Sampo Sachet" font Inter w700 14px lh 17
+  - [TEXT] Terjual 4 pcs dalam 30 hari @ 40,510 154x15 fill #6E7468 "Terjual 4 pcs dalam 30 hari" font Inter w400 12px lh 15
+  - [TEXT] Sisa 30 pcs @ 270,488 80x17 fill #14372D "Sisa 30 pcs" font Inter w700 14px lh 17
+  - [RECTANGLE] Rectangle @ 267,510 83x22 fill #F8B62B radius 11
+  - [TEXT] Kurang laku @ 277,515 63x13 fill #14372D "Kurang laku" font Inter w600 11px lh 13
+  - [RECTANGLE] Garis pemisah @ 40,534 310x1 fill #E8E3D1
+  - [TEXT] Sabun Mandi Lifebuoy @ 40,542 152x17 fill #14372D "Sabun Mandi Lifebuoy" font Inter w700 14px lh 17
+  - [TEXT] Terjual 1 pcs dalam 30 hari @ 40,564 151x15 fill #6E7468 "Terjual 1 pcs dalam 30 hari" font Inter w400 12px lh 15
+  - [TEXT] Sisa 14 pcs @ 273,542 77x17 fill #14372D "Sisa 14 pcs" font Inter w700 14px lh 17
+  - [RECTANGLE] Rectangle @ 267,564 83x22 fill #F8B62B radius 11
+  - [TEXT] Kurang laku @ 277,569 63x13 fill #14372D "Kurang laku" font Inter w600 11px lh 13
+  - [TEXT] Kurang laku: terjual kurang dari 5 pcs dalam 30 hari. @ 24,612 294x15 fill #6E7468 "Kurang laku: terjual kurang dari 5 pcs dalam 30 hari." font Inter w400 12px lh 15
+  - [FRAME] Navigasi @ 0,764 390x64
+    - [RECTANGLE] Bar navigasi @ 16,764 358x64 fill #14372D radius 32
+    - [FRAME] Ikon home @ 41,772 22x22  => ASET assets/icons/ikon-home-22x22-F4EFE0.svg
+    - [TEXT] Beranda @ 30,799 44x13 fill #F4EFE0 "Beranda" font Inter w500 11px lh 13
+    - [FRAME] Ikon cart @ 112,772 22x22  => ASET assets/icons/ikon-cart-22x22-F4EFE0.svg
+    - [TEXT] Kasir @ 110,799 27x13 fill #F4EFE0 "Kasir" font Inter w500 11px lh 13
+    - [FRAME] Ikon box @ 184,772 22x22  => ASET assets/icons/ikon-box-22x22-F4EFE0.svg
+    - [TEXT] Stok @ 183,799 24x13 fill #F4EFE0 "Stok" font Inter w500 11px lh 13
+    - [FRAME] Ikon chart @ 256,772 22x22  => ASET assets/icons/ikon-chart-22x22-F8B62B.svg
+    - [TEXT] Laporan @ 245,799 43x13 fill #F8B62B "Laporan" font Inter w500 11px lh 13
+    - [FRAME] Ikon inbox @ 327,772 22x22  => ASET assets/icons/ikon-inbox-22x22-F4EFE0.svg
+    - [TEXT] Kotak masuk @ 304,799 68x13 fill #F4EFE0 "Kotak masuk" font Inter w500 11px lh 13
+  - [RECTANGLE] Tautan · Nav Beranda @ 16,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kasir @ 88,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Stok @ 159,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Laporan @ 231,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kotak masuk @ 302,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Filter Hari ini @ 24,118 82x34 fill #FFFFFF@0.01 radius 17
+  - [RECTANGLE] Tautan · Filter 7 hari @ 114,118 74x34 fill #FFFFFF@0.01 radius 17

@@ -1,0 +1,95 @@
+# 50 · Laporan - Uang masuk QRIS · 7 hari
+
+- Figma node: `2224:762` (file `PYGhjINDLB7fWCguQ0TevK`)
+- Section: pemilik
+- Grup: PROFIL & TIM WARUNG  ·  9 layar
+- Ukuran: 390x844
+- Screenshot: `screens/pemilik/2224-762__50-laporan-uang-masuk-qris-7-hari.png`
+
+Koordinat relatif ke pojok kiri-atas layar. Teks ditulis persis seperti di desain.
+
+- [FRAME] 50 · Laporan - Uang masuk QRIS · 7 hari @ 0,0 390x844 fill #F4EFE0 radius 28
+  - [TEXT] Status bar jam @ 28,13 36x16 fill #14372D "09.41" font Inter w600 13px lh 16
+  - [FRAME] Status bar ikon @ 300,15 62x12  => ASET assets/icons/status-bar-ikon-62x12-14372D.svg
+  - [TEXT] Uang masuk QRIS @ 24,52 245x34 fill #14372D "Uang masuk QRIS" font Inter w800 28px lh 34
+  - [TEXT] Kas, QRIS, dan laba waru @ 24,90 203x15 fill #6E7468 "Rekap pembayaran QRIS ke warung" font Inter w400 12px lh 15
+  - [RECTANGLE] Bentuk @ 24,118 82x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] Hari ini @ 45,128 41x15 fill #14372D "Hari ini" font Inter w600 12px lh 15
+  - [RECTANGLE] Bentuk @ 114,118 74x34 fill #23794F radius 17
+  - [TEXT] 7 hari @ 135,128 33x15 fill #FFFFFF "7 hari" font Inter w600 12px lh 15
+  - [RECTANGLE] Bentuk @ 196,118 92x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] Bulan ini @ 217,128 50x15 fill #14372D "Bulan ini" font Inter w600 12px lh 15
+  - [RECTANGLE] Kartu laba @ 24,168 342x100 fill #14372D radius 24
+  - [TEXT] Total QRIS masuk 7 hari terakhir @ 44,186 198x16 fill #B9CFC4 "Total QRIS masuk 7 hari terakhir" font Inter w500 13px lh 16
+  - [TEXT] Rp 3.920.000 @ 44,210 219x39 fill #F8B62B "Rp 3.920.000" font Inter w800 32px lh 39
+  - [RECTANGLE] Bentuk @ 260,184 88x26 fill #FFFFFF@0.16 radius 13
+  - [TEXT] 98 transaksi @ 271,191 65x13 fill #FFFFFF "98 transaksi" font Inter w500 11px lh 13
+  - [RECTANGLE] Kartu grafik @ 24,288 342x362 fill #FFFFFF stroke #E4DCC3 1 radius 20 shadow 0,4 blur 14 #14382E@0.10
+  - [TEXT] Jam @ 40,302 22x13 fill #6E7468 "Jam" font Inter w400 11px lh 13
+  - [TEXT] Nomor @ 100,302 36x13 fill #6E7468 "Nomor" font Inter w400 11px lh 13
+  - [TEXT] Nominal @ 225,302 43x13 fill #6E7468 "Nominal" font Inter w400 11px lh 13
+  - [TEXT] Status @ 316,302 34x13 fill #6E7468 "Status" font Inter w400 11px lh 13
+  - [RECTANGLE] Garis pemisah @ 40,324 310x1 fill #E8E3D1
+  - [TEXT] 09.50 @ 40,338 36x16 fill #6E7468 "09.50" font Inter w400 13px lh 16
+  - [TEXT] TRX-0143 @ 100,338 61x16 fill #6E7468 "TRX-0143" font Inter w400 13px lh 16
+  - [TEXT] Rp 28.000 @ 201,338 67x16 fill #14372D "Rp 28.000" font Inter w700 13px lh 16
+  - [RECTANGLE] Rectangle @ 272,336 78x22 fill #F8B62B radius 11
+  - [TEXT] Menunggu @ 282,341 58x13 fill #14372D "Menunggu" font Inter w600 11px lh 13
+  - [RECTANGLE] Garis pemisah @ 40,372 310x1 fill #E8E3D1
+  - [TEXT] 09.28 @ 40,382 36x16 fill #6E7468 "09.28" font Inter w400 13px lh 16
+  - [TEXT] TRX-0141 @ 100,382 59x16 fill #6E7468 "TRX-0141" font Inter w400 13px lh 16
+  - [TEXT] Rp 45.000 @ 201,382 67x16 fill #14372D "Rp 45.000" font Inter w700 13px lh 16
+  - [RECTANGLE] Lencana @ 294,380 56x22 fill #E3EFE8 radius 11
+  - [TEXT] Masuk @ 304,385 36x13 fill #23794F "Masuk" font Inter w600 11px lh 13
+  - [RECTANGLE] Garis pemisah @ 40,416 310x1 fill #E8E3D1
+  - [TEXT] 09.02 @ 40,426 36x16 fill #6E7468 "09.02" font Inter w400 13px lh 16
+  - [TEXT] TRX-0139 @ 100,426 61x16 fill #6E7468 "TRX-0139" font Inter w400 13px lh 16
+  - [TEXT] Rp 18.500 @ 203,426 65x16 fill #14372D "Rp 18.500" font Inter w700 13px lh 16
+  - [RECTANGLE] Lencana @ 294,424 56x22 fill #E3EFE8 radius 11
+  - [TEXT] Masuk @ 304,429 36x13 fill #23794F "Masuk" font Inter w600 11px lh 13
+  - [RECTANGLE] Garis pemisah @ 40,460 310x1 fill #E8E3D1
+  - [TEXT] 08.47 @ 40,470 36x16 fill #6E7468 "08.47" font Inter w400 13px lh 16
+  - [TEXT] TRX-0136 @ 100,470 61x16 fill #6E7468 "TRX-0136" font Inter w400 13px lh 16
+  - [TEXT] Rp 32.000 @ 201,470 67x16 fill #14372D "Rp 32.000" font Inter w700 13px lh 16
+  - [RECTANGLE] Lencana @ 294,468 56x22 fill #E3EFE8 radius 11
+  - [TEXT] Masuk @ 304,473 36x13 fill #23794F "Masuk" font Inter w600 11px lh 13
+  - [RECTANGLE] Garis pemisah @ 40,504 310x1 fill #E8E3D1
+  - [TEXT] 08.31 @ 40,514 34x16 fill #6E7468 "08.31" font Inter w400 13px lh 16
+  - [TEXT] TRX-0133 @ 100,514 61x16 fill #6E7468 "TRX-0133" font Inter w400 13px lh 16
+  - [TEXT] Rp 9.500 @ 209,514 59x16 fill #14372D "Rp 9.500" font Inter w700 13px lh 16
+  - [RECTANGLE] Lencana @ 294,512 56x22 fill #E3EFE8 radius 11
+  - [TEXT] Masuk @ 304,517 36x13 fill #23794F "Masuk" font Inter w600 11px lh 13
+  - [RECTANGLE] Garis pemisah @ 40,548 310x1 fill #E8E3D1
+  - [TEXT] 08.15 @ 40,558 33x16 fill #6E7468 "08.15" font Inter w400 13px lh 16
+  - [TEXT] TRX-0130 @ 100,558 61x16 fill #6E7468 "TRX-0130" font Inter w400 13px lh 16
+  - [TEXT] Rp 62.000 @ 201,558 67x16 fill #14372D "Rp 62.000" font Inter w700 13px lh 16
+  - [RECTANGLE] Lencana @ 294,556 56x22 fill #E3EFE8 radius 11
+  - [TEXT] Masuk @ 304,561 36x13 fill #23794F "Masuk" font Inter w600 11px lh 13
+  - [RECTANGLE] Garis pemisah @ 40,592 310x1 fill #E8E3D1
+  - [TEXT] 07.58 @ 40,602 33x16 fill #6E7468 "07.58" font Inter w400 13px lh 16
+  - [TEXT] TRX-0127 @ 100,602 60x16 fill #6E7468 "TRX-0127" font Inter w400 13px lh 16
+  - [TEXT] Rp 21.000 @ 203,602 65x16 fill #14372D "Rp 21.000" font Inter w700 13px lh 16
+  - [RECTANGLE] Lencana @ 294,600 56x22 fill #E3EFE8 radius 11
+  - [TEXT] Masuk @ 304,605 36x13 fill #23794F "Masuk" font Inter w600 11px lh 13
+  - [RECTANGLE] Tombol selesai @ 24,676 342x52 fill #FFFFFF stroke #CFC7AA 1.5 radius 26
+  - [TEXT] Ekspor tabel (Excel) @ 117,693 157x19 fill #14372D "Ekspor tabel (Excel)" font Inter w700 16px lh 19
+  - [FRAME] Navigasi @ 0,764 390x64
+    - [RECTANGLE] Bar navigasi @ 16,764 358x64 fill #14372D radius 32
+    - [FRAME] Ikon home @ 41,772 22x22  => ASET assets/icons/ikon-home-22x22-F4EFE0.svg
+    - [TEXT] Beranda @ 30,799 44x13 fill #F4EFE0 "Beranda" font Inter w500 11px lh 13
+    - [FRAME] Ikon cart @ 112,772 22x22  => ASET assets/icons/ikon-cart-22x22-F4EFE0.svg
+    - [TEXT] Kasir @ 110,799 27x13 fill #F4EFE0 "Kasir" font Inter w500 11px lh 13
+    - [FRAME] Ikon box @ 184,772 22x22  => ASET assets/icons/ikon-box-22x22-F4EFE0.svg
+    - [TEXT] Stok @ 183,799 24x13 fill #F4EFE0 "Stok" font Inter w500 11px lh 13
+    - [FRAME] Ikon chart @ 256,772 22x22  => ASET assets/icons/ikon-chart-22x22-F8B62B.svg
+    - [TEXT] Laporan @ 245,799 43x13 fill #F8B62B "Laporan" font Inter w500 11px lh 13
+    - [FRAME] Ikon inbox @ 327,772 22x22  => ASET assets/icons/ikon-inbox-22x22-F4EFE0.svg
+    - [TEXT] Kotak masuk @ 304,799 68x13 fill #F4EFE0 "Kotak masuk" font Inter w500 11px lh 13
+  - [RECTANGLE] Tautan · Nav Beranda @ 16,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kasir @ 88,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Stok @ 159,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Laporan @ 231,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kotak masuk @ 302,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Ekspor tabel @ 24,676 342x52 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Filter Hari ini @ 24,118 82x34 fill #FFFFFF@0.01 radius 17
+  - [RECTANGLE] Tautan · Filter Bulan ini @ 196,118 92x34 fill #FFFFFF@0.01 radius 17

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import '../models/laporan_model.dart';
 
 class DetailLaporanScreen extends StatefulWidget {
   final String idLaporan;
@@ -92,6 +93,8 @@ class _DetailLaporanScreenState extends State<DetailLaporanScreen> {
       _balasanCtrl.clear();
     });
 
+    LaporanStore.instance.balasLaporan(widget.idLaporan, text);
+
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Row(
@@ -120,6 +123,8 @@ class _DetailLaporanScreenState extends State<DetailLaporanScreen> {
     setState(() {
       _status = 'Selesai';
     });
+
+    LaporanStore.instance.tandaiSelesai(widget.idLaporan);
 
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
@@ -234,7 +239,7 @@ class _DetailLaporanScreenState extends State<DetailLaporanScreen> {
                             border: Border.all(color: _garisBorder),
                             boxShadow: [
                               BoxShadow(
-                                color: _hijauTua.withOpacity(0.06),
+                                color: _hijauTua.withValues(alpha: 0.06),
                                 blurRadius: 8,
                                 offset: const Offset(0, 2),
                               ),
@@ -434,7 +439,7 @@ class _DetailLaporanScreenState extends State<DetailLaporanScreen> {
                         decoration: BoxDecoration(
                           color: const Color(0xFFE7F3EC),
                           borderRadius: BorderRadius.circular(14),
-                          border: Border.all(color: _hijauUtama.withOpacity(0.3)),
+                          border: Border.all(color: _hijauUtama.withValues(alpha: 0.3)),
                         ),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -476,7 +481,7 @@ class _DetailLaporanScreenState extends State<DetailLaporanScreen> {
                       border: Border.all(color: _hijauUtama, width: 1.5),
                       boxShadow: [
                         BoxShadow(
-                          color: _hijauTua.withOpacity(0.04),
+                          color: _hijauTua.withValues(alpha: 0.04),
                           blurRadius: 10,
                           offset: const Offset(0, 2),
                         ),
@@ -592,7 +597,7 @@ class _DetailLaporanScreenState extends State<DetailLaporanScreen> {
         border: Border.all(color: _garisBorder),
         boxShadow: [
           BoxShadow(
-            color: _hijauTua.withOpacity(0.08),
+            color: _hijauTua.withValues(alpha: 0.08),
             blurRadius: 14,
             offset: const Offset(0, 4),
           ),
@@ -612,7 +617,7 @@ class _DetailLaporanScreenState extends State<DetailLaporanScreen> {
         decoration: BoxDecoration(
           color: const Color(0xFFE3EFE8),
           borderRadius: BorderRadius.circular(14),
-          border: Border.all(color: _hijauUtama.withOpacity(0.2)),
+          border: Border.all(color: _hijauUtama.withValues(alpha: 0.2)),
         ),
         child: Stack(
           alignment: Alignment.center,
@@ -658,7 +663,7 @@ class _DetailLaporanScreenState extends State<DetailLaporanScreen> {
         borderRadius: BorderRadius.circular(32),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.25),
+            color: Colors.black.withValues(alpha: 0.25),
             blurRadius: 20,
             offset: const Offset(0, 6),
           ),

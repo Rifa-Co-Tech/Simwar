@@ -1,0 +1,54 @@
+# Buat akun pemilik
+
+- Figma node: `2127:2` (file `PYGhjINDLB7fWCguQ0TevK`)
+- Section: pemilik
+- Grup: MASUK & DAFTAR AKUN (buat akun → login → buat profil)  ·  4 layar
+- Ukuran: 390x844
+- Screenshot: `screens/pemilik/2127-2__buat-akun-pemilik.png`
+
+Koordinat relatif ke pojok kiri-atas layar. Teks ditulis persis seperti di desain.
+
+- [FRAME] Buat akun pemilik @ 0,0 390x844 fill gradient radius 28
+  - [ELLIPSE] Cincin @ 240,-40 200x200 stroke #F4EFE0@0.10 1.5
+  - [ELLIPSE] Cincin @ 262,-18 156x156 stroke #F4EFE0@0.08 1.5
+  - [ELLIPSE] Cahaya @ -60,60 220x220 fill #23794F@0.25
+  - [TEXT] Status bar jam @ 28,13 36x16 fill #F4EFE0 "09.41" font Inter w600 13px lh 16
+  - [FRAME] Status bar ikon @ 300,15 62x12  => ASET assets/icons/status-bar-ikon-62x12-F4EFE0.svg
+  - [RECTANGLE] Panel @ 0,176 390x668 fill #FFFFFF radius 36/36/0/0
+  - [ELLIPSE] Tombol kembali @ 24,44 40x40 fill #F4EFE0@0.16
+  - [FRAME] Ikon kembali @ 34,54 20x20  => ASET assets/icons/ikon-kembali-20x20-F4EFE0.svg
+  - [TEXT] Buat akun @ 24,88 152x37 fill #F4EFE0 "Buat akun" font Fraunces w700 30px lh 37
+  - [TEXT] Isi data dirimu dan pilih posisi. Nomor HP dan sandi dipakai untuk masuk. @ 24,130 320x32 fill #F4EFE0@0.78 "Isi data dirimu dan pilih posisi. Nomor HP dan sandi dipakai untuk masuk." font Inter w400 13px lh 16
+  - [TEXT] Sandi baru @ 24,452 63x15 fill #54685E "Sandi baru" font Inter w600 12px lh 15
+  - [RECTANGLE] Kolom isian @ 24,472 342x52 fill #FFFFFF stroke #CFC7AA 1 radius 16
+  - [FRAME] Ikon @ 40,489 18x18  => ASET assets/icons/ikon-18x18-54685E.svg
+  - [TEXT] •••••••••• @ 68,488 80x18 fill #14372D "••••••••••" font Inter w500 15px lh 18
+  - [FRAME] Ikon mata @ 333,489 18x18  => ASET assets/icons/ikon-mata-18x18-54685E.svg
+  - [TEXT] Ulangi sandi baru @ 24,536 101x15 fill #54685E "Ulangi sandi baru" font Inter w600 12px lh 15
+  - [RECTANGLE] Kolom isian @ 24,556 342x52 fill #FFFFFF stroke #CFC7AA 1 radius 16
+  - [FRAME] Ikon @ 40,573 18x18  => ASET assets/icons/ikon-18x18-54685E.svg
+  - [TEXT] •••••••••• @ 68,572 80x18 fill #14372D "••••••••••" font Inter w500 15px lh 18
+  - [FRAME] Ikon mata @ 333,573 18x18  => ASET assets/icons/ikon-mata-18x18-54685E.svg
+  - [TEXT] Minimal 8 karakter, campuran huruf dan angka. @ 24,616 266x15 fill #54685E "Minimal 8 karakter, campuran huruf dan angka." font Inter w400 12px lh 15
+  - [RECTANGLE] Tombol utama @ 24,650 342x54 fill #23794F radius 27
+  - [TEXT] Buat akun → @ 145,667 101x19 fill #FFFFFF "Buat akun  →" font Inter w700 16px lh 19
+  - [TEXT] Nomor HP @ 24,368 59x15 fill #54685E "Nomor HP" font Inter w600 12px lh 15
+  - [RECTANGLE] Kolom isian @ 24,388 342x52 fill #FFFFFF stroke #CFC7AA 1 radius 16
+  - [FRAME] Ikon @ 40,405 18x18  => ASET assets/icons/ikon-18x18-54685E.svg
+  - [TEXT] 0812 3456 7890 @ 68,404 119x18 fill #14372D "0812 3456 7890" font Inter w500 15px lh 18
+  - [RECTANGLE] Tautan · Kembali @ 24,44 40x40 fill #FFFFFF@0.01
+  - [RECTANGLE] Tautan · Buat akun  → @ 24,650 342x54 fill #FFFFFF@0.01
+  - [TEXT] Label Nama lengkap @ 24,200 83x15 fill #54685E "Nama lengkap" font Inter w600 12px lh 15
+  - [RECTANGLE] Kolom isian @ 24,220 342x52 fill #FFFFFF stroke #CFC7AA 1 radius 16
+  - [FRAME] Ikon Orang @ 40,237 18x18  => ASET assets/icons/ikon-orang-18x18-54685E.svg
+  - [TEXT] Isi Nama lengkap @ 68,236 42x18 fill #14372D "Alfian" font Inter w500 15px lh 18
+  - [TEXT] Label Posisi @ 24,284 35x15 fill #54685E "Posisi" font Inter w600 12px lh 15
+  - [RECTANGLE] Pilihan Posisi · Pemilik @ 24,304 165x52 fill #23794F radius 16
+  - [TEXT] Posisi Pemilik @ 40,313 50x17 fill #FFFFFF "Pemilik" font Inter w700 14px lh 17
+  - [TEXT] Keterangan Pemilik @ 40,332 73x13 fill #D9E8DF "Kelola warung" font Inter w400 11px lh 13
+  - [ELLIPSE] Tanda dipilih @ 155,320 20x20 fill #FFFFFF
+  - [TEXT] Centang @ 160,323 11x15 fill #23794F "✓" font Inter w700 12px lh 15
+  - [RECTANGLE] Pilihan Posisi · Penjaga @ 201,304 165x52 fill #FFFFFF stroke #CFC7AA 1 radius 16
+  - [TEXT] Posisi Penjaga @ 217,313 55x17 fill #14372D "Penjaga" font Inter w700 14px lh 17
+  - [TEXT] Keterangan Penjaga @ 217,332 72x13 fill #6E7468 "Catat dan jual" font Inter w400 11px lh 13
+  - [RECTANGLE] Tautan · Posisi Penjaga @ 200,296 166x56 fill #FFFFFF@0.01

@@ -1,0 +1,67 @@
+# 41 · Kasir - Keranjang · hapus Teh
+
+- Figma node: `2131:669` (file `PYGhjINDLB7fWCguQ0TevK`)
+- Section: pemilik
+- Grup: KASIR · KERANJANG (varian hapus barang & kosong)  ·  7 layar
+- Ukuran: 390x844
+- Screenshot: `screens/pemilik/2131-669__41-kasir-keranjang-hapus-teh.png`
+
+Koordinat relatif ke pojok kiri-atas layar. Teks ditulis persis seperti di desain.
+
+- [FRAME] 41 · Kasir - Keranjang · hapus Teh @ 0,0 390x844 fill #F4EFE0 radius 28
+  - [TEXT] Status bar jam @ 28,13 36x16 fill #14372D "09.41" font Inter w600 13px lh 16
+  - [FRAME] Status bar ikon @ 300,15 62x12  => ASET assets/icons/status-bar-ikon-62x12-14372D.svg
+  - [ELLIPSE] Tombol kembali @ 24,48 40x40 fill #FFFFFF stroke #CFC7AA 1
+  - [FRAME] Ikon ChevL @ 35,59 18x18  => ASET assets/icons/ikon-chevl-18x18-14372D.svg
+  - [TEXT] Judul @ 76,56 51x24 fill #14372D "Kasir" font Inter w700 20px lh 24
+  - [RECTANGLE] Kartu pindai @ 24,100 342x92 fill #14372D radius 22
+  - [RECTANGLE] Tile pindai @ 40,120 52x52 fill #F8B62B radius 16
+  - [FRAME] Ikon Scan @ 52,132 28x28  => ASET assets/icons/ikon-scan-28x28-14372D.svg
+  - [TEXT] Pindai barang @ 104,128 108x19 fill #FFFFFF "Pindai barang" font Inter w700 16px lh 19
+  - [TEXT] Arahkan kamera ke kode b @ 104,152 183x15 fill #B9CFC4 "Arahkan kamera ke kode batang" font Inter w400 12px lh 15
+  - [ELLIPSE] Lingkaran @ 314,128 36x36 fill #FFFFFF@0.16
+  - [FRAME] Ikon ChevR @ 323,137 18x18  => ASET assets/icons/ikon-chevr-18x18-F4EFE0.svg
+  - [TEXT] Keranjang @ 24,268 90x22 fill #14372D "Keranjang" font Inter w700 18px lh 22
+  - [TEXT] 2 jenis · 3 barang @ 267,274 99x15 fill #6E7468 "2 jenis · 3 barang" font Inter w500 12px lh 15
+  - [RECTANGLE] Kartu barang @ 24,300 342x84 fill #FFFFFF stroke #E4DCC3 1 radius 18 shadow 0,4 blur 14 #14382E@0.10
+  - [RECTANGLE] Bentuk @ 38,318 48x48 fill #EFE8D2 radius 12
+  - [FRAME] Ikon Stok @ 50,330 24x24  => ASET assets/icons/ikon-stok-24x24-23794F.svg
+  - [TEXT] Indomie Goreng Spesial @ 100,312 163x17 fill #14372D "Indomie Goreng Spesial" font Inter w700 14px lh 17
+  - [TEXT] Rp 3.500 / pcs @ 100,332 83x15 fill #6E7468 "Rp 3.500 / pcs" font Inter w400 12px lh 15
+  - [ELLIPSE] Lingkaran @ 100,350 28x28 fill #FFFFFF stroke #23794F 1.5
+  - [FRAME] Ikon Minus @ 107,357 14x14  => ASET assets/icons/ikon-minus-14x14-23794F.svg
+  - [TEXT] 2 @ 139,356 9x17 fill #14372D "2" font Inter w700 14px lh 17
+  - [ELLIPSE] Lingkaran @ 158,350 28x28 fill #FFFFFF stroke #23794F 1.5
+  - [FRAME] Ikon Plus @ 165,357 14x14  => ASET assets/icons/ikon-plus-14x14-23794F.svg
+  - [TEXT] Rp 7.000 @ 285,314 65x18 fill #14372D "Rp 7.000" font Inter w700 15px lh 18
+  - [FRAME] Ikon Trash @ 332,355 18x18  => ASET assets/icons/ikon-trash-18x18-6E7468.svg
+  - [RECTANGLE] Kartu barang @ 24,392 342x84 fill #FFFFFF stroke #E4DCC3 1 radius 18 shadow 0,4 blur 14 #14382E@0.10
+  - [RECTANGLE] Bentuk @ 38,410 48x48 fill #EFE8D2 radius 12
+  - [FRAME] Ikon Stok @ 50,422 24x24  => ASET assets/icons/ikon-stok-24x24-23794F.svg
+  - [TEXT] Minyak Goreng 1 L @ 100,404 125x17 fill #14372D "Minyak Goreng 1 L" font Inter w700 14px lh 17
+  - [TEXT] Rp 16.000 / pcs @ 100,424 88x15 fill #6E7468 "Rp 16.000 / pcs" font Inter w400 12px lh 15
+  - [ELLIPSE] Lingkaran @ 100,442 28x28 fill #FFFFFF stroke #23794F 1.5
+  - [FRAME] Ikon Minus @ 107,449 14x14  => ASET assets/icons/ikon-minus-14x14-23794F.svg
+  - [TEXT] 1 @ 140,448 7x17 fill #14372D "1" font Inter w700 14px lh 17
+  - [ELLIPSE] Lingkaran @ 158,442 28x28 fill #FFFFFF stroke #23794F 1.5
+  - [FRAME] Ikon Plus @ 165,449 14x14  => ASET assets/icons/ikon-plus-14x14-23794F.svg
+  - [TEXT] Rp 16.000 @ 275,406 75x18 fill #14372D "Rp 16.000" font Inter w700 15px lh 18
+  - [FRAME] Ikon Trash @ 332,447 18x18  => ASET assets/icons/ikon-trash-18x18-6E7468.svg
+  - [RECTANGLE] Panel total @ 0,688 390x170 fill #FFFFFF radius 28/28/0/0 shadow 0,4 blur 14 #14382E@0.10
+  - [TEXT] Total · 3 barang @ 24,706 97x16 fill #6E7468 "Total · 3 barang" font Inter w500 13px lh 16
+  - [TEXT] Rp 23.000 @ 24,724 136x31 fill #14372D "Rp 23.000" font Inter w800 26px lh 31
+  - [RECTANGLE] Tombol bayar @ 24,772 342x52 fill #23794F radius 26
+  - [TEXT] Bayar sekarang @ 134,789 122x19 fill #FFFFFF "Bayar sekarang" font Inter w700 16px lh 19
+  - [RECTANGLE] Tautan · Bayar sekarang @ 24,772 342x52 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Kembali @ 20,44 48x48 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Pindai barang @ 24,100 342x92 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Hapus Indomie @ 321,344 40x40 fill #FFFFFF@0.01
+  - [RECTANGLE] Tautan · Hapus Minyak @ 321,436 40x40 fill #FFFFFF@0.01
+  - [RECTANGLE] Tombol Input manual @ 201,202 165x50 fill #FFFFFF stroke #23794F 1.5 radius 20
+  - [FRAME] Ikon Pensil @ 213,218 18x18  => ASET assets/icons/ikon-pensil-18x18-23794F.svg
+  - [TEXT] Judul Input manual @ 237,219 83x16 fill #14372D "Ketik manual" font Inter w700 13px lh 16
+  - [RECTANGLE] Tautan · Input manual @ 201,202 165x50 fill #FFFFFF@0.01 radius 20
+  - [RECTANGLE] Tombol Daftar barang @ 24,202 165x50 fill #FFFFFF stroke #23794F 1.5 radius 20
+  - [FRAME] Ikon Daftar @ 36,218 18x18  => ASET assets/icons/ikon-daftar-18x18-23794F.svg
+  - [TEXT] Judul Daftar barang @ 60,219 88x16 fill #14372D "Daftar barang" font Inter w700 13px lh 16
+  - [RECTANGLE] Tautan · Daftar barang @ 24,202 165x50 fill #FFFFFF@0.01 radius 20

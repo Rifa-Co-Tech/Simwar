@@ -1,0 +1,75 @@
+# Stok - Stok menipis · Menipis
+
+- Figma node: `2223:270` (file `PYGhjINDLB7fWCguQ0TevK`)
+- Section: penjaga
+- Grup: KASIR · KERANJANG (varian hapus barang & kosong)  ·  7 layar
+- Ukuran: 390x844
+- Screenshot: `screens/penjaga/2223-270__stok-stok-menipis-menipis.png`
+
+Koordinat relatif ke pojok kiri-atas layar. Teks ditulis persis seperti di desain.
+
+- [FRAME] Stok - Stok menipis · Menipis @ 0,0 390x844 fill #F4EFE0 radius 28
+  - [RECTANGLE] Tautan · Detail barang @ 24,490 342x76 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Detail barang @ 24,404 342x76 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Detail barang @ 24,318 342x76 fill #FFFFFF@0.01 radius 18
+  - [TEXT] Stok menipis @ 24,52 178x34 fill #14372D "Stok menipis" font Inter w700 28px lh 34
+  - [TEXT] Di bawah batas minimum · per 1 Nov 2026 @ 24,90 249x15 fill #6E7468 "Di bawah batas minimum · per 1 Nov 2026" font Inter w400 12.5px lh 15
+  - [RECTANGLE] Rectangle @ 24,118 342x40 fill #FFFFFF stroke #E4DCC3 1 radius 20
+  - [RECTANGLE] Rectangle @ 196,121 166x34 fill #23794F radius 17
+  - [TEXT] Kedaluwarsa @ 70,129 83x16 fill #1F2D26 "Kedaluwarsa" font Inter w700 13px lh 16
+  - [TEXT] Stok menipis @ 238,129 83x16 fill #FFFFFF "Stok menipis" font Inter w700 13px lh 16
+  - [RECTANGLE] Rectangle @ 24,170 64x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] Semua @ 36,179 40x15 fill #14372D "Semua" font Inter w600 12px lh 15
+  - [RECTANGLE] Rectangle @ 96,170 71x34 fill #FFFFFF stroke #CFC7AA 1 radius 17
+  - [TEXT] Kritis @ 116,179 31x15 fill #14372D "Kritis" font Inter w600 12px lh 15
+  - [RECTANGLE] Rectangle @ 175,170 78x34 fill #23794F radius 17
+  - [TEXT] Menipis @ 191,179 46x15 fill #FFFFFF "Menipis" font Inter w600 12px lh 15
+  - [RECTANGLE] Rectangle @ 24,220 342x84 fill #14372D radius 22
+  - [TEXT] 5 @ 44,232 29x53 fill #F8B62B "5" font Inter w800 44px lh 53
+  - [TEXT] Barang di bawah batas @ 92,238 156x17 fill #FFFFFF "Barang di bawah batas" font Inter w700 14px lh 17
+  - [RECTANGLE] Rectangle @ 24,318 342x76 fill #FFFFFF stroke #E4DCC3 1 radius 18 shadow 0,2 blur 8 #14382E@0.08
+  - [RECTANGLE] Rectangle @ 38,329 48x54 fill #FDF0CF radius 12
+  - [TEXT] 5 sisa @ 45,343 34x22 fill #7A5200 "5 sisa" font Inter w700 22px lh 27
+  - [TEXT] Rokok Gudang Garam 12 @ 98,328 167x17 fill #1F2D26 "Rokok Gudang Garam 12" font Inter w700 14px lh 17
+  - [RECTANGLE] Rectangle @ 287,326 65x22 fill #F8B62B radius 11
+  - [TEXT] Menipis @ 300,331 40x13 fill #14372D "Menipis" font Inter w600 10.5px lh 13
+  - [TEXT] Batas min. 12 · terakhir masuk 26 Okt @ 98,348 176x12 fill #6E7468 "Batas min. 12 · terakhir masuk 26 Okt" font Inter w400 10px lh 12
+  - [RECTANGLE] Rectangle @ 98,372 252x8 fill #E4DCC3 radius 4
+  - [RECTANGLE] Rectangle @ 98,372 106x8 fill #F8B62B radius 4
+  - [RECTANGLE] Rectangle @ 24,404 342x76 fill #FFFFFF stroke #E4DCC3 1 radius 18 shadow 0,2 blur 8 #14382E@0.08
+  - [RECTANGLE] Rectangle @ 38,415 48x54 fill #FDF0CF radius 12
+  - [TEXT] 5 sisa @ 45,429 34x22 fill #7A5200 "5 sisa" font Inter w700 22px lh 27
+  - [TEXT] Teh Botol Sosro @ 98,414 108x17 fill #1F2D26 "Teh Botol Sosro" font Inter w700 14px lh 17
+  - [RECTANGLE] Rectangle @ 287,412 65x22 fill #F8B62B radius 11
+  - [TEXT] Menipis @ 300,417 40x13 fill #14372D "Menipis" font Inter w600 10.5px lh 13
+  - [TEXT] Batas min. 12 · terakhir masuk 28 Okt @ 98,434 176x12 fill #6E7468 "Batas min. 12 · terakhir masuk 28 Okt" font Inter w400 10px lh 12
+  - [RECTANGLE] Rectangle @ 98,458 252x8 fill #E4DCC3 radius 4
+  - [RECTANGLE] Rectangle @ 98,458 126x8 fill #F8B62B radius 4
+  - [RECTANGLE] Rectangle @ 24,490 342x76 fill #FFFFFF stroke #E4DCC3 1 radius 18 shadow 0,2 blur 8 #14382E@0.08
+  - [RECTANGLE] Rectangle @ 38,501 48x54 fill #FDF0CF radius 12
+  - [TEXT] 6 sisa @ 45,515 34x22 fill #7A5200 "6 sisa" font Inter w700 22px lh 27
+  - [TEXT] Kopi Kapal Api @ 98,500 99x17 fill #1F2D26 "Kopi Kapal Api" font Inter w700 14px lh 17
+  - [RECTANGLE] Rectangle @ 287,498 65x22 fill #F8B62B radius 11
+  - [TEXT] Menipis @ 300,503 40x13 fill #14372D "Menipis" font Inter w600 10.5px lh 13
+  - [TEXT] Batas min. 12 · terakhir masuk 21 Okt @ 98,520 174x12 fill #6E7468 "Batas min. 12 · terakhir masuk 21 Okt" font Inter w400 10px lh 12
+  - [RECTANGLE] Rectangle @ 98,544 252x8 fill #E4DCC3 radius 4
+  - [RECTANGLE] Rectangle @ 98,544 126x8 fill #F8B62B radius 4
+  - [TEXT] Status bar jam @ 28,13 36x16 fill #14372D "09.41" font Inter w600 13px lh 16
+  - [FRAME] Status bar ikon @ 300,15 62x12  => ASET assets/icons/status-bar-ikon-62x12-14372D.svg
+  - [FRAME] Navigasi @ 0,764 390x64
+    - [RECTANGLE] Bar navigasi @ 16,764 358x64 fill #14372D radius 32
+    - [FRAME] Ikon home @ 50,772 22x22  => ASET assets/icons/ikon-home-22x22-F4EFE0.svg
+    - [TEXT] Beranda @ 39,799 44x13 fill #F4EFE0 "Beranda" font Inter w500 11px lh 13
+    - [FRAME] Ikon cart @ 139,772 22x22  => ASET assets/icons/ikon-cart-22x22-F4EFE0.svg
+    - [TEXT] Kasir @ 137,799 27x13 fill #F4EFE0 "Kasir" font Inter w500 11px lh 13
+    - [FRAME] Ikon box @ 229,772 22x22  => ASET assets/icons/ikon-box-22x22-F8B62B.svg
+    - [TEXT] Stok @ 228,799 24x13 fill #F8B62B "Stok" font Inter w500 11px lh 13
+    - [FRAME] Ikon flag @ 318,772 22x22  => ASET assets/icons/ikon-flag-22x22-F4EFE0.svg
+    - [TEXT] Lapor @ 314,799 31x13 fill #F4EFE0 "Lapor" font Inter w500 11px lh 13
+  - [RECTANGLE] Tautan · Kedaluwarsa @ 24,118 342x40 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Beranda @ 25,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kasir @ 115,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Stok @ 204,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Lapor @ 294,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Filter Semua @ 24,170 64x34 fill #FFFFFF@0.01 radius 17
+  - [RECTANGLE] Tautan · Filter Kritis @ 96,170 71x34 fill #FFFFFF@0.01 radius 17

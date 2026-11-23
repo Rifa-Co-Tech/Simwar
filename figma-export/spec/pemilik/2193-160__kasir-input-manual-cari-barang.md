@@ -1,0 +1,71 @@
+# Kasir - Input manual · Cari barang
+
+- Figma node: `2193:160` (file `PYGhjINDLB7fWCguQ0TevK`)
+- Section: pemilik
+- Grup: PROFIL & TIM WARUNG  ·  9 layar
+- Ukuran: 390x844
+- Screenshot: `screens/pemilik/2193-160__kasir-input-manual-cari-barang.png`
+
+Koordinat relatif ke pojok kiri-atas layar. Teks ditulis persis seperti di desain.
+
+- [FRAME] Kasir - Input manual · Cari barang @ 0,0 390x844 fill #F4EFE0 radius 28
+  - [TEXT] Status bar jam @ 28,13 36x16 fill #14372D "09.41" font Inter w600 13px lh 16
+  - [FRAME] Status bar ikon @ 300,15 62x12  => ASET assets/icons/status-bar-ikon-62x12-14372D.svg
+  - [FRAME] Navigasi @ 0,764 390x64
+    - [RECTANGLE] Bar navigasi @ 16,764 358x64 fill #14372D radius 32
+    - [FRAME] Ikon home @ 41,772 22x22  => ASET assets/icons/ikon-home-22x22-F4EFE0.svg
+    - [TEXT] Beranda @ 30,799 44x13 fill #F4EFE0 "Beranda" font Inter w500 11px lh 13
+    - [FRAME] Ikon cart @ 112,772 22x22  => ASET assets/icons/ikon-cart-22x22-F8B62B.svg
+    - [TEXT] Kasir @ 110,799 27x13 fill #F8B62B "Kasir" font Inter w500 11px lh 13
+    - [FRAME] Ikon box @ 184,772 22x22  => ASET assets/icons/ikon-box-22x22-F4EFE0.svg
+    - [TEXT] Stok @ 183,799 24x13 fill #F4EFE0 "Stok" font Inter w500 11px lh 13
+    - [FRAME] Ikon chart @ 256,772 22x22  => ASET assets/icons/ikon-chart-22x22-F4EFE0.svg
+    - [TEXT] Laporan @ 245,799 43x13 fill #F4EFE0 "Laporan" font Inter w500 11px lh 13
+    - [FRAME] Ikon inbox @ 327,772 22x22  => ASET assets/icons/ikon-inbox-22x22-F4EFE0.svg
+    - [TEXT] Kotak masuk @ 304,799 68x13 fill #F4EFE0 "Kotak masuk" font Inter w500 11px lh 13
+  - [RECTANGLE] Tautan · Nav Beranda @ 16,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kasir @ 88,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Stok @ 159,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Laporan @ 231,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Nav Kotak masuk @ 302,764 72x64 fill #FFFFFF@0.01 radius 18
+  - [ELLIPSE] Tombol kembali @ 24,46 40x40 fill #FFFFFF stroke #CFC7AA 1
+  - [FRAME] Ikon ChevL @ 35,57 18x18  => ASET assets/icons/ikon-chevl-18x18-14372D.svg
+  - [TEXT] Judul @ 76,48 128x24 fill #14372D "Input manual" font Inter w700 20px lh 24
+  - [TEXT] Subjudul @ 76,74 184x15 fill #6E7468 "Nama diambil dari Daftar barang" font Inter w400 12px lh 15
+  - [RECTANGLE] Tautan · Kembali @ 20,42 48x48 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Kolom cari @ 24,104 342x48 fill #FFFFFF stroke #CFC7AA 1 radius 16
+  - [FRAME] Ikon Cari @ 40,119 18x18  => ASET assets/icons/ikon-cari-18x18-6E7468.svg
+  - [TEXT] Teks cari @ 68,119 55x17 fill #14372D "Kerupuk" font Inter w400 14px lh 17
+  - [RECTANGLE] Kartu barang @ 24,196 342x70 fill #FFFFFF stroke #E4DCC3 1 radius 18
+  - [RECTANGLE] Tile barang @ 36,209 44x44 fill #EFE8D2 radius 12
+  - [FRAME] Ikon Stok @ 47,220 22x22  => ASET assets/icons/ikon-stok-22x22-23794F.svg
+  - [TEXT] Nama barang @ 94,211 160x17 fill #14372D "Kerupuk Udang (curah)" font Inter w700 14px lh 17
+  - [TEXT] Harga dan stok @ 94,233 106x15 fill #6E7468 "Rp 2.500 · Stok 40" font Inter w400 12px lh 15
+  - [ELLIPSE] Tombol tambah @ 318,213 36x36 fill #23794F
+  - [FRAME] Ikon Plus @ 327,222 18x18  => ASET assets/icons/ikon-plus-18x18-FFFFFF.svg
+  - [RECTANGLE] Kartu barang @ 24,274 342x70 fill #FFFFFF stroke #E4DCC3 1 radius 18
+  - [RECTANGLE] Tile barang @ 36,287 44x44 fill #EFE8D2 radius 12
+  - [FRAME] Ikon Stok @ 47,298 22x22  => ASET assets/icons/ikon-stok-22x22-23794F.svg
+  - [TEXT] Nama barang @ 94,289 97x17 fill #14372D "Kerupuk Putih" font Inter w700 14px lh 17
+  - [TEXT] Harga dan stok @ 94,311 109x15 fill #6E7468 "Rp 1.000 · Stok 120" font Inter w400 12px lh 15
+  - [ELLIPSE] Tombol tambah @ 318,291 36x36 fill #23794F
+  - [FRAME] Ikon Plus @ 327,300 18x18  => ASET assets/icons/ikon-plus-18x18-FFFFFF.svg
+  - [RECTANGLE] Kartu barang @ 24,352 342x70 fill #FFFFFF stroke #E4DCC3 1 radius 18
+  - [RECTANGLE] Tile barang @ 36,365 44x44 fill #EFE8D2 radius 12
+  - [FRAME] Ikon Stok @ 47,376 22x22  => ASET assets/icons/ikon-stok-22x22-23794F.svg
+  - [TEXT] Nama barang @ 94,367 92x17 fill #14372D "Kerupuk Kulit" font Inter w700 14px lh 17
+  - [TEXT] Harga dan stok @ 94,389 104x15 fill #6E7468 "Rp 3.000 · Stok 15" font Inter w400 12px lh 15
+  - [ELLIPSE] Tombol tambah @ 318,369 36x36 fill #23794F
+  - [FRAME] Ikon Plus @ 327,378 18x18  => ASET assets/icons/ikon-plus-18x18-FFFFFF.svg
+  - [RECTANGLE] Bilah keranjang @ 24,694 342x52 fill #14372D radius 26
+  - [TEXT] Teks keranjang @ 44,712 162x16 fill #FFFFFF "Lihat keranjang · 4 barang" font Inter w500 13px lh 16
+  - [TEXT] Total keranjang @ 267,711 79x18 fill #F8B62B "Rp 28.000" font Inter w800 15px lh 18
+  - [TEXT] Harga dan stok @ 24,170 107x15 fill #6E7468 "Hasil pencarian (3)" font Inter w400 12px lh 15
+  - [RECTANGLE] Kartu belum terdaftar @ 24,446 342x84 fill #FFFFFF stroke #E4DCC3 1 radius 18
+  - [TEXT] Nama barang @ 40,462 184x17 fill #14372D "Barang tidak ada di daftar?" font Inter w700 14px lh 17
+  - [TEXT] Ketik sendiri @ 40,490 97x17 fill #23794F "+ Ketik sendiri" font Inter w600 14px lh 17
+  - [RECTANGLE] Tautan · Pilih barang 1 @ 24,196 342x70 fill #FFFFFF@0.01
+  - [RECTANGLE] Tautan · Pilih barang 2 @ 24,274 342x70 fill #FFFFFF@0.01
+  - [RECTANGLE] Tautan · Pilih barang 3 @ 24,352 342x70 fill #FFFFFF@0.01
+  - [RECTANGLE] Tautan · Ketik sendiri @ 24,446 342x84 fill #FFFFFF@0.01
+  - [RECTANGLE] Tautan · Lihat keranjang @ 24,694 342x52 fill #FFFFFF@0.01

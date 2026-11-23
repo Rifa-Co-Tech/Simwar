@@ -1,0 +1,80 @@
+# Kasir - Barang terbaca
+
+- Figma node: `2110:609` (file `PYGhjINDLB7fWCguQ0TevK`)
+- Section: penjaga
+- Grup: -
+- Ukuran: 390x844
+- Screenshot: `screens/penjaga/2110-609__kasir-barang-terbaca.png`
+
+Koordinat relatif ke pojok kiri-atas layar. Teks ditulis persis seperti di desain.
+
+- [FRAME] Kasir - Barang terbaca @ 0,0 390x844 fill #0D241C radius 28
+  - [TEXT] Status bar jam @ 28,13 36x16 fill #FFFFFF "09.41" font Inter w600 13px lh 16
+  - [FRAME] Status bar ikon @ 300,15 62x12  => ASET assets/icons/status-bar-ikon-62x12-FFFFFF.svg
+  - [ELLIPSE] Tombol kembali @ 24,48 40x40 fill #FFFFFF stroke #CFC7AA 1
+  - [FRAME] Ikon ChevL @ 35,59 18x18  => ASET assets/icons/ikon-chevl-18x18-14372D.svg
+  - [TEXT] Judul @ 76,56 135x24 fill #FFFFFF "Pindai barang" font Inter w700 20px lh 24
+  - [RECTANGLE] Pratinjau kamera @ 0,110 390x470 fill #17392E
+  - [RECTANGLE] Kemasan @ 120,225 150x190 fill #F8F3E6 radius 12
+  - [RECTANGLE] Label atas @ 120,225 150x46 fill #C8402D radius 12/12/0/0
+  - [TEXT] Merek @ 120,238 150x16 fill #FFFFFF "Kopi Kapal Api" font Inter w700 13px lh 16 align center
+  - [RECTANGLE] Label kode @ 138,320 114x76 fill #FFFFFF radius 6
+  - [RECTANGLE] Garis kode @ 146,328 3x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 150,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 154,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 158,328 3x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 162,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 166,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 169,328 3x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 173,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 177,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 181,328 3x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 185,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 189,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 193,328 3x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 197,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 201,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 205,328 3x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 208,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 212,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 216,328 3x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 220,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 224,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 228,328 3x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 232,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 236,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 240,328 3x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 244,328 1x46 fill #14372D
+  - [RECTANGLE] Garis kode @ 247,328 1x46 fill #14372D
+  - [TEXT] Angka kode @ 138,378 114x10 fill #14372D "8 991234 500073" font Inter w500 8px lh 10 align center
+  - [RECTANGLE] Sudut bingkai @ 60,200 34x5 fill #5FD08A radius 2.5
+  - [RECTANGLE] Sudut bingkai @ 60,200 5x34 fill #5FD08A radius 2.5
+  - [RECTANGLE] Sudut bingkai @ 296,200 34x5 fill #5FD08A radius 2.5
+  - [RECTANGLE] Sudut bingkai @ 325,200 5x34 fill #5FD08A radius 2.5
+  - [RECTANGLE] Sudut bingkai @ 60,465 34x5 fill #5FD08A radius 2.5
+  - [RECTANGLE] Sudut bingkai @ 60,436 5x34 fill #5FD08A radius 2.5
+  - [RECTANGLE] Sudut bingkai @ 296,465 34x5 fill #5FD08A radius 2.5
+  - [RECTANGLE] Sudut bingkai @ 325,436 5x34 fill #5FD08A radius 2.5
+  - [RECTANGLE] Lencana terbaca @ 135,440 120x34 fill #5FD08A radius 17
+  - [TEXT] Terbaca @ 135,449 120x16 fill #14372D "Terbaca" font Inter w700 13px lh 16 align center
+  - [RECTANGLE] Panel hasil @ 0,560 390x284 fill #FFFFFF radius 28/28/0/0 shadow 0,4 blur 14 #14382E@0.10
+  - [RECTANGLE] Gagang @ 165,572 60x5 fill #E4DCC3 radius 3
+  - [RECTANGLE] Bentuk @ 24,592 56x56 fill #EFE8D2 radius 14
+  - [FRAME] Ikon Stok @ 40,608 24x24  => ASET assets/icons/ikon-stok-24x24-23794F.svg
+  - [TEXT] Kopi Kapal Api @ 96,594 120x21 fill #14372D "Kopi Kapal Api" font Inter w700 17px lh 21
+  - [TEXT] Rp 10.500 / pcs @ 96,618 96x16 fill #6E7468 "Rp 10.500 / pcs" font Inter w400 13px lh 16
+  - [TEXT] Kode 8991234500073 @ 96,638 127x15 fill #6E7468 "Kode 8991234500073" font Inter w400 12px lh 15
+  - [RECTANGLE] Lencana @ 282,594 84x26 fill #E3ECE4 radius 13
+  - [TEXT] Lencana teks @ 282,600 84x13 fill #23794F "Stok 6 pcs" font Inter w700 11px lh 13 align center
+  - [TEXT] Jumlah @ 24,674 45x16 fill #6E7468 "Jumlah" font Inter w500 13px lh 16
+  - [ELLIPSE] Lingkaran @ 270,668 28x28 fill #FFFFFF stroke #23794F 1.5
+  - [FRAME] Ikon Minus @ 277,675 14x14  => ASET assets/icons/ikon-minus-14x14-23794F.svg
+  - [TEXT] Jumlah @ 298,673 40x18 fill #14372D "1" font Inter w700 15px lh 18 align center
+  - [ELLIPSE] Lingkaran @ 338,668 28x28 fill #FFFFFF stroke #23794F 1.5
+  - [FRAME] Ikon Plus @ 345,675 14x14  => ASET assets/icons/ikon-plus-14x14-23794F.svg
+  - [RECTANGLE] Tombol utama @ 24,716 342x52 fill #23794F radius 26
+  - [TEXT] Tambah ke keranjang @ 24,732 342x19 fill #FFFFFF "Tambah ke keranjang" font Inter w700 16px lh 19 align center
+  - [TEXT] Pindai lagi @ 24,784 342x17 fill #23794F "Pindai barang lain" font Inter w700 14px lh 17 align center
+  - [RECTANGLE] Tautan · Kembali @ 20,44 48x48 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Tambah ke keranjang @ 24,716 342x52 fill #FFFFFF@0.01 radius 18
+  - [RECTANGLE] Tautan · Pindai barang lain @ 24,780 342x28 fill #FFFFFF@0.01 radius 18
