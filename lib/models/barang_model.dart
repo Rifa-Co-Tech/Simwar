@@ -200,6 +200,46 @@ class BarangStore {
       batasMin: 10,
       tglKedaluwarsa: DateTime.now().subtract(const Duration(days: 2)), // Lewat 2 hari!
     ),
+    // Titipan Warga
+    BarangModel(
+      id: 'titip-1',
+      nama: 'Pastel Sayur (Bu Siti)',
+      barcode: '899120000001',
+      kategori: 'Makanan',
+      hargaBeli: 2000,
+      hargaJual: 2500,
+      stok: 20,
+      batasMin: 5,
+      isTitipan: true,
+      namaPemasok: 'Bu Siti',
+      tglKedaluwarsa: DateTime.now().add(const Duration(days: 1)),
+    ),
+    BarangModel(
+      id: 'titip-2',
+      nama: 'Donat Kentang (Mbak Dewi)',
+      barcode: '899120000002',
+      kategori: 'Makanan',
+      hargaBeli: 2500,
+      hargaJual: 3000,
+      stok: 15,
+      batasMin: 5,
+      isTitipan: true,
+      namaPemasok: 'Mbak Dewi',
+      tglKedaluwarsa: DateTime.now().add(const Duration(days: 1)),
+    ),
+    BarangModel(
+      id: 'titip-3',
+      nama: 'Peyek Kacang (Bu Tejo)',
+      barcode: '899120000003',
+      kategori: 'Makanan',
+      hargaBeli: 4000,
+      hargaJual: 5000,
+      stok: 25,
+      batasMin: 5,
+      isTitipan: true,
+      namaPemasok: 'Bu Tejo',
+      tglKedaluwarsa: DateTime.now().add(const Duration(days: 14)),
+    ),
   ];
 
   List<BarangModel> get semua => _list;
@@ -293,18 +333,54 @@ class BarangStore {
     }
   }
 
+  void kurangiStok(String id, String nama, int jumlah) {
+    final idx = _list.indexWhere((b) =>
+        (id.isNotEmpty && b.id == id) ||
+        b.nama.trim().toLowerCase() == nama.trim().toLowerCase());
+    if (idx != -1) {
+      final b = _list[idx];
+      b.stok = (b.stok - jumlah) >= 0 ? (b.stok - jumlah) : 0;
+    }
+  }
+
+  Future<void> kurangiStokAsync(String id, String nama, int jumlah) async {
+    final idx = _list.indexWhere((b) =>
+        (id.isNotEmpty && b.id == id) ||
+        b.nama.trim().toLowerCase() == nama.trim().toLowerCase());
+    if (idx != -1) {
+      final b = _list[idx];
+      final newStok = (b.stok - jumlah) >= 0 ? (b.stok - jumlah) : 0;
+      b.stok = newStok;
+
+      try {
+        final client = Supabase.instance.client;
+        final numId = int.tryParse(b.id);
+        if (numId != null) {
+          await client.from('barang').update({'stok': newStok}).eq('id_barang', numId);
+        } else {
+          await client.from('barang').update({'stok': newStok}).eq('nama_barang', b.nama);
+        }
+      } catch (e) {
+        debugPrint('Gagal kurangi stok di Supabase: $e');
+      }
+    }
+  }
+
   Future<void> sinkronkanDariSupabase() async {
     try {
       final client = Supabase.instance.client;
       final res = await client.from('barang').select();
       if (res.isNotEmpty) {
-        final List<BarangModel> fetched = [];
         for (var row in res) {
-          fetched.add(BarangModel.fromMap(row));
-        }
-        if (fetched.isNotEmpty) {
-          _list.clear();
-          _list.addAll(fetched);
+          final item = BarangModel.fromMap(row);
+          final idx = _list.indexWhere((b) =>
+              (item.id.isNotEmpty && b.id == item.id) ||
+              b.nama.trim().toLowerCase() == item.nama.trim().toLowerCase());
+          if (idx != -1) {
+            _list[idx] = item;
+          } else {
+            _list.insert(0, item);
+          }
         }
       }
     } catch (e) {

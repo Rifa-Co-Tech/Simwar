@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../models/barang_model.dart';
 import '../models/item_keranjang.dart';
 import '../models/pengguna_model.dart';
 import '../utils/formatters.dart';
@@ -53,21 +54,15 @@ class _KasirScreenState extends State<KasirScreen> {
     ),
   ];
 
-  // Daftar Barang Warung untuk Pencarian / Input Manual
-  final List<ItemKeranjang> _katalogBarang = [
-    ItemKeranjang(id: '1', nama: 'Indomie Goreng Spesial', harga: 3500),
-    ItemKeranjang(id: '2', nama: 'Teh Botol Sosro', harga: 5000),
-    ItemKeranjang(id: '3', nama: 'Minyak Goreng 1 L', harga: 16000),
-    ItemKeranjang(id: '4', nama: 'Gula Pasir 1 kg', harga: 17500),
-    ItemKeranjang(id: '5', nama: 'Beras Ramos 5 kg', harga: 68000),
-    ItemKeranjang(id: '6', nama: 'Telur Ayam 1 kg', harga: 28000),
-    ItemKeranjang(id: '7', nama: 'Kopi Kapal Api 65g', harga: 6500),
-    ItemKeranjang(id: '8', nama: 'Sabun Mandi Lifebuoy', harga: 4000),
-    // Titipan Warga
-    ItemKeranjang(id: 'titip-1', nama: 'Pastel Sayur (Bu Siti)', harga: 2500),
-    ItemKeranjang(id: 'titip-2', nama: 'Donat Kentang (Mbak Dewi)', harga: 3000),
-    ItemKeranjang(id: 'titip-3', nama: 'Peyek Kacang (Bu Tejo)', harga: 5000),
-  ];
+  // Katalog Barang Warung dinamis dari BarangStore (termasuk barang baru & titipan)
+  List<ItemKeranjang> get _katalogBarang {
+    return BarangStore.instance.semua.map((b) => ItemKeranjang(
+      id: b.id,
+      nama: b.nama,
+      harga: b.hargaJual,
+      satuan: b.satuan,
+    )).toList();
+  }
 
   int get _totalTagihan =>
       _keranjang.fold(0, (sum, item) => sum + item.subtotal);
@@ -135,12 +130,15 @@ class _KasirScreenState extends State<KasirScreen> {
         String query = '';
         return StatefulBuilder(
           builder: (context, setModalState) {
-            final filtered = _katalogBarang.where((item) {
-              return item.nama.toLowerCase().contains(query.toLowerCase());
+            final filteredBarang = BarangStore.instance.semua.where((b) {
+              final q = query.toLowerCase();
+              return b.nama.toLowerCase().contains(q) ||
+                  b.kategori.toLowerCase().contains(q) ||
+                  b.barcode.contains(q);
             }).toList();
 
             return Container(
-              height: MediaQuery.of(context).size.height * 0.75,
+              height: MediaQuery.of(context).size.height * 0.8,
               padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
               child: Column(
                 children: [
@@ -153,18 +151,31 @@ class _KasirScreenState extends State<KasirScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  Text(
-                    'Pilih Barang dari Katalog',
-                    style: GoogleFonts.inter(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                      color: _hijauTua,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Pilih Barang dari Katalog',
+                        style: GoogleFonts.inter(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          color: _hijauTua,
+                        ),
+                      ),
+                      Text(
+                        '${filteredBarang.length} barang',
+                        style: GoogleFonts.inter(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                          color: _abuTeks,
+                        ),
+                      ),
+                    ],
                   ),
                   const SizedBox(height: 14),
                   TextField(
                     decoration: InputDecoration(
-                      hintText: 'Cari nama barang...',
+                      hintText: 'Cari nama barang atau barcode...',
                       prefixIcon: const Icon(Icons.search, color: _hijauAksi),
                       filled: true,
                       fillColor: _bgLayar,
@@ -180,42 +191,98 @@ class _KasirScreenState extends State<KasirScreen> {
                   ),
                   const SizedBox(height: 14),
                   Expanded(
-                    child: ListView.separated(
-                      itemCount: filtered.length,
-                      separatorBuilder: (_, __) => const Divider(height: 1),
-                      itemBuilder: (_, idx) {
-                        final item = filtered[idx];
-                        return ListTile(
-                          contentPadding: EdgeInsets.zero,
-                          title: Text(
-                            item.nama,
-                            style: GoogleFonts.inter(
-                              fontWeight: FontWeight.w600,
-                              color: _hijauTua,
+                    child: filteredBarang.isEmpty
+                        ? Center(
+                            child: Text(
+                              'Barang "$query" tidak ditemukan.',
+                              style: GoogleFonts.inter(color: _abuTeks),
                             ),
-                          ),
-                          subtitle: Text(
-                            '${_formatRupiah(item.harga)} / ${item.satuan}',
-                            style: GoogleFonts.inter(color: _abuTeks),
-                          ),
-                          trailing: ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(ctx);
-                              _tambahBarangManual(item);
+                          )
+                        : ListView.separated(
+                            itemCount: filteredBarang.length,
+                            separatorBuilder: (_, __) => const Divider(height: 1),
+                            itemBuilder: (_, idx) {
+                              final item = filteredBarang[idx];
+                              final bool habis = item.stok <= 0;
+                              return ListTile(
+                                contentPadding: EdgeInsets.zero,
+                                title: Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        item.nama,
+                                        style: GoogleFonts.inter(
+                                          fontWeight: FontWeight.w600,
+                                          color: _hijauTua,
+                                        ),
+                                      ),
+                                    ),
+                                    if (item.isTitipan)
+                                      Container(
+                                        margin: const EdgeInsets.only(left: 6),
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 6, vertical: 2),
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xFFE3EFE8),
+                                          borderRadius: BorderRadius.circular(6),
+                                        ),
+                                        child: Text(
+                                          'Titipan',
+                                          style: GoogleFonts.inter(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w600,
+                                            color: _hijauAksi,
+                                          ),
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                                subtitle: Row(
+                                  children: [
+                                    Text(
+                                      '${_formatRupiah(item.hargaJual)} / ${item.satuan}',
+                                      style: GoogleFonts.inter(
+                                          color: _abuTeks, fontSize: 13),
+                                    ),
+                                    const SizedBox(width: 8),
+                                    Text(
+                                      '•  Stok: ${item.stok}',
+                                      style: GoogleFonts.inter(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w600,
+                                        color: habis
+                                            ? const Color(0xFFC8401E)
+                                            : (item.isStokMenipis
+                                                ? const Color(0xFFBE780A)
+                                                : _hijauAksi),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                trailing: ElevatedButton(
+                                  onPressed: () {
+                                    Navigator.pop(ctx);
+                                    _tambahBarangManual(ItemKeranjang(
+                                      id: item.id,
+                                      nama: item.nama,
+                                      harga: item.hargaJual,
+                                      satuan: item.satuan,
+                                      jumlah: 1,
+                                    ));
+                                  },
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: _hijauMuda,
+                                    foregroundColor: _hijauAksi,
+                                    elevation: 0,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(14),
+                                    ),
+                                  ),
+                                  child: const Text('+ Tambah'),
+                                ),
+                              );
                             },
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: _hijauMuda,
-                              foregroundColor: _hijauAksi,
-                              elevation: 0,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(14),
-                              ),
-                            ),
-                            child: const Text('+ Tambah'),
                           ),
-                        );
-                      },
-                    ),
                   ),
                 ],
               ),
@@ -228,8 +295,9 @@ class _KasirScreenState extends State<KasirScreen> {
 
   void _tambahBarangManual(ItemKeranjang item) {
     setState(() {
-      final existingIndex =
-          _keranjang.indexWhere((k) => k.nama == item.nama);
+      final existingIndex = _keranjang.indexWhere((k) =>
+          (k.id.isNotEmpty && k.id == item.id) ||
+          k.nama.trim().toLowerCase() == item.nama.trim().toLowerCase());
       if (existingIndex >= 0) {
         _keranjang[existingIndex].jumlah++;
       } else {

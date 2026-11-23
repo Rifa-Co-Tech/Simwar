@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../models/barang_model.dart';
 import '../models/item_keranjang.dart';
 import '../models/pengguna_model.dart';
 import '../models/transaksi_model.dart';
@@ -88,6 +89,11 @@ class _PembayaranScreenState extends State<PembayaranScreen> {
         ),
       );
       return;
+    }
+
+    // Otomatis kurangi stok setiap barang yang terjual di BarangStore & Supabase
+    for (var item in widget.items) {
+      BarangStore.instance.kurangiStokAsync(item.id, item.nama, item.jumlah);
     }
 
     // Simpan ke Riwayat Transaksi Warung
