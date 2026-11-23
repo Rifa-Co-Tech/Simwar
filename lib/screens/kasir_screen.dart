@@ -29,30 +29,8 @@ class _KasirScreenState extends State<KasirScreen> {
   static const Color _kuningAksen = Color(0xFFF8B62B);
   static const Color _teksMuted = Color(0xFFB9CFC4);
 
-  // Data Awal Keranjang Sesuai Mockup Desain Figma node 2029:2
-  final List<ItemKeranjang> _keranjang = [
-    ItemKeranjang(
-      id: '1',
-      nama: 'Indomie Goreng Spesial',
-      harga: 3500,
-      satuan: 'pcs',
-      jumlah: 2,
-    ),
-    ItemKeranjang(
-      id: '2',
-      nama: 'Teh Botol Sosro',
-      harga: 5000,
-      satuan: 'pcs',
-      jumlah: 1,
-    ),
-    ItemKeranjang(
-      id: '3',
-      nama: 'Minyak Goreng 1 L',
-      harga: 16000,
-      satuan: 'pcs',
-      jumlah: 1,
-    ),
-  ];
+  // Keranjang Belanja Kasir (Mulai Bersih untuk APK Baru)
+  final List<ItemKeranjang> _keranjang = [];
 
   // Katalog Barang Warung dinamis dari BarangStore (termasuk barang baru & titipan)
   List<ItemKeranjang> get _katalogBarang {

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../models/analisis_laba_model.dart';
 import '../models/barang_model.dart';
 import '../models/notifikasi_model.dart';
 import '../models/pengguna_model.dart';
+import '../utils/formatters.dart';
 import 'barang_masuk_screen.dart';
 import 'catat_barang_masuk_screen.dart';
 import 'kasir_screen.dart';
@@ -296,6 +298,11 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  int get _omsetHariIni => LaporanService.instance.getOmsetByPeriode('Hari Ini');
+  int get _labaHariIni => LaporanService.instance.getLabaByPeriode('Hari Ini');
+  int get _transaksiHariIniCount => LaporanService.instance.getTransaksiCountByPeriode('Hari Ini');
+  int get _barangTerjualHariIniCount => LaporanService.instance.getBarangTerjualCountByPeriode('Hari Ini');
+
   // ── 2. Kartu Penjualan / Laba (Figma 342x112 / 342x92) ───────────────────
   Widget _buildHeroCard() {
     return Container(
@@ -320,7 +327,9 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SizedBox(height: 4),
               Text(
-                _isPemilik ? 'Rp 1.800.000' : '24',
+                _isPemilik
+                    ? SimwarFormatter.rupiah(_omsetHariIni)
+                    : '$_transaksiHariIniCount',
                 style: GoogleFonts.inter(
                   fontSize: _isPemilik ? 30 : 36,
                   fontWeight: FontWeight.w800,
@@ -331,8 +340,10 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 6),
               Text(
                 _isPemilik
-                    ? 'Laba Rp 312.000  ·  86 barang terjual'
-                    : '24 transaksi tersimpan di sistem',
+                    ? (_omsetHariIni > 0
+                        ? 'Laba ${SimwarFormatter.rupiah(_labaHariIni)}  ·  $_barangTerjualHariIniCount barang terjual'
+                        : 'Belum ada transaksi hari ini')
+                    : '$_transaksiHariIniCount transaksi tersimpan di sistem',
                 style: GoogleFonts.inter(
                   fontSize: 12,
                   fontWeight: FontWeight.w500,
@@ -353,7 +364,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 borderRadius: BorderRadius.circular(13),
               ),
               child: Text(
-                _isPemilik ? '+8% dari kemarin' : 'Shift pagi · 07.00',
+                _isPemilik
+                    ? (_omsetHariIni > 0 ? 'Hari ini' : 'Siap jualan')
+                    : 'Shift aktif',
                 style: GoogleFonts.inter(
                   fontSize: 11,
                   fontWeight: FontWeight.w500,
@@ -539,12 +552,12 @@ class _HomeScreenState extends State<HomeScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  // Ubin 1: Stok Menipis (5)
+                  // Ubin 1: Stok Menipis
                   _buildPerhatianTile(
                     label: 'Stok menipis',
                     iconPath: 'assets/icons/ikon-alert-22x22-B7791F.svg',
                     tileBgColor: const Color(0xFFF5B82E).withValues(alpha: 0.30),
-                    badgeCount: '5',
+                    badgeCount: '${BarangStore.instance.stokMenipis.length}',
                     badgeColor: _kuningPeringatan,
                     onTap: () {
                       Navigator.push(
@@ -555,16 +568,16 @@ class _HomeScreenState extends State<HomeScreen> {
                             pengguna: widget.pengguna,
                           ),
                         ),
-                      );
+                      ).then((_) => setState(() {}));
                     },
                   ),
 
-                  // Ubin 2: Kedaluwarsa (3)
+                  // Ubin 2: Kedaluwarsa
                   _buildPerhatianTile(
                     label: 'Kedaluwarsa',
                     iconPath: 'assets/icons/ikon-cal-22x22-C8401E.svg',
                     tileBgColor: _merahAksen.withValues(alpha: 0.14),
-                    badgeCount: '3',
+                    badgeCount: '${BarangStore.instance.hampirKedaluwarsa.length}',
                     badgeColor: _merahAksen,
                     onTap: () {
                       Navigator.push(
@@ -575,7 +588,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             pengguna: widget.pengguna,
                           ),
                         ),
-                      );
+                      ).then((_) => setState(() {}));
                     },
                   ),
 

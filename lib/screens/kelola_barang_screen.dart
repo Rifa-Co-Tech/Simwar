@@ -209,11 +209,20 @@ class _KelolaBarangScreenState extends State<KelolaBarangScreen> {
                   // ── Daftar Kartu Barang ──────────────────────────────────
                   if (list.isEmpty)
                     Padding(
-                      padding: const EdgeInsets.all(40),
+                      padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
                       child: Center(
-                        child: Text(
-                          'Barang tidak ditemukan',
-                          style: GoogleFonts.inter(color: _abuTeks),
+                        child: Column(
+                          children: [
+                            const Icon(Icons.inventory_2_outlined, size: 48, color: _borderInput),
+                            const SizedBox(height: 12),
+                            Text(
+                              _searchCtrl.text.isNotEmpty
+                                  ? 'Barang "${_searchCtrl.text}" tidak ditemukan'
+                                  : 'Belum ada barang di katalog warung.\nKlik "+ Tambah barang" di atas untuk mulai.',
+                              style: GoogleFonts.inter(color: _abuTeks, fontSize: 13, height: 1.5),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
                         ),
                       ),
                     )

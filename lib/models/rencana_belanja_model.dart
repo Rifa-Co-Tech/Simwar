@@ -33,71 +33,9 @@ class ItemBelanja {
 class RencanaBelanjaStore {
   static final RencanaBelanjaStore instance = RencanaBelanjaStore._internal();
   factory RencanaBelanjaStore() => instance;
-  RencanaBelanjaStore._internal() {
-    _initDefaultItems();
-  }
+  RencanaBelanjaStore._internal();
 
   final List<ItemBelanja> _list = [];
-
-  void _initDefaultItems() {
-    _list.addAll([
-      ItemBelanja(
-        id: 'rb-1',
-        barangId: '2',
-        nama: 'Minyak Goreng SunCo 2L',
-        jumlah: 2,
-        satuan: 'karton (12 pouch)',
-        estimasiHarga: 408000,
-        tokoTujuan: 'Grosir Berkah',
-        isSudahDibeli: false,
-        alasan: 'Stok Kritis (Sisa 8)',
-      ),
-      ItemBelanja(
-        id: 'rb-2',
-        barangId: '3',
-        nama: 'Beras Ramos Super 5kg',
-        jumlah: 5,
-        satuan: 'karung',
-        estimasiHarga: 340000,
-        tokoTujuan: 'Pasar Induk',
-        isSudahDibeli: false,
-        alasan: 'Stok Kritis (Sisa 5)',
-      ),
-      ItemBelanja(
-        id: 'rb-3',
-        barangId: '5',
-        nama: 'Telur Ayam Ras 1kg',
-        jumlah: 15,
-        satuan: 'kg',
-        estimasiHarga: 375000,
-        tokoTujuan: 'Pasar Induk',
-        isSudahDibeli: false,
-        alasan: 'Stok Menipis (Sisa 12)',
-      ),
-      ItemBelanja(
-        id: 'rb-4',
-        barangId: '1',
-        nama: 'Indomie Goreng Spesial',
-        jumlah: 2,
-        satuan: 'dus (80 pcs)',
-        estimasiHarga: 224000,
-        tokoTujuan: 'Distributor Indomarco',
-        isSudahDibeli: true,
-        alasan: 'Laris Cepat',
-      ),
-      ItemBelanja(
-        id: 'rb-5',
-        barangId: null,
-        nama: 'Kantong Plastik Kresek Putih uk 24',
-        jumlah: 5,
-        satuan: 'pack',
-        estimasiHarga: 35000,
-        tokoTujuan: 'Grosir Berkah',
-        isSudahDibeli: true,
-        alasan: 'Operasional Warung',
-      ),
-    ]);
-  }
 
   List<ItemBelanja> get semua => List.unmodifiable(_list);
 

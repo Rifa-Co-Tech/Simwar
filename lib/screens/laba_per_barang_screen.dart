@@ -278,9 +278,22 @@ class _LabaPerBarangScreenState extends State<LabaPerBarangScreen> {
           Expanded(
             child: _sortedList.isEmpty
                 ? Center(
-                    child: Text(
-                      'Tidak ada barang ditemukan',
-                      style: GoogleFonts.inter(color: _abuTeks),
+                    child: Padding(
+                      padding: const EdgeInsets.all(24),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Icon(Icons.analytics_outlined, size: 48, color: _borderInput),
+                          const SizedBox(height: 12),
+                          Text(
+                            _searchCtrl.text.isNotEmpty
+                                ? 'Barang tidak ditemukan'
+                                : 'Belum ada data penjualan barang.\nLakukan transaksi di Kasir untuk melihat analisis laba.',
+                            style: GoogleFonts.inter(color: _abuTeks, fontSize: 13, height: 1.5),
+                            textAlign: TextAlign.center,
+                          ),
+                        ],
+                      ),
                     ),
                   )
                 : ListView.separated(

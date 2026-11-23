@@ -34,10 +34,15 @@ class ExcelExportService {
       sheetRingkasan.appendRow([TextCellValue('Total Transaksi Selesai'), IntCellValue(totalTransaksi)]);
       sheetRingkasan.appendRow([TextCellValue('')]);
 
-      sheetRingkasan.appendRow([TextCellValue('BREAKDOWN METODE BAYAR'), TextCellValue('PORSI')]);
-      sheetRingkasan.appendRow([TextCellValue('Tunai (Cash)'), TextCellValue('55%')]);
-      sheetRingkasan.appendRow([TextCellValue('QRIS Dinamis'), TextCellValue('32%')]);
-      sheetRingkasan.appendRow([TextCellValue('Kasbon Pelanggan'), TextCellValue('13%')]);
+      sheetRingkasan.appendRow([TextCellValue('BREAKDOWN METODE BAYAR'), TextCellValue('PORSI'), TextCellValue('NOMINAL')]);
+      final pStats = LaporanService.instance.getMetodeBayarStats(periode);
+      for (var ps in pStats) {
+        sheetRingkasan.appendRow([
+          TextCellValue(ps.metode),
+          TextCellValue('${ps.persen.toStringAsFixed(1)}%'),
+          IntCellValue(ps.totalNominal),
+        ]);
+      }
 
       // ── SHEET 2: Laba & Performa per Produk ────────────────────────────────
       final sheetProduk = excel['Laba per Produk'];

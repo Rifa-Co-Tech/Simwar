@@ -330,8 +330,11 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                             padding: const EdgeInsets.all(32),
                             child: Center(
                               child: Text(
-                                'Tidak ada transaksi dengan metode ini',
-                                style: GoogleFonts.inter(fontSize: 13, color: _abuTeks),
+                                _filterMetode == 'Semua'
+                                    ? 'Belum ada transaksi di warung.\nSelesaikan transaksi di Kasir untuk melihat riwayat.'
+                                    : 'Tidak ada transaksi dengan metode $_filterMetode',
+                                style: GoogleFonts.inter(fontSize: 13, color: _abuTeks, height: 1.5),
+                                textAlign: TextAlign.center,
                               ),
                             ),
                           )

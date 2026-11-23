@@ -3,7 +3,6 @@ import 'package:google_fonts/google_fonts.dart';
 import '../models/analisis_laba_model.dart';
 import '../models/barang_masuk_model.dart';
 import '../models/pengguna_model.dart';
-import '../models/transaksi_model.dart';
 import '../services/excel_export_service.dart';
 import '../utils/formatters.dart';
 import 'barang_masuk_screen.dart';
@@ -33,14 +32,29 @@ class _LaporanPenjualanScreenState extends State<LaporanPenjualanScreen> {
 
   String _periodeDipilih = '7 Hari'; // 'Hari Ini' | '7 Hari' | 'Bulan Ini' | 'Semua'
 
-  int get totalOmset => LaporanService.instance.totalOmsetKeseluruhan;
-  int get totalLaba => LaporanService.instance.totalLabaKeseluruhan;
-  int get totalTrx => TransaksiStore.instance.semua.where((t) => t.status == 'Selesai').length;
+  int get totalOmset => LaporanService.instance.getOmsetByPeriode(_periodeDipilih);
+  int get totalLaba => LaporanService.instance.getLabaByPeriode(_periodeDipilih);
+  int get totalTrx => LaporanService.instance.getTransaksiCountByPeriode(_periodeDipilih);
 
   @override
   Widget build(BuildContext context) {
     final service = LaporanService.instance;
     final avgTrx = totalTrx > 0 ? (totalOmset / totalTrx).round() : 0;
+    final paymentStats = service.getMetodeBayarStats(_periodeDipilih);
+    final tunaiStat = paymentStats[0];
+    final qrisStat = paymentStats[1];
+    final kasbonStat = paymentStats[2];
+
+    final mingguanData = service.dataGrafikMingguan;
+    String peakDayText = 'Belum ada data';
+    int maxOmset = 0;
+    for (var d in mingguanData) {
+      final o = d['omset'] as int;
+      if (o > maxOmset) {
+        maxOmset = o;
+        peakDayText = 'Puncak: ${d['hari']} (${SimwarFormatter.rupiah(o)})';
+      }
+    }
 
     return Scaffold(
       backgroundColor: _bgLayar,
@@ -93,7 +107,9 @@ class _LaporanPenjualanScreenState extends State<LaporanPenjualanScreen> {
                   child: _buildMetricBox(
                     label: 'Laba Bersih',
                     value: SimwarFormatter.rupiah(totalLaba),
-                    subtitle: 'Margin ~${(totalLaba / totalOmset * 100).toStringAsFixed(0)}%',
+                    subtitle: totalOmset > 0
+                        ? 'Margin ~${((totalLaba / totalOmset) * 100).toStringAsFixed(0)}%'
+                        : 'Margin 0%',
                     color: _hijauAksi,
                     icon: Icons.trending_up,
                     highlight: true,
@@ -131,7 +147,7 @@ class _LaporanPenjualanScreenState extends State<LaporanPenjualanScreen> {
             _buildCardWrapper(
               title: 'Tren Penjualan 7 Hari Terakhir',
               trailing: Text(
-                'Puncak: Sabtu',
+                peakDayText,
                 style: GoogleFonts.inter(
                   fontSize: 11,
                   fontWeight: FontWeight.w600,
@@ -141,7 +157,7 @@ class _LaporanPenjualanScreenState extends State<LaporanPenjualanScreen> {
               child: Column(
                 children: [
                   const SizedBox(height: 12),
-                  _buildBarChart(service.dataGrafikMingguan),
+                  _buildBarChart(mingguanData),
                   const SizedBox(height: 14),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -168,23 +184,52 @@ class _LaporanPenjualanScreenState extends State<LaporanPenjualanScreen> {
                     borderRadius: BorderRadius.circular(10),
                     child: SizedBox(
                       height: 16,
-                      child: Row(
-                        children: const [
-                          Expanded(flex: 55, child: ColoredBox(color: _hijauAksi)),
-                          Expanded(flex: 32, child: ColoredBox(color: Color(0xFF0284C7))),
-                          Expanded(flex: 13, child: ColoredBox(color: Color(0xFFD97706))),
-                        ],
-                      ),
+                      child: totalOmset > 0
+                          ? Row(
+                              children: [
+                                if (tunaiStat.persen > 0)
+                                  Expanded(
+                                    flex: (tunaiStat.persen * 10).round().clamp(1, 1000),
+                                    child: const ColoredBox(color: _hijauAksi),
+                                  ),
+                                if (qrisStat.persen > 0)
+                                  Expanded(
+                                    flex: (qrisStat.persen * 10).round().clamp(1, 1000),
+                                    child: const ColoredBox(color: Color(0xFF0284C7)),
+                                  ),
+                                if (kasbonStat.persen > 0)
+                                  Expanded(
+                                    flex: (kasbonStat.persen * 10).round().clamp(1, 1000),
+                                    child: const ColoredBox(color: Color(0xFFD97706)),
+                                  ),
+                              ],
+                            )
+                          : Container(color: _borderGaris),
                     ),
                   ),
                   const SizedBox(height: 14),
 
-                  // Detail Angka & Persentase
-                  _buildPaymentRow('Tunai', '55%', 'Rp 814.000', _hijauAksi),
+                  // Detail Angka & Persentase Dinamis
+                  _buildPaymentRow(
+                    'Tunai',
+                    '${tunaiStat.persen.toStringAsFixed(0)}%',
+                    SimwarFormatter.rupiah(tunaiStat.totalNominal),
+                    _hijauAksi,
+                  ),
                   const Divider(color: _borderGaris, height: 16),
-                  _buildPaymentRow('QRIS Dinamis', '32%', 'Rp 473.600', const Color(0xFF0284C7)),
+                  _buildPaymentRow(
+                    'QRIS Dinamis',
+                    '${qrisStat.persen.toStringAsFixed(0)}%',
+                    SimwarFormatter.rupiah(qrisStat.totalNominal),
+                    const Color(0xFF0284C7),
+                  ),
                   const Divider(color: _borderGaris, height: 16),
-                  _buildPaymentRow('Kasbon Pelanggan', '13%', 'Rp 192.400', const Color(0xFFD97706)),
+                  _buildPaymentRow(
+                    'Kasbon Pelanggan',
+                    '${kasbonStat.persen.toStringAsFixed(0)}%',
+                    SimwarFormatter.rupiah(kasbonStat.totalNominal),
+                    const Color(0xFFD97706),
+                  ),
                 ],
               ),
             ),
@@ -413,21 +458,28 @@ class _LaporanPenjualanScreenState extends State<LaporanPenjualanScreen> {
   }
 
   Widget _buildBarChart(List<Map<String, dynamic>> data) {
-    const double maxVal = 2000000;
+    int maxOmsetInWeek = 0;
+    for (var d in data) {
+      final o = (d['omset'] as int?) ?? 0;
+      if (o > maxOmsetInWeek) maxOmsetInWeek = o;
+    }
+    final double maxVal = maxOmsetInWeek > 0 ? maxOmsetInWeek.toDouble() : 100000;
+
     return SizedBox(
       height: 140,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: data.map((d) {
-          final double ratio = (d['omset'] as int) / maxVal;
-          final bool isMax = d['hari'] == 'Sab';
+          final int omset = (d['omset'] as int?) ?? 0;
+          final double ratio = maxOmsetInWeek > 0 ? (omset / maxVal).clamp(0.06, 1.0) : 0.06;
+          final bool isMax = maxOmsetInWeek > 0 && omset == maxOmsetInWeek;
 
           return Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Text(
-                '${((d['omset'] as int) / 1000).round()}k',
+                omset > 0 ? '${((omset) / 1000).round()}k' : '0',
                 style: GoogleFonts.inter(
                   fontSize: 9,
                   fontWeight: isMax ? FontWeight.bold : FontWeight.normal,
@@ -437,9 +489,9 @@ class _LaporanPenjualanScreenState extends State<LaporanPenjualanScreen> {
               const SizedBox(height: 4),
               Container(
                 width: 24,
-                height: 90 * ratio,
+                height: 85 * ratio,
                 decoration: BoxDecoration(
-                  color: isMax ? _hijauAksi : _hijauMuda,
+                  color: isMax ? _hijauAksi : (omset > 0 ? const Color(0xFF68B28B) : _hijauMuda),
                   borderRadius: BorderRadius.circular(6),
                 ),
               ),

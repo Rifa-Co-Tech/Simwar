@@ -1,3 +1,6 @@
+import 'barang_model.dart';
+import 'transaksi_model.dart';
+
 /// SIMWAR — Model & Perhitungan Analisis Penjualan & Laba per Barang
 /// Figma nodes: 2030:75 (Laporan Penjualan), 2053:94 (Laba per Barang), 2055:211 (Rekap Keuangan)
 
@@ -22,7 +25,8 @@ class ItemLabaAnalisis {
 
   int get labaPerUnit => (hargaJual - hargaBeli).clamp(0, 999999999);
 
-  double get marginPersen => hargaJual > 0 ? (labaPerUnit / hargaJual) * 100 : 0.0;
+  double get marginPersen =>
+      hargaJual > 0 ? (labaPerUnit / hargaJual) * 100 : 0.0;
 
   int get totalOmset => hargaJual * terjual;
 
@@ -32,8 +36,23 @@ class ItemLabaAnalisis {
     if (totalLaba >= 100000 && terjual >= 50) return '⭐ Bintang Warung';
     if (marginPersen >= 30) return '🔥 Margin Tinggi';
     if (terjual >= 80) return '⚡ Paling Laris';
-    return 'Reguler';
+    if (terjual > 0) return 'Terjual';
+    return 'Belum Ada Penjualan';
   }
+}
+
+class MetodeBayarStat {
+  final String metode;
+  final int totalNominal;
+  final double persen;
+  final int jumlahTransaksi;
+
+  MetodeBayarStat({
+    required this.metode,
+    required this.totalNominal,
+    required this.persen,
+    required this.jumlahTransaksi,
+  });
 }
 
 class LaporanService {
@@ -41,101 +60,163 @@ class LaporanService {
   factory LaporanService() => instance;
   LaporanService._internal();
 
-  // Data historis performa penjualan per barang untuk simulasi akurat
-  final List<ItemLabaAnalisis> _produkList = [
-    ItemLabaAnalisis(
-      id: '1',
-      nama: 'Indomie Goreng Spesial',
-      kategori: 'Makanan',
-      hargaBeli: 2800,
-      hargaJual: 3500,
-      terjual: 148,
-      sisaStok: 46,
-    ),
-    ItemLabaAnalisis(
-      id: '2',
-      nama: 'Minyak Goreng SunCo 2L',
-      kategori: 'Sembako',
-      hargaBeli: 34000,
-      hargaJual: 38000,
-      terjual: 32,
-      sisaStok: 8,
-    ),
-    ItemLabaAnalisis(
-      id: '3',
-      nama: 'Beras Ramos Super 5kg',
-      kategori: 'Sembako',
-      hargaBeli: 68000,
-      hargaJual: 75000,
-      terjual: 24,
-      sisaStok: 5,
-    ),
-    ItemLabaAnalisis(
-      id: '4',
-      nama: 'Teh Botol Sosro 450ml',
-      kategori: 'Minuman',
-      hargaBeli: 3500,
-      hargaJual: 5000,
-      terjual: 96,
-      sisaStok: 18,
-    ),
-    ItemLabaAnalisis(
-      id: '5',
-      nama: 'Telur Ayam Ras 1kg',
-      kategori: 'Sembako',
-      hargaBeli: 25000,
-      hargaJual: 28000,
-      terjual: 45,
-      sisaStok: 12,
-    ),
-    ItemLabaAnalisis(
-      id: '6',
-      nama: 'Kopi Kapal Api Special Mix',
-      kategori: 'Minuman',
-      hargaBeli: 1200,
-      hargaJual: 2000,
-      terjual: 165,
-      sisaStok: 30,
-    ),
-    ItemLabaAnalisis(
-      id: '7',
-      nama: 'Gula Pasir Gulaku 1kg',
-      kategori: 'Sembako',
-      hargaBeli: 15500,
-      hargaJual: 17500,
-      terjual: 50,
-      sisaStok: 14,
-    ),
-    ItemLabaAnalisis(
-      id: '8',
-      nama: 'Sabun Lifebuoy Total 10',
-      kategori: 'Alat mandi',
-      hargaBeli: 3200,
-      hargaJual: 4500,
-      terjual: 42,
-      sisaStok: 16,
-    ),
-  ];
+  /// Mengambil transaksi selesai sesuai filter periode
+  List<TransaksiModel> getTransaksiByPeriode(String periode) {
+    final trxs = TransaksiStore.instance.semua
+        .where((t) => t.status == 'Selesai');
 
-  List<ItemLabaAnalisis> get semuaProduk => List.unmodifiable(_produkList);
+    if (periode == 'Hari Ini') {
+      return trxs.where((t) => t.isHariIni).toList();
+    } else if (periode == '7 Hari') {
+      return trxs.where((t) => t.is7HariTerakhir).toList();
+    } else if (periode == 'Bulan Ini') {
+      return trxs.where((t) => t.isBulanIni).toList();
+    }
+    return trxs.toList();
+  }
+
+  int getOmsetByPeriode(String periode) {
+    return getTransaksiByPeriode(periode)
+        .fold(0, (sum, t) => sum + t.total);
+  }
+
+  int getLabaByPeriode(String periode) {
+    return getTransaksiByPeriode(periode)
+        .fold(0, (sum, t) => sum + t.hitungLaba());
+  }
+
+  int getTransaksiCountByPeriode(String periode) {
+    return getTransaksiByPeriode(periode).length;
+  }
+
+  int getBarangTerjualCountByPeriode(String periode) {
+    return getTransaksiByPeriode(periode).fold(
+        0, (sum, t) => sum + t.items.fold(0, (s, i) => s + i.jumlah));
+  }
 
   int get totalOmsetKeseluruhan =>
-      _produkList.fold(0, (sum, p) => sum + p.totalOmset);
+      getOmsetByPeriode('Semua');
 
   int get totalLabaKeseluruhan =>
-      _produkList.fold(0, (sum, p) => sum + p.totalLaba);
+      getLabaByPeriode('Semua');
 
   int get totalBarangTerjual =>
-      _produkList.fold(0, (sum, p) => sum + p.terjual);
+      getBarangTerjualCountByPeriode('Semua');
 
-  // Data 7 Hari Terakhir untuk grafik batang
-  List<Map<String, dynamic>> get dataGrafikMingguan => [
-        {'hari': 'Sen', 'omset': 980000, 'laba': 245000},
-        {'hari': 'Sel', 'omset': 1120000, 'laba': 290000},
-        {'hari': 'Rab', 'omset': 1050000, 'laba': 270000},
-        {'hari': 'Kam', 'omset': 1280000, 'laba': 340000},
-        {'hari': 'Jum', 'omset': 1420000, 'laba': 380000},
-        {'hari': 'Sab', 'omset': 1850000, 'laba': 495000}, // Puncak akhir pekan
-        {'hari': 'Min', 'omset': 1650000, 'laba': 430000},
-      ];
+  /// Breakdown metode pembayaran dinamis (Tunai, QRIS, Kasbon)
+  List<MetodeBayarStat> getMetodeBayarStats(String periode) {
+    final trxs = getTransaksiByPeriode(periode);
+    int totalNominalSemua = trxs.fold(0, (sum, t) => sum + t.total);
+
+    int tunaiNominal = 0;
+    int tunaiCount = 0;
+    int qrisNominal = 0;
+    int qrisCount = 0;
+    int kasbonNominal = 0;
+    int kasbonCount = 0;
+
+    for (var t in trxs) {
+      if (t.metode == 'Tunai') {
+        tunaiNominal += t.total;
+        tunaiCount++;
+      } else if (t.metode == 'QRIS') {
+        qrisNominal += t.total;
+        qrisCount++;
+      } else if (t.metode == 'Kasbon') {
+        kasbonNominal += t.total;
+        kasbonCount++;
+      }
+    }
+
+    final double totalF = totalNominalSemua > 0 ? totalNominalSemua.toDouble() : 1.0;
+
+    return [
+      MetodeBayarStat(
+        metode: 'Tunai',
+        totalNominal: tunaiNominal,
+        persen: totalNominalSemua > 0 ? (tunaiNominal / totalF) * 100 : 0.0,
+        jumlahTransaksi: tunaiCount,
+      ),
+      MetodeBayarStat(
+        metode: 'QRIS Dinamis',
+        totalNominal: qrisNominal,
+        persen: totalNominalSemua > 0 ? (qrisNominal / totalF) * 100 : 0.0,
+        jumlahTransaksi: qrisCount,
+      ),
+      MetodeBayarStat(
+        metode: 'Kasbon Pelanggan',
+        totalNominal: kasbonNominal,
+        persen: totalNominalSemua > 0 ? (kasbonNominal / totalF) * 100 : 0.0,
+        jumlahTransaksi: kasbonCount,
+      ),
+    ];
+  }
+
+  /// Data 7 Hari Terakhir Dinamis (berdasarkan tanggal kalender saat ini)
+  List<Map<String, dynamic>> getDataGrafikMingguan() {
+    final now = DateTime.now();
+    final List<Map<String, dynamic>> hasil = [];
+    const namaHari = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
+
+    for (int i = 6; i >= 0; i--) {
+      final date = now.subtract(Duration(days: i));
+      final dayName = namaHari[date.weekday % 7];
+      final labelTanggal = '${date.day}/${date.month}';
+
+      final trxsOnDate = TransaksiStore.instance.semua.where((t) =>
+          t.status == 'Selesai' &&
+          t.createdAt.year == date.year &&
+          t.createdAt.month == date.month &&
+          t.createdAt.day == date.day);
+
+      final omset = trxsOnDate.fold(0, (sum, t) => sum + t.total);
+      final laba = trxsOnDate.fold(0, (sum, t) => sum + t.hitungLaba());
+
+      hasil.add({
+        'hari': dayName,
+        'label': labelTanggal,
+        'omset': omset,
+        'laba': laba,
+      });
+    }
+    return hasil;
+  }
+
+  /// Menjaga kompatibilitas dengan getter lama
+  List<Map<String, dynamic>> get dataGrafikMingguan => getDataGrafikMingguan();
+
+  /// Analisis performa penjualan seluruh produk dari transaksi nyata
+  List<ItemLabaAnalisis> getProdukAnalisisByPeriode(String periode) {
+    final trxs = getTransaksiByPeriode(periode);
+    final Map<String, int> qtyTerjualMap = {};
+
+    for (var t in trxs) {
+      for (var item in t.items) {
+        final key = item.nama.trim().toLowerCase();
+        qtyTerjualMap[key] = (qtyTerjualMap[key] ?? 0) + item.jumlah;
+      }
+    }
+
+    final List<ItemLabaAnalisis> hasil = [];
+    for (var b in BarangStore.instance.semua) {
+      final terjual = qtyTerjualMap[b.nama.trim().toLowerCase()] ?? 0;
+      hasil.add(ItemLabaAnalisis(
+        id: b.id,
+        nama: b.nama,
+        kategori: b.kategori,
+        hargaBeli: b.hargaBeli,
+        hargaJual: b.hargaJual,
+        terjual: terjual,
+        sisaStok: b.stok,
+      ));
+    }
+
+    // Urutkan dari produk paling laris / terjual terbanyak
+    hasil.sort((a, b) => b.terjual.compareTo(a.terjual));
+    return hasil;
+  }
+
+  /// Kompatibilitas dengan properti lama
+  List<ItemLabaAnalisis> get semuaProduk =>
+      getProdukAnalisisByPeriode('Semua');
 }

@@ -42,57 +42,7 @@ class LaporanStore {
   factory LaporanStore() => instance;
   LaporanStore._internal();
 
-  final List<LaporanModel> _list = [
-    LaporanModel(
-      id: '1',
-      judul: 'Stok habis',
-      pengirim: 'Rina',
-      waktu: '10.05',
-      pesan: 'Gula pasir 1 kg habis. Tolong dibelikan lagi sebelum sore.',
-      namaBarang: 'Gula Pasir 1 kg',
-      sisaStok: 0,
-      status: 'Baru',
-      lampiran: ['foto_gula_habis.jpg', 'foto_rak.jpg'],
-    ),
-    LaporanModel(
-      id: '2',
-      judul: 'Barang rusak',
-      pengirim: 'Rina',
-      waktu: 'Kemarin',
-      pesan: 'Kemasan sabun bocor, 2 pcs.',
-      namaBarang: 'Sabun Mandi Lifebuoy',
-      sisaStok: 4,
-      status: 'Baru',
-      lampiran: ['foto_sabun_bocor.jpg'],
-    ),
-    LaporanModel(
-      id: '3',
-      judul: 'Pelanggan',
-      pengirim: 'Rina',
-      waktu: '15 Nov',
-      pesan: 'Bu Aminah minta kasbon lagi sebesar Rp 50.000, katanya besok gajian.',
-      status: 'Selesai',
-      balasan: ['Sudah dicatat, jangan lebih dari batas Rp 200.000 ya.'],
-    ),
-    LaporanModel(
-      id: '4',
-      judul: 'Kasbon',
-      pengirim: 'Rina',
-      waktu: '12 Nov',
-      pesan: 'Pak Rahmat bayar Rp 100.000 lunas untuk utang beras.',
-      status: 'Selesai',
-      balasan: ['Oke uangnya disimpan di laci shift pagi.'],
-    ),
-    LaporanModel(
-      id: '5',
-      judul: 'Lainnya',
-      pengirim: 'Rina',
-      waktu: '10 Nov',
-      pesan: 'Lampu depan warung mati.',
-      status: 'Selesai',
-      balasan: ['Sudah diganti bohlam baru.'],
-    ),
-  ];
+  final List<LaporanModel> _list = [];
 
   List<LaporanModel> get semua => List.unmodifiable(_list);
 

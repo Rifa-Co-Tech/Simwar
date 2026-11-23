@@ -325,11 +325,28 @@ class _StokScreenState extends State<StokScreen> {
                   // ── List Barang (Menipis / Kedaluwarsa) ───────────────────
                   if (items.isEmpty)
                     Padding(
-                      padding: const EdgeInsets.all(40),
+                      padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 20),
                       child: Center(
-                        child: Text(
-                          'Tidak ada barang dalam kategori ini',
-                          style: GoogleFonts.inter(color: _abuTeks),
+                        child: Column(
+                          children: [
+                            Icon(
+                              isMenipis ? Icons.check_circle_outline : Icons.event_available,
+                              size: 48,
+                              color: _hijauAksi,
+                            ),
+                            const SizedBox(height: 12),
+                            Text(
+                              isMenipis
+                                  ? 'Semua stok dalam kondisi aman!'
+                                  : 'Tidak ada barang yang mendekati kedaluwarsa.',
+                              style: GoogleFonts.inter(
+                                color: _abuTeks,
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          ],
                         ),
                       ),
                     )

@@ -167,7 +167,18 @@ class _KasbonScreenState extends State<KasbonScreen> {
                         ),
                       ],
                     ),
-                    child: ListView.separated(
+                    child: list.isEmpty
+                        ? Padding(
+                            padding: const EdgeInsets.all(32),
+                            child: Center(
+                              child: Text(
+                                'Belum ada catatan kasbon pelanggan.\nKlik "+ Catat kasbon" di atas untuk menambahkan.',
+                                style: GoogleFonts.inter(fontSize: 13, color: _abuTeks, height: 1.5),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          )
+                        : ListView.separated(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: list.length,
