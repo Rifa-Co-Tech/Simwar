@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../models/barang_model.dart';
 import '../models/item_keranjang.dart';
 import '../models/kasbon_model.dart';
 import '../models/pengguna_model.dart';
@@ -23,22 +24,9 @@ class _CatatKasbonScreenState extends State<CatatKasbonScreen> {
   static const Color _hijauMuda = Color(0xFFE3EFE8);
   static const Color _abuTeks = Color(0xFF6E7468);
   static const Color _borderGaris = Color(0xFFE4DCC3);
-  static const Color _borderInput = Color(0xFFCFC7AA);
 
-  final TextEditingController _namaPelangganCtrl = TextEditingController(text: 'Pak Rahmat');
-
-  final List<ItemKeranjang> _items = [
-    ItemKeranjang(id: '1', nama: 'Indomie Goreng Spesial', harga: 3500, jumlah: 2),
-    ItemKeranjang(id: '2', nama: 'Teh Botol Sosro', harga: 5000, jumlah: 1),
-    ItemKeranjang(id: '3', nama: 'Minyak Goreng 1 L', harga: 16000, jumlah: 1),
-  ];
-
-  final List<ItemKeranjang> _katalogBarang = [
-    ItemKeranjang(id: '4', nama: 'Gula Pasir 1 kg', harga: 17500),
-    ItemKeranjang(id: '5', nama: 'Beras Ramos 5 kg', harga: 68000),
-    ItemKeranjang(id: '6', nama: 'Telur Ayam 1 kg', harga: 28000),
-    ItemKeranjang(id: '7', nama: 'Kopi Kapal Api 65g', harga: 6500),
-  ];
+  final TextEditingController _namaPelangganCtrl = TextEditingController();
+  final List<ItemKeranjang> _items = [];
 
   int get _totalKasbon => _items.fold(0, (sum, i) => sum + i.subtotal);
   int get _totalBarang => _items.fold(0, (sum, i) => sum + i.jumlah);
@@ -50,48 +38,97 @@ class _CatatKasbonScreenState extends State<CatatKasbonScreen> {
   }
 
   void _tambahBarangManual() {
+    final katalog = BarangStore.instance.semua;
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.white,
+      isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
-      builder: (ctx) => Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(
-              'Tambah Barang Kasbon',
-              style: GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.w700, color: _hijauTua),
-            ),
-            const SizedBox(height: 12),
-            ..._katalogBarang.map((k) {
-              return ListTile(
-                title: Text(k.nama, style: GoogleFonts.inter(fontWeight: FontWeight.w600)),
-                subtitle: Text(SimwarFormatter.rupiah(k.harga), style: GoogleFonts.inter(color: _abuTeks)),
-                trailing: const Icon(Icons.add_circle, color: _hijauAksi),
-                onTap: () {
-                  setState(() {
-                    final idx = _items.indexWhere((i) => i.id == k.id);
-                    if (idx != -1) {
-                      _items[idx].jumlah++;
-                    } else {
-                      _items.add(ItemKeranjang(id: k.id, nama: k.nama, harga: k.harga, jumlah: 1));
-                    }
-                  });
-                  Navigator.pop(ctx);
-                },
-              );
-            }),
-          ],
+      builder: (ctx) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                'Tambah Barang Kasbon',
+                style: GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.w700, color: _hijauTua),
+              ),
+              const SizedBox(height: 12),
+              if (katalog.isEmpty)
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 24),
+                  child: Text(
+                    'Belum ada barang di katalog warung. Tambahkan barang di Kelola Barang terlebih dahulu.',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.inter(fontSize: 13, color: _abuTeks),
+                  ),
+                )
+              else
+                ConstrainedBox(
+                  constraints: const BoxConstraints(maxHeight: 340),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: katalog.length,
+                    itemBuilder: (_, index) {
+                      final b = katalog[index];
+                      final idxItem = _items.indexWhere((i) => i.id == b.id);
+                      final qtyDiDaftar = idxItem != -1 ? _items[idxItem].jumlah : 0;
+                      final sisaTersedia = b.stok - qtyDiDaftar;
+                      final habis = sisaTersedia <= 0;
+                      return ListTile(
+                        title: Text(b.nama, style: GoogleFonts.inter(fontWeight: FontWeight.w600)),
+                        subtitle: Text(
+                          '${SimwarFormatter.rupiah(b.hargaJual)} · Sisa stok: ${b.stok} ${b.satuan}',
+                          style: GoogleFonts.inter(
+                            fontSize: 12,
+                            color: habis ? const Color(0xFFC8401E) : _abuTeks,
+                          ),
+                        ),
+                        trailing: Icon(
+                          Icons.add_circle,
+                          color: habis ? Colors.grey : _hijauAksi,
+                        ),
+                        onTap: () {
+                          if (habis) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Stok ${b.nama} tidak mencukupi (tersisa ${b.stok})'),
+                                backgroundColor: const Color(0xFFC8401E),
+                              ),
+                            );
+                            return;
+                          }
+                          setState(() {
+                            if (idxItem != -1) {
+                              _items[idxItem].jumlah++;
+                            } else {
+                              _items.add(ItemKeranjang(
+                                id: b.id,
+                                nama: b.nama,
+                                harga: b.hargaJual,
+                                jumlah: 1,
+                                satuan: b.satuan,
+                              ));
+                            }
+                          });
+                          Navigator.pop(ctx);
+                        },
+                      );
+                    },
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );
   }
 
-  void _simpanKasbon() {
+  Future<void> _simpanKasbon() async {
     final nama = _namaPelangganCtrl.text.trim();
     if (nama.isEmpty || _items.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -103,17 +140,38 @@ class _CatatKasbonScreenState extends State<CatatKasbonScreen> {
       return;
     }
 
-    // 1. Simpan ke KasbonStore
+    for (final item in _items) {
+      final barangIdx = BarangStore.instance.semua.indexWhere((b) => b.id == item.id);
+      if (barangIdx != -1 && BarangStore.instance.semua[barangIdx].stok < item.jumlah) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Stok ${item.nama} tersisa ${BarangStore.instance.semua[barangIdx].stok}, tidak cukup untuk ${item.jumlah} ${item.satuan}',
+            ),
+            backgroundColor: const Color(0xFFC8401E),
+          ),
+        );
+        return;
+      }
+    }
+
+    // 1. Kurangi stok barang di Kelola Barang & Supabase
+    for (final item in _items) {
+      await BarangStore.instance.kurangiStokAsync(item.id, item.nama, item.jumlah);
+    }
+
+    // 2. Simpan ke KasbonStore
     final catatan = 'Belanja ${_items.length} jenis · $_totalBarang barang';
     KasbonStore.instance.tambahKasbon(nama, _totalKasbon, catatan);
 
-    // 2. Simpan ke Riwayat Transaksi Warung
+    // 3. Simpan ke Riwayat Transaksi Warung
+    final now = DateTime.now();
     final trx = TransaksiModel(
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
-      kode: 'TRX-${(140 + TransaksiStore.instance.semua.length).toString().padLeft(4, "0")}',
-      waktu: '${DateTime.now().hour.toString().padLeft(2, "0")}.${DateTime.now().minute.toString().padLeft(2, "0")}',
-      tanggal: 'Hari ini',
-      kasir: widget.pengguna?.nama.isNotEmpty == true ? widget.pengguna!.nama : 'Rina',
+      id: now.millisecondsSinceEpoch.toString(),
+      kode: 'TRX-${(TransaksiStore.instance.semua.length + 1).toString().padLeft(4, "0")}',
+      waktu: '${now.hour.toString().padLeft(2, "0")}.${now.minute.toString().padLeft(2, "0")}',
+      tanggal: SimwarFormatter.tanggalPendek(now),
+      kasir: widget.pengguna?.nama.isNotEmpty == true ? widget.pengguna!.nama : 'Pemilik',
       metode: 'Kasbon',
       status: 'Selesai',
       namaPelanggan: nama,
@@ -122,6 +180,7 @@ class _CatatKasbonScreenState extends State<CatatKasbonScreen> {
     );
     TransaksiStore.instance.tambahTransaksi(trx);
 
+    if (!mounted) return;
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -132,7 +191,7 @@ class _CatatKasbonScreenState extends State<CatatKasbonScreen> {
           style: GoogleFonts.inter(fontWeight: FontWeight.bold, color: _hijauTua),
         ),
         content: Text(
-          'Kasbon atas nama $nama senilai ${SimwarFormatter.rupiah(_totalKasbon)} berhasil disimpan ke pembukuan warung.',
+          'Kasbon atas nama $nama senilai ${SimwarFormatter.rupiah(_totalKasbon)} berhasil disimpan dan stok barang telah diperbarui.',
           style: GoogleFonts.inter(color: _abuTeks),
         ),
         actions: [
@@ -266,6 +325,21 @@ class _CatatKasbonScreenState extends State<CatatKasbonScreen> {
                     ],
                   ),
                   const SizedBox(height: 10),
+
+                  if (_items.isEmpty)
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 22, horizontal: 16),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(color: _borderGaris, width: 1),
+                      ),
+                      child: Text(
+                        'Belum ada barang yang ditambahkan. Tekan tombol di bawah untuk memilih barang dari katalog.',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.inter(fontSize: 12, color: _abuTeks),
+                      ),
+                    ),
 
                   ..._items.asMap().entries.map((entry) {
                     final idx = entry.key;

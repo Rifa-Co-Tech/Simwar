@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'screens/login_screen.dart';
+import 'screens/splash_screen.dart';
 
 const supabaseUrl = 'https://vcdqvxuwpxdbadavjwym.supabase.co';
 const supabaseAnonKey =
@@ -43,7 +43,7 @@ class SimwarApp extends StatelessWidget {
         useMaterial3: true,
         fontFamily: 'Poppins',
       ),
-      home: const LoginScreen(),
+      home: const SplashScreen(),
     );
   }
 }

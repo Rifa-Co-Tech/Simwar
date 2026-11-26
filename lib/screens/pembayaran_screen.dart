@@ -5,6 +5,7 @@ import '../models/barang_model.dart';
 import '../models/item_keranjang.dart';
 import '../models/pengguna_model.dart';
 import '../models/transaksi_model.dart';
+import '../services/peringatan_service.dart';
 import '../utils/formatters.dart';
 import 'transaksi_berhasil_screen.dart';
 
@@ -95,14 +96,19 @@ class _PembayaranScreenState extends State<PembayaranScreen> {
     for (var item in widget.items) {
       BarangStore.instance.kurangiStokAsync(item.id, item.nama, item.jumlah);
     }
+    // Periksa peringatan stok menipis (<= 10) atau kedaluwarsa setelah pengurangan stok
+    Future.delayed(const Duration(milliseconds: 500), () {
+      PeringatanService.instance.periksaSemuaPeringatan();
+    });
 
     // Simpan ke Riwayat Transaksi Warung
+    final now = DateTime.now();
     final trx = TransaksiModel(
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
-      kode: 'TRX-${(140 + TransaksiStore.instance.semua.length).toString().padLeft(4, "0")}',
-      waktu: '${DateTime.now().hour.toString().padLeft(2, "0")}.${DateTime.now().minute.toString().padLeft(2, "0")}',
-      tanggal: 'Hari ini',
-      kasir: widget.pengguna?.nama.isNotEmpty == true ? widget.pengguna!.nama : 'Rina',
+      id: now.millisecondsSinceEpoch.toString(),
+      kode: 'TRX-${(TransaksiStore.instance.semua.length + 1).toString().padLeft(4, "0")}',
+      waktu: '${now.hour.toString().padLeft(2, "0")}.${now.minute.toString().padLeft(2, "0")}',
+      tanggal: SimwarFormatter.tanggalPendek(now),
+      kasir: widget.pengguna?.nama.isNotEmpty == true ? widget.pengguna!.nama : 'Pemilik',
       metode: _metode,
       status: 'Selesai',
       total: widget.totalTagihan,
@@ -422,7 +428,7 @@ class _PembayaranScreenState extends State<PembayaranScreen> {
                           const SizedBox(width: 14),
                           Expanded(
                             child: Text(
-                              'Menunggu pembayaran…',
+                              'Menunggu konfirmasi QRIS…',
                               style: GoogleFonts.inter(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w800,
@@ -455,7 +461,7 @@ class _PembayaranScreenState extends State<PembayaranScreen> {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            'Minta pembeli scan QRIS warung dengan HP mereka. Transaksi berhasil muncul otomatis begitu uang masuk.',
+                            'Minta pembeli scan QRIS warung dengan HP mereka, lalu pastikan uang sudah masuk sebelum menekan konfirmasi pembayaran di bawah.',
                             style: GoogleFonts.inter(
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
@@ -464,26 +470,6 @@ class _PembayaranScreenState extends State<PembayaranScreen> {
                             ),
                           ),
                         ],
-                      ),
-                    ),
-                    const SizedBox(height: 16),
-
-                    // Tombol Simulasi Pembayaran Sukses (Testing Interactive)
-                    OutlinedButton.icon(
-                      onPressed: _selesaikanPembayaran,
-                      icon: const Icon(Icons.flash_on, color: _kuningAksen),
-                      label: Text(
-                        'Simulasi QRIS Sukses (Uang Masuk)',
-                        style: GoogleFonts.inter(
-                          fontWeight: FontWeight.w600,
-                          color: _hijauTua,
-                        ),
-                      ),
-                      style: OutlinedButton.styleFrom(
-                        side: const BorderSide(color: _hijauAksi),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16),
-                        ),
                       ),
                     ),
                   ],
@@ -504,7 +490,9 @@ class _PembayaranScreenState extends State<PembayaranScreen> {
                         ),
                       ),
                       child: Text(
-                        'Selesaikan pembayaran',
+                        _metode == 'QRIS'
+                            ? 'Konfirmasi QRIS Diterima'
+                            : 'Selesaikan pembayaran',
                         style: GoogleFonts.inter(
                           fontSize: 16,
                           fontWeight: FontWeight.w700,

@@ -48,12 +48,26 @@ class _KelolaBarangScreenState extends State<KelolaBarangScreen> {
   List<BarangModel> get _daftarBarang {
     final query = _searchCtrl.text.toLowerCase().trim();
     return BarangStore.instance.semua.where((b) {
-      final matchKategori = _kategoriDipilih == 'Semua' || b.kategori.toLowerCase() == _kategoriDipilih.toLowerCase();
+      final matchKategori = _matchKategori(b);
       final matchQuery = query.isEmpty ||
           b.nama.toLowerCase().contains(query) ||
           b.barcode.toLowerCase().contains(query);
       return matchKategori && matchQuery;
     }).toList();
+  }
+
+  bool _matchKategori(BarangModel b) {
+    if (_kategoriDipilih == 'Semua') return true;
+    final k = b.kategori.toLowerCase().trim();
+    final p = _kategoriDipilih.toLowerCase().trim();
+    if (k == p) return true;
+    if (p == 'skincare' && k.contains('kosmetik')) return true;
+    if (p == 'lainnya' &&
+        !const {'makanan', 'minuman', 'sembako', 'alat mandi', 'skincare'}.contains(k) &&
+        !k.contains('kosmetik')) {
+      return true;
+    }
+    return false;
   }
 
   @override
@@ -86,7 +100,7 @@ class _KelolaBarangScreenState extends State<KelolaBarangScreen> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(24, 16, 24, 90),
+          padding: EdgeInsets.fromLTRB(24, 16, 24, 90 + MediaQuery.paddingOf(context).bottom),
           physics: const BouncingScrollPhysics(),
           child: Center(
             child: ConstrainedBox(
@@ -280,7 +294,9 @@ class _KelolaBarangScreenState extends State<KelolaBarangScreen> {
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  '${b.barcode} · ${SimwarFormatter.rupiah(b.hargaJual)}',
+                  b.barcode.isNotEmpty
+                      ? '${b.barcode} · ${SimwarFormatter.rupiah(b.hargaJual)}'
+                      : SimwarFormatter.rupiah(b.hargaJual),
                   style: GoogleFonts.inter(
                     fontSize: 11,
                     fontWeight: FontWeight.w400,
@@ -362,16 +378,34 @@ class _KelolaBarangScreenState extends State<KelolaBarangScreen> {
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(color: _borderGaris),
               ),
-              child: SimwarBarcodeWidget(
-                barcodeValue: b.barcode,
-                width: 210,
-                height: 75,
-                showText: true,
-              ),
+              child: b.barcode.isNotEmpty
+                  ? SimwarBarcodeWidget(
+                      barcodeValue: b.barcode,
+                      width: 210,
+                      height: 75,
+                      showText: true,
+                    )
+                  : Column(
+                      children: [
+                        const Icon(Icons.qr_code_2_outlined, size: 42, color: _abuTeks),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Belum ada kode barcode (opsional)',
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.inter(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: _hijauTua,
+                          ),
+                        ),
+                      ],
+                    ),
             ),
             const SizedBox(height: 12),
             Text(
-              'Kode batang ini dapat dipindai oleh scanner kasir atau kamera saat transaksi.',
+              b.barcode.isNotEmpty
+                  ? 'Kode batang ini dapat dipindai oleh scanner kasir atau kamera saat transaksi.'
+                  : 'Anda dapat menambahkan kode barcode kapan saja melalui menu Ubah barang.',
               textAlign: TextAlign.center,
               style: GoogleFonts.inter(fontSize: 11, color: _abuTeks),
             ),
@@ -383,15 +417,17 @@ class _KelolaBarangScreenState extends State<KelolaBarangScreen> {
             child: const Text('Tutup', style: TextStyle(color: _abuTeks)),
           ),
           ElevatedButton.icon(
-            onPressed: () {
-              Navigator.pop(ctx);
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Label kode batang untuk "${b.nama}" siap dicetak!'),
-                  backgroundColor: _hijauAksi,
-                ),
-              );
-            },
+            onPressed: b.barcode.isEmpty
+                ? null
+                : () {
+                    Navigator.pop(ctx);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Label kode batang untuk "${b.nama}" siap dicetak!'),
+                        backgroundColor: _hijauAksi,
+                      ),
+                    );
+                  },
             icon: const Icon(Icons.print, size: 16),
             label: const Text('Cetak Label Barcode'),
             style: ElevatedButton.styleFrom(

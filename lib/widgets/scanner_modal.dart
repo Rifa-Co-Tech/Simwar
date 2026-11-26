@@ -88,7 +88,9 @@ class _PindaiBarcodeModalState extends State<PindaiBarcodeModal>
     ItemKeranjang? ditemukan;
 
     final barangKatalog = BarangStore.instance.semua.firstWhere(
-      (b) => b.barcode == cleanCode || b.nama.toLowerCase() == cleanCode.toLowerCase(),
+      (b) =>
+          (b.barcode.isNotEmpty && b.barcode == cleanCode) ||
+          b.nama.toLowerCase() == cleanCode.toLowerCase(),
       orElse: () => BarangModel(
         id: '',
         nama: '',
@@ -106,6 +108,7 @@ class _PindaiBarcodeModalState extends State<PindaiBarcodeModal>
         nama: barangKatalog.nama,
         harga: barangKatalog.hargaJual,
         jumlah: 1,
+        satuan: barangKatalog.satuan,
       );
     } else {
       final idx = widget.katalog.indexWhere(
@@ -410,7 +413,9 @@ class _PindaiBarcodeModalState extends State<PindaiBarcodeModal>
               itemBuilder: (context, idx) {
                 final item = daftarSampel[idx];
                 return InkWell(
-                  onTap: () => _prosesKodeBarcode(item.barcode),
+                  onTap: () => _prosesKodeBarcode(
+                    item.barcode.isNotEmpty ? item.barcode : item.nama,
+                  ),
                   borderRadius: BorderRadius.circular(14),
                   child: Container(
                     padding: const EdgeInsets.all(8),
@@ -440,12 +445,29 @@ class _PindaiBarcodeModalState extends State<PindaiBarcodeModal>
                           overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 4),
-                        SimwarBarcodeWidget(
-                          barcodeValue: item.barcode,
-                          width: 120,
-                          height: 34,
-                          showText: true,
-                        ),
+                        if (item.barcode.isNotEmpty)
+                          SimwarBarcodeWidget(
+                            barcodeValue: item.barcode,
+                            width: 120,
+                            height: 34,
+                            showText: true,
+                          )
+                        else
+                          Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFF4EFE0),
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            child: Text(
+                              'Tanpa barcode',
+                              style: GoogleFonts.inter(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w600,
+                                color: _abuTeks,
+                              ),
+                            ),
+                          ),
                       ],
                     ),
                   ),

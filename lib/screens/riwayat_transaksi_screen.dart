@@ -268,7 +268,7 @@ class _RiwayatTransaksiScreenState extends State<RiwayatTransaksiScreen> {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    'Hari ini · 17 Nov 2026',
+                    'Hari ini · ${SimwarFormatter.tanggalPendek(DateTime.now())}',
                     style: GoogleFonts.inter(
                       fontSize: 12,
                       fontWeight: FontWeight.w400,

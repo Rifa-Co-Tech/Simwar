@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'package:flutter/foundation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'barang_masuk_model.dart';
 import 'barang_model.dart';
 
@@ -10,7 +13,7 @@ class ItemBelanja {
   String nama;
   int jumlah;
   String satuan;
-  int estimasiHarga;
+  int estimasiHarga; // Harga satuan (Rp per unit)
   String tokoTujuan; // 'Grosir Berkah', 'Pasar Induk', 'Distributor Indomarco', 'Lainnya'
   bool isSudahDibeli;
   String alasan; // 'Stok Kritis', 'Stok Menipis', 'Permintaan Pelanggan', 'Manual'
@@ -28,6 +31,34 @@ class ItemBelanja {
   });
 
   int get subtotal => jumlah * estimasiHarga;
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'barang_id': barangId,
+      'nama': nama,
+      'jumlah': jumlah,
+      'satuan': satuan,
+      'estimasi_harga': estimasiHarga,
+      'toko_tujuan': tokoTujuan,
+      'is_sudah_dibeli': isSudahDibeli,
+      'alasan': alasan,
+    };
+  }
+
+  factory ItemBelanja.fromMap(Map<String, dynamic> map) {
+    return ItemBelanja(
+      id: (map['id'] ?? '').toString(),
+      barangId: map['barang_id']?.toString(),
+      nama: (map['nama'] ?? '').toString(),
+      jumlah: (map['jumlah'] as num?)?.toInt() ?? 1,
+      satuan: (map['satuan'] ?? 'pcs').toString(),
+      estimasiHarga: (map['estimasi_harga'] as num?)?.toInt() ?? 0,
+      tokoTujuan: (map['toko_tujuan'] ?? 'Grosir Berkah').toString(),
+      isSudahDibeli: map['is_sudah_dibeli'] == true,
+      alasan: (map['alasan'] ?? 'Manual').toString(),
+    );
+  }
 }
 
 class RencanaBelanjaStore {
@@ -35,6 +66,7 @@ class RencanaBelanjaStore {
   factory RencanaBelanjaStore() => instance;
   RencanaBelanjaStore._internal();
 
+  static const String _keyLocal = 'simwar_rencana_belanja_v1';
   final List<ItemBelanja> _list = [];
 
   List<ItemBelanja> get semua => List.unmodifiable(_list);
@@ -54,19 +86,52 @@ class RencanaBelanjaStore {
   int get totalSudahDibelanjakan =>
       sudahDibeli.fold(0, (sum, i) => sum + i.subtotal);
 
+  Future<void> simpanKeLocalStorage() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final encoded = jsonEncode(_list.map((i) => i.toMap()).toList());
+      await prefs.setString(_keyLocal, encoded);
+    } catch (e) {
+      debugPrint('Gagal simpan rencana belanja ke SharedPreferences: $e');
+    }
+  }
+
+  Future<void> muatDariLocalStorage() async {
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      final jsonStr = prefs.getString(_keyLocal);
+      if (jsonStr != null && jsonStr.isNotEmpty) {
+        final decoded = jsonDecode(jsonStr);
+        if (decoded is List) {
+          _list.clear();
+          for (var item in decoded) {
+            if (item is Map) {
+              _list.add(ItemBelanja.fromMap(Map<String, dynamic>.from(item)));
+            }
+          }
+        }
+      }
+    } catch (e) {
+      debugPrint('Gagal muat rencana belanja dari SharedPreferences: $e');
+    }
+  }
+
   void tambahItem(ItemBelanja item) {
     _list.insert(0, item);
+    simpanKeLocalStorage();
   }
 
   void toggleStatus(String id) {
     final idx = _list.indexWhere((i) => i.id == id);
     if (idx != -1) {
       _list[idx].isSudahDibeli = !_list[idx].isSudahDibeli;
+      simpanKeLocalStorage();
     }
   }
 
   void hapusItem(String id) {
     _list.removeWhere((i) => i.id == id);
+    simpanKeLocalStorage();
   }
 
   /// Sinkronisasi otomatis dari barang stok menipis
@@ -75,7 +140,7 @@ class RencanaBelanjaStore {
     for (var b in menipis) {
       final exists = _list.any((item) =>
           item.barangId == b.id ||
-          item.nama.toLowerCase() == b.nama.toLowerCase());
+          item.nama.trim().toLowerCase() == b.nama.trim().toLowerCase());
       if (!exists) {
         _list.add(
           ItemBelanja(
@@ -84,7 +149,7 @@ class RencanaBelanjaStore {
             nama: b.nama,
             jumlah: b.batasMin * 2,
             satuan: b.satuan,
-            estimasiHarga: b.hargaBeli * (b.batasMin * 2),
+            estimasiHarga: b.hargaBeli,
             tokoTujuan: b.namaPemasok ?? 'Grosir Berkah',
             isSudahDibeli: false,
             alasan: b.isKritis ? 'Stok Kritis' : 'Stok Menipis',
@@ -92,6 +157,7 @@ class RencanaBelanjaStore {
         );
       }
     }
+    simpanKeLocalStorage();
   }
 
   /// Terapkan barang yang sudah dibeli menjadi BarangMasuk & update stok
@@ -105,7 +171,7 @@ class RencanaBelanjaStore {
         namaBarang: ib.nama,
         jumlah: ib.jumlah,
         satuan: ib.satuan,
-        hargaBeli: ib.jumlah > 0 ? (ib.estimasiHarga ~/ ib.jumlah) : ib.estimasiHarga,
+        hargaBeli: ib.estimasiHarga,
       );
     }).toList();
 
@@ -127,6 +193,7 @@ class RencanaBelanjaStore {
 
     // Hapus barang yang sudah dibeli dari daftar belanja aktif
     _list.removeWhere((i) => i.isSudahDibeli);
+    simpanKeLocalStorage();
 
     return itemsBeli.length;
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../models/barang_model.dart';
 import '../models/pengguna_model.dart';
@@ -587,7 +588,7 @@ class _RencanaBelanjaScreenState extends State<RencanaBelanjaScreen> {
                                   selectedCatalogId = b.id;
                                   namaCtrl.text = b.nama;
                                   satuanCtrl.text = b.satuan;
-                                  estimasiCtrl.text = (b.hargaBeli * 10).toString();
+                                  estimasiCtrl.text = b.hargaBeli.toString();
                                 } else {
                                   selectedCatalogId = null;
                                 }
@@ -638,12 +639,12 @@ class _RencanaBelanjaScreenState extends State<RencanaBelanjaScreen> {
                     ),
                     const SizedBox(height: 12),
 
-                    // Estimasi Harga Total
+                    // Estimasi Harga Satuan
                     TextField(
                       controller: estimasiCtrl,
                       keyboardType: TextInputType.number,
                       decoration: const InputDecoration(
-                        labelText: 'Estimasi Anggaran Total',
+                        labelText: 'Estimasi Harga Satuan (Rp)',
                         prefixText: 'Rp ',
                         border: OutlineInputBorder(),
                       ),
@@ -803,8 +804,11 @@ class _RencanaBelanjaScreenState extends State<RencanaBelanjaScreen> {
         ),
         actions: [
           ElevatedButton.icon(
-            onPressed: () {
+            onPressed: () async {
+              await Clipboard.setData(ClipboardData(text: buffer.toString()));
+              if (!ctx.mounted) return;
               Navigator.pop(ctx);
+              if (!mounted) return;
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text('Catatan belanja berhasil disalin ke clipboard!'),

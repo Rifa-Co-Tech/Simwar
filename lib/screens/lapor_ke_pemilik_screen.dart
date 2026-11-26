@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
+import '../models/barang_model.dart';
 import '../models/laporan_model.dart';
 import '../models/pengguna_model.dart';
 import '../utils/formatters.dart';
@@ -40,9 +41,7 @@ class _LaporKePemilikScreenState extends State<LaporKePemilikScreen> {
   ];
 
   String _kategoriDipilih = 'Stok habis';
-  final TextEditingController _pesanCtrl = TextEditingController(
-    text: 'Gula pasir 1 kg habis. Tolong dibelikan lagi sebelum sore.',
-  );
+  final TextEditingController _pesanCtrl = TextEditingController();
 
   final List<XFile> _fotoFiles = [];
   final ImagePicker _picker = ImagePicker();
@@ -71,7 +70,7 @@ class _LaporKePemilikScreenState extends State<LaporKePemilikScreen> {
     final waktuSekarang = SimwarFormatter.tanggal(DateTime.now());
     final namaPengirim = widget.pengguna?.nama.isNotEmpty == true
         ? widget.pengguna!.nama
-        : 'Rina';
+        : 'Penjaga';
 
     final laporanBaru = LaporanModel(
       id: DateTime.now().millisecondsSinceEpoch.toString(),
@@ -80,8 +79,8 @@ class _LaporKePemilikScreenState extends State<LaporKePemilikScreen> {
       peranPengirim: 'Penjaga',
       waktu: waktuSekarang,
       pesan: pesan,
-      namaBarang: _barangTertaut ?? (_kategoriDipilih == 'Stok habis' ? 'Gula Pasir 1 kg' : null),
-      sisaStok: _sisaStokTertaut ?? (_kategoriDipilih == 'Stok habis' ? 0 : null),
+      namaBarang: _barangTertaut,
+      sisaStok: _sisaStokTertaut,
       status: 'Baru',
       lampiran: _fotoFiles.map((f) => f.path).toList(),
     );
@@ -185,52 +184,68 @@ class _LaporKePemilikScreenState extends State<LaporKePemilikScreen> {
   }
 
   void _tautkanBarangDialog() {
-    final katalog = [
-      {'nama': 'Gula Pasir 1 kg', 'sisa': 0},
-      {'nama': 'Minyak Goreng 1 L', 'sisa': 2},
-      {'nama': 'Indomie Goreng Spesial', 'sisa': 5},
-      {'nama': 'Telur Ayam 1 kg', 'sisa': 1},
-      {'nama': 'Beras Ramos 5 kg', 'sisa': 0},
-    ];
+    final katalog = BarangStore.instance.semua;
 
     showModalBottomSheet(
       context: context,
       backgroundColor: Colors.white,
+      isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
-      builder: (ctx) => Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Text(
-              'Tautkan Barang Warung',
-              style: GoogleFonts.inter(
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-                color: _hijauTua,
+      builder: (ctx) => SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.all(24),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Text(
+                'Tautkan Barang Warung',
+                style: GoogleFonts.inter(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                  color: _hijauTua,
+                ),
               ),
-            ),
-            const SizedBox(height: 12),
-            ...katalog.map((item) {
-              final nama = item['nama'] as String;
-              final sisa = item['sisa'] as int;
-              return ListTile(
-                title: Text(nama, style: GoogleFonts.inter(fontWeight: FontWeight.w600)),
-                subtitle: Text('Sisa stok: $sisa', style: GoogleFonts.inter(fontSize: 12, color: _abuTeks)),
-                trailing: const Icon(Icons.add_circle_outline, color: _hijauAksi),
-                onTap: () {
-                  setState(() {
-                    _barangTertaut = nama;
-                    _sisaStokTertaut = sisa;
-                  });
-                  Navigator.pop(ctx);
-                },
-              );
-            }),
-          ],
+              const SizedBox(height: 12),
+              if (katalog.isEmpty)
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: Text(
+                    'Belum ada barang terdaftar di katalog warung.',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.inter(fontSize: 13, color: _abuTeks),
+                  ),
+                )
+              else
+                ConstrainedBox(
+                  constraints: const BoxConstraints(maxHeight: 320),
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: katalog.length,
+                    itemBuilder: (_, index) {
+                      final b = katalog[index];
+                      return ListTile(
+                        title: Text(b.nama, style: GoogleFonts.inter(fontWeight: FontWeight.w600)),
+                        subtitle: Text(
+                          'Sisa stok: ${b.stok} ${b.satuan}',
+                          style: GoogleFonts.inter(fontSize: 12, color: _abuTeks),
+                        ),
+                        trailing: const Icon(Icons.add_circle_outline, color: _hijauAksi),
+                        onTap: () {
+                          setState(() {
+                            _barangTertaut = b.nama;
+                            _sisaStokTertaut = b.stok;
+                          });
+                          Navigator.pop(ctx);
+                        },
+                      );
+                    },
+                  ),
+                ),
+            ],
+          ),
         ),
       ),
     );

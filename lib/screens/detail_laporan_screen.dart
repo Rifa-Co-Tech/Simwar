@@ -14,12 +14,12 @@ class DetailLaporanScreen extends StatefulWidget {
 
   const DetailLaporanScreen({
     super.key,
-    this.idLaporan = '1',
-    this.judul = 'Stok habis',
-    this.pengirim = 'Rina',
-    this.waktu = '17 Nov 2026, 10.05',
-    this.pesan = 'Gula pasir 1 kg habis. Tolong dibelikan lagi sebelum sore.',
-    this.namaBarang = 'Gula Pasir 1 kg',
+    this.idLaporan = '',
+    this.judul = 'Laporan Warung',
+    this.pengirim = 'Penjaga',
+    this.waktu = '-',
+    this.pesan = '',
+    this.namaBarang = '',
     this.sisaStok = 0,
     this.statusAwal = 'Baru',
   });
@@ -42,7 +42,6 @@ class _DetailLaporanScreenState extends State<DetailLaporanScreen> {
   late String _status;
   bool _isSending = false;
   final List<String> _riwayatBalasan = [];
-  int _currentNavIndex = 4; // Tab 4 = Kotak masuk
 
   @override
   void initState() {
@@ -220,7 +219,7 @@ class _DetailLaporanScreenState extends State<DetailLaporanScreen> {
           children: [
             // Konten Scrollable
             SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(20, 16, 20, 100),
+              padding: const EdgeInsets.fromLTRB(20, 16, 20, 30),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -572,14 +571,6 @@ class _DetailLaporanScreenState extends State<DetailLaporanScreen> {
                 ],
               ),
             ),
-
-            // ── Floating Bottom Navigation Bar (Figma 2073:4456) ──────
-            Positioned(
-              left: 16,
-              right: 16,
-              bottom: 12,
-              child: _buildBottomNav(),
-            ),
           ],
         ),
       ),
@@ -641,69 +632,6 @@ class _DetailLaporanScreenState extends State<DetailLaporanScreen> {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  // Floating Navigation Bar 5 Menu Sesuai Desain Figma
-  Widget _buildBottomNav() {
-    final navItems = [
-      {'label': 'Beranda', 'icon': Icons.home_outlined},
-      {'label': 'Kasir', 'icon': Icons.shopping_cart_outlined},
-      {'label': 'Stok', 'icon': Icons.inventory_2_outlined},
-      {'label': 'Laporan', 'icon': Icons.bar_chart_outlined},
-      {'label': 'Kotak masuk', 'icon': Icons.inbox_rounded},
-    ];
-
-    return Container(
-      height: 64,
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      decoration: BoxDecoration(
-        color: _hijauTua,
-        borderRadius: BorderRadius.circular(32),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.25),
-            blurRadius: 20,
-            offset: const Offset(0, 6),
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: List.generate(navItems.length, (idx) {
-          final item = navItems[idx];
-          final bool isActive = _currentNavIndex == idx;
-          final Color itemColor = isActive ? _kuningAksen : _kremBg;
-
-          return GestureDetector(
-            onTap: () {
-              setState(() => _currentNavIndex = idx);
-              if (idx == 0) {
-                Navigator.pop(context); // Kembali ke Beranda
-              }
-            },
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  item['icon'] as IconData,
-                  size: 22,
-                  color: itemColor,
-                ),
-                const SizedBox(height: 3),
-                Text(
-                  item['label'] as String,
-                  style: TextStyle(
-                    color: itemColor,
-                    fontSize: 10.5,
-                    fontWeight: isActive ? FontWeight.w800 : FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
-          );
-        }),
       ),
     );
   }

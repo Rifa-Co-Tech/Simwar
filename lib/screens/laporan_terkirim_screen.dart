@@ -197,8 +197,8 @@ class LaporanTerkirimScreen extends StatelessWidget {
                               pengguna: pengguna ??
                                   PenggunaModel(
                                     id: '2',
-                                    nama: 'Rina',
-                                    nomorHp: '081234567890',
+                                    nama: 'Penjaga',
+                                    nomorHp: '',
                                     peran: 'penjaga',
                                     statusAktif: true,
                                   ),

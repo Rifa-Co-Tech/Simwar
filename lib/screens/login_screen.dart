@@ -1,14 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../models/barang_masuk_model.dart';
+import '../models/barang_model.dart';
+import '../models/kasbon_model.dart';
+import '../models/laporan_model.dart';
+import '../models/notifikasi_model.dart';
+import '../models/pengaturan_warung_model.dart';
+import '../models/rencana_belanja_model.dart';
+import '../models/transaksi_model.dart';
 import '../services/auth_service.dart';
+import 'forgot_password_screen.dart';
 import 'home_screen.dart';
 import 'register_screen_1.dart';
 
 /// SIMWAR - Layar Login (Pemilik / Penjaga)
 /// Diport persis dari Spesifikasi Desain Figma node 2073:3815 & SIMWAR_Login_Pemilik_SPEC.md
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  final String? initialNomorHp;
+  const LoginScreen({super.key, this.initialNomorHp});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -33,10 +43,29 @@ class _LoginScreenState extends State<LoginScreen> {
   bool _isLoading = false;
   String? _errorMsg;
 
-  final _teleponCtrl = TextEditingController(text: '0812 3456 7890');
-  final _sandiCtrl = TextEditingController(text: '12345678');
+  final _teleponCtrl = TextEditingController();
+  final _sandiCtrl = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   final _authService = AuthService();
+
+  @override
+  void initState() {
+    super.initState();
+    _isiNomorTerdaftarAwal();
+  }
+
+  Future<void> _isiNomorTerdaftarAwal() async {
+    if (widget.initialNomorHp != null && widget.initialNomorHp!.isNotEmpty) {
+      if (mounted) {
+        setState(() => _teleponCtrl.text = widget.initialNomorHp!);
+      }
+      return;
+    }
+    final regPhone = await _authService.getRegisteredPhone(_peranDipilih);
+    if (mounted && regPhone.isNotEmpty) {
+      setState(() => _teleponCtrl.text = regPhone);
+    }
+  }
 
   @override
   void dispose() {
@@ -45,21 +74,20 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  void _switchPeran(String peran) {
+  Future<void> _switchPeran(String peran) async {
     if (_peranDipilih == peran) return;
     setState(() {
       _peranDipilih = peran;
       _errorMsg = null;
-      if (peran == 'Pemilik') {
-        _teleponCtrl.text = '0812 3456 7890';
-      } else {
-        _teleponCtrl.text = '0813 9876 5432';
-      }
+      _teleponCtrl.clear();
     });
+    final regPhone = await _authService.getRegisteredPhone(peran);
+    if (mounted && _peranDipilih == peran && regPhone.isNotEmpty) {
+      setState(() => _teleponCtrl.text = regPhone);
+    }
   }
 
   // ── Submit Login ─────────────────────────────────────────────────────
-  // TODO: Sambungkan ke endpoint login resmi & tujuan rute setelah login sukses (sesuai konfirmasi user)
   Future<void> _handleLogin() async {
     if (!_formKey.currentState!.validate()) return;
     setState(() {
@@ -77,16 +105,44 @@ class _LoginScreenState extends State<LoginScreen> {
       if (!mounted) return;
 
       if (pengguna != null) {
+        // Muat seluruh data warung tersimpan (Offline SharedPreferences + Supabase Cloud)
+        await Future.wait([
+          PengaturanStore.instance.muatDariLocalStorage(),
+          BarangStore.instance.muatDariLocalStorage(),
+          TransaksiStore.instance.muatDariLocalStorage(),
+          KasbonStore.instance.muatDariLocalStorage(),
+          BarangMasukStore.instance.muatDariLocalStorage(),
+          RencanaBelanjaStore.instance.muatDariLocalStorage(),
+          LaporanStore.instance.muatDariLocalStorage(),
+          NotifikasiStore.instance.muatDariLocalStorage(),
+        ]);
+        BarangStore.instance.sinkronkanDariSupabase().catchError((_) {});
+
+        if (!mounted) return;
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(
-            builder: (_) => HomeScreen(pengguna: pengguna),
+          PageRouteBuilder(
+            pageBuilder: (_, __, ___) => HomeScreen(pengguna: pengguna),
+            transitionsBuilder: (_, anim, __, child) {
+              final curved = CurvedAnimation(parent: anim, curve: Curves.easeOutCubic);
+              return FadeTransition(
+                opacity: curved,
+                child: SlideTransition(
+                  position: Tween<Offset>(
+                    begin: const Offset(0.0, 0.03),
+                    end: Offset.zero,
+                  ).animate(curved),
+                  child: child,
+                ),
+              );
+            },
+            transitionDuration: const Duration(milliseconds: 380),
           ),
         );
       } else {
         setState(() {
           _errorMsg =
-              'Nomor telepon atau kata sandi $_peranDipilih salah. Silakan periksa kembali.';
+              'Nomor HP belum terdaftar atau kata sandi $_peranDipilih tidak sesuai. Pastikan Anda sudah mendaftar.';
         });
       }
     } catch (e) {
@@ -207,9 +263,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
                           Positioned(
                             left: 26,
+                            right: 26,
                             top: 150,
                             child: Text(
-                              'Warung Azzam',
+                              PengaturanStore.instance.pengaturan.namaWarung,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                               style: GoogleFonts.fraunces(
                                 fontSize: 24,
                                 fontWeight: FontWeight.w700,
@@ -679,10 +738,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       decoration: const InputDecoration(
                         border: InputBorder.none,
-                        hintText: '0812 3456 7890',
+                        hintText: 'Masukkan nomor HP terdaftar',
                         hintStyle: TextStyle(
-                          color: _hijauTua,
-                          fontSize: 15,
+                          color: Color(0xFF9BA39D),
+                          fontSize: 14,
                         ),
                         isDense: true,
                         contentPadding: EdgeInsets.zero,
@@ -729,10 +788,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       decoration: const InputDecoration(
                         border: InputBorder.none,
-                        hintText: '••••••••',
+                        hintText: 'Masukkan kata sandi',
                         hintStyle: TextStyle(
-                          color: _hijauTua,
-                          fontSize: 15,
+                          color: Color(0xFF9BA39D),
+                          fontSize: 14,
                         ),
                         isDense: true,
                         contentPadding: EdgeInsets.zero,
@@ -846,28 +905,54 @@ class _LoginScreenState extends State<LoginScreen> {
 
             const SizedBox(height: 28),
 
-            // 5. Tautan Daftar (Inter 600 13px _teks)
+            // 5. Tautan Daftar & Lupa Kata Sandi
             Center(
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const RegisterScreen1(),
-                    ),
-                  );
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 4),
-                  child: Text(
-                    'Belum punya akun? Buat profil pemilik',
-                    style: GoogleFonts.inter(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                      color: _teks,
+              child: Column(
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const ForgotPasswordScreen(),
+                        ),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: Text(
+                        'Lupa kata sandi?',
+                        style: GoogleFonts.inter(
+                          fontSize: 12.5,
+                          fontWeight: FontWeight.w600,
+                          color: _hijau,
+                        ),
+                      ),
                     ),
                   ),
-                ),
+                  const SizedBox(height: 8),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => const RegisterScreen1(),
+                        ),
+                      );
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 4),
+                      child: Text(
+                        'Belum punya akun? Buat profil pemilik',
+                        style: GoogleFonts.inter(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: _teks,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
             const SizedBox(height: 16),

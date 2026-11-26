@@ -1,10 +1,17 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../models/analisis_laba_model.dart';
+import '../models/barang_masuk_model.dart';
 import '../models/barang_model.dart';
+import '../models/kasbon_model.dart';
+import '../models/laporan_model.dart';
 import '../models/notifikasi_model.dart';
+import '../models/pengaturan_warung_model.dart';
 import '../models/pengguna_model.dart';
+import '../models/rencana_belanja_model.dart';
+import '../models/transaksi_model.dart';
 import '../utils/formatters.dart';
 import 'barang_masuk_screen.dart';
 import 'catat_barang_masuk_screen.dart';
@@ -17,13 +24,15 @@ import 'laba_per_barang_screen.dart';
 import 'lapor_ke_pemilik_screen.dart';
 import 'laporan_penjualan_screen.dart';
 import 'laporan_saya_screen.dart';
-import 'login_screen.dart';
 import 'notifikasi_screen.dart';
 import 'pengaturan_screen.dart';
 import 'rencana_belanja_screen.dart';
 import 'riwayat_transaksi_screen.dart';
 import 'stok_screen.dart';
 import 'tambah_akun_penjaga_screen.dart';
+import '../services/peringatan_service.dart';
+import '../widgets/heads_up_notification_banner.dart';
+import '../widgets/simwar_bottom_nav.dart';
 
 /// SIMWAR — Beranda Pemilik & Beranda Penjaga
 /// Diport dari Spesifikasi Figma:
@@ -53,14 +62,49 @@ class _HomeScreenState extends State<HomeScreen> {
 
   int _currentNavIndex = 0;
   late PenggunaModel _penggunaAktif;
+  final ScrollController _scrollController = ScrollController();
+  Timer? _clockTimer;
 
   @override
   void initState() {
     super.initState();
     _penggunaAktif = widget.pengguna;
-    BarangStore.instance.sinkronkanDariSupabase().then((_) {
+
+    _clockTimer = Timer.periodic(const Duration(seconds: 15), (_) {
       if (mounted) setState(() {});
     });
+
+    // 1. Muat seluruh data lokal seketika agar offline/cepat
+    Future.wait([
+      PengaturanStore.instance.muatDariLocalStorage(),
+      BarangStore.instance.muatDariLocalStorage(),
+      TransaksiStore.instance.muatDariLocalStorage(),
+      KasbonStore.instance.muatDariLocalStorage(),
+      BarangMasukStore.instance.muatDariLocalStorage(),
+      RencanaBelanjaStore.instance.muatDariLocalStorage(),
+      LaporanStore.instance.muatDariLocalStorage(),
+      NotifikasiStore.instance.muatDariLocalStorage(),
+    ]).then((_) {
+      if (mounted) setState(() {});
+      PeringatanService.instance.periksaSemuaPeringatan();
+    });
+
+    // 2. Sinkronkan dari Supabase Cloud di latar belakang
+    BarangStore.instance.sinkronkanDariSupabase().then((_) {
+      if (mounted) setState(() {});
+      PeringatanService.instance.periksaSemuaPeringatan();
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      PeringatanService.instance.periksaSemuaPeringatan();
+    });
+  }
+
+  @override
+  void dispose() {
+    _clockTimer?.cancel();
+    _scrollController.dispose();
+    super.dispose();
   }
 
   bool get _isPemilik =>
@@ -74,58 +118,29 @@ class _HomeScreenState extends State<HomeScreen> {
         bottom: false,
         child: Stack(
           children: [
-            // Konten Utama Scrollable
-            SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(24, 12, 24, 100),
-              physics: const BouncingScrollPhysics(),
+            // Konten Tab Aktif (Beranda / Kasir / Stok / Laporan / Kotak Masuk)
+            _buildBodyForTab(),
+
+            // ── Modern Floating Bottom Navigation Bar (Animated Capsule) ─────
+            Positioned(
+              left: 16,
+              right: 16,
+              bottom: 16 + MediaQuery.paddingOf(context).bottom,
               child: Center(
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 420),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      // ── 1. Top Bar: Salam, Nama Warung, Alamat, Avatar & Notif ──
-                      _buildTopHeader(),
-                      const SizedBox(height: 18),
-
-                      // ── 2. Kartu Penjualan / Transaksi (Hero Card) ──────
-                      _buildHeroCard(),
-                      const SizedBox(height: 12),
-
-                      // ── 3. Tombol CTA Utama (Mulai Jual / Kasir) ────────
-                      _buildCtaButton(),
-                      const SizedBox(height: 12),
-
-                      // ── 3b. Khusus Penjaga: Banner Lapor ke Pemilik ─────
-                      if (!_isPemilik) ...[
-                        _buildBannerLaporPenjaga(),
-                        const SizedBox(height: 14),
-                      ],
-
-                      // ── 4. Bagian "Perlu perhatian" ──────────────────────
-                      _buildPerluPerhatianSection(),
-                      const SizedBox(height: 18),
-
-                      // ── 5. Bagian "Menu" ─────────────────────────────────
-                      _buildMenuSection(),
-                      const SizedBox(height: 20),
-                    ],
+                  child: SimwarBottomNav(
+                    currentIndex: _currentNavIndex,
+                    isPemilik: _isPemilik,
+                    onTap: _handleNavTap,
                   ),
                 ),
               ),
             ),
 
-            // ── Floating Bottom Navigation Bar (Figma spec @ 0,764) ─────
-            Positioned(
-              left: 16,
-              right: 16,
-              bottom: 12,
-              child: Center(
-                child: ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 420),
-                  child: _buildBottomNav(),
-                ),
-              ),
+            // ── Heads-Up Notification Banner (Notif Sungguhan di Atas Layar HP) ──
+            HeadsUpNotificationBanner(
+              onBukaStok: () => setState(() => _currentNavIndex = 2),
             ),
           ],
         ),
@@ -133,11 +148,112 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // ── 1. Header: Warung Azzam, Alamat, Lonceng & Avatar ──────────────────
+  Widget _buildBodyForTab() {
+    switch (_currentNavIndex) {
+      case 0:
+        return _buildBerandaScrollContent();
+      case 1:
+        return KasirScreen(
+          pengguna: _penggunaAktif,
+          embeddedInNavbar: true,
+          onBackToHome: () => setState(() => _currentNavIndex = 0),
+        );
+      case 2:
+        return StokScreen(
+          pengguna: _penggunaAktif,
+          embeddedInNavbar: true,
+          onBackToHome: () => setState(() => _currentNavIndex = 0),
+        );
+      case 3:
+        return _isPemilik
+            ? LaporanPenjualanScreen(
+                pengguna: _penggunaAktif,
+                embeddedInNavbar: true,
+                onBackToHome: () => setState(() => _currentNavIndex = 0),
+              )
+            : LaporanSayaScreen(
+                pengguna: _penggunaAktif,
+                embeddedInNavbar: true,
+                onBackToHome: () => setState(() => _currentNavIndex = 0),
+              );
+      case 4:
+        return _isPemilik
+            ? KotakMasukScreen(
+                pengguna: _penggunaAktif,
+                embeddedInNavbar: true,
+                onBackToHome: () => setState(() => _currentNavIndex = 0),
+              )
+            : const SizedBox.shrink();
+      default:
+        return _buildBerandaScrollContent();
+    }
+  }
+
+  Widget _buildBerandaScrollContent() {
+    return SingleChildScrollView(
+      controller: _scrollController,
+      padding: EdgeInsets.fromLTRB(
+        24,
+        12,
+        24,
+        115 + MediaQuery.paddingOf(context).bottom,
+      ),
+      physics: const BouncingScrollPhysics(),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 420),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // ── 1. Top Bar: Salam, Nama Warung, Alamat, Avatar & Notif ──
+              _buildTopHeader(),
+              const SizedBox(height: 18),
+
+              // ── 2. Kartu Penjualan / Transaksi (Hero Card) ──────
+              _buildHeroCard(),
+              const SizedBox(height: 12),
+
+              // ── 3. Tombol CTA Utama (Mulai Jual / Kasir) ────────
+              _buildCtaButton(),
+              const SizedBox(height: 12),
+
+              // ── 3b. Khusus Penjaga: Banner Lapor ke Pemilik ─────
+              if (!_isPemilik) ...[
+                _buildBannerLaporPenjaga(),
+                const SizedBox(height: 14),
+              ],
+
+              // ── 4. Bagian "Perlu perhatian" ──────────────────────
+              _buildPerluPerhatianSection(),
+              const SizedBox(height: 18),
+
+              // ── 5. Bagian "Menu" ─────────────────────────────────
+              _buildMenuSection(),
+              const SizedBox(height: 20),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  String get _salamWaktu {
+    final jam = DateTime.now().hour;
+    if (jam >= 4 && jam < 11) return 'Selamat pagi,';
+    if (jam >= 11 && jam < 15) return 'Selamat siang,';
+    if (jam >= 15 && jam < 18) return 'Selamat sore,';
+    return 'Selamat malam,';
+  }
+
+  // ── 1. Header: Nama Warung, Alamat, Lonceng & Avatar ──────────────────
   Widget _buildTopHeader() {
-    final nama = widget.pengguna.nama.isNotEmpty ? widget.pengguna.nama : 'Alfian';
-    final initial = nama.isNotEmpty ? nama[0].toUpperCase() : 'A';
+    final cfg = PengaturanStore.instance.pengaturan;
+    final nama = _penggunaAktif.nama.isNotEmpty ? _penggunaAktif.nama : 'Pemilik';
+    final initial = nama.isNotEmpty ? nama[0].toUpperCase() : 'W';
     final peranLabel = _isPemilik ? 'Pemilik' : 'Penjaga · $nama';
+    final namaWarungDisplay = cfg.namaWarung.trim().isNotEmpty
+        ? cfg.namaWarung
+        : _penggunaAktif.namaWarung;
 
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -148,16 +264,18 @@ class _HomeScreenState extends State<HomeScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Selamat sore,',
+                '$_salamWaktu · ${SimwarFormatter.hariTanggalSingkat(DateTime.now())}',
                 style: GoogleFonts.inter(
                   fontSize: 12,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.w500,
                   color: _abuTeks,
                 ),
               ),
               const SizedBox(height: 2),
               Text(
-                'Warung Azzam',
+                namaWarungDisplay,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 style: GoogleFonts.inter(
                   fontSize: 26,
                   fontWeight: FontWeight.w800,
@@ -176,7 +294,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(width: 4),
                   Expanded(
                     child: Text(
-                      'Jl. Garuda Sakti Km 1, Tampan',
+                      cfg.alamatWarung,
                       style: GoogleFonts.inter(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
@@ -387,12 +505,7 @@ class _HomeScreenState extends State<HomeScreen> {
       height: 52,
       child: ElevatedButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (_) => KasirScreen(pengguna: widget.pengguna),
-            ),
-          );
+          setState(() => _currentNavIndex = 1);
         },
         style: ElevatedButton.styleFrom(
           backgroundColor: _hijauAksi,
@@ -498,12 +611,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             InkWell(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => CatatBarangMasukScreen(pengguna: widget.pengguna),
-                  ),
-                );
+                _navigasiKe(CatatBarangMasukScreen(pengguna: _penggunaAktif));
               },
               borderRadius: BorderRadius.circular(12),
               child: Container(
@@ -561,15 +669,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     badgeCount: '${BarangStore.instance.stokMenipis.length}',
                     badgeColor: _kuningPeringatan,
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => StokScreen(
-                            initialTab: 'menipis',
-                            pengguna: widget.pengguna,
-                          ),
-                        ),
-                      ).then((_) => setState(() {}));
+                      setState(() => _currentNavIndex = 2);
                     },
                   ),
 
@@ -581,15 +681,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     badgeCount: '${BarangStore.instance.hampirKedaluwarsa.length}',
                     badgeColor: _merahAksen,
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (_) => StokScreen(
-                            initialTab: 'kedaluwarsa',
-                            pengguna: widget.pengguna,
-                          ),
-                        ),
-                      ).then((_) => setState(() {}));
+                      setState(() => _currentNavIndex = 2);
                     },
                   ),
 
@@ -599,15 +691,10 @@ class _HomeScreenState extends State<HomeScreen> {
                       label: 'Laporan baru',
                       iconPath: 'assets/icons/ikon-inbox-22x22-23794F.svg',
                       tileBgColor: _hijauMuda,
-                      badgeCount: '2',
+                      badgeCount: '${LaporanStore.instance.jumlahBaru}',
                       badgeColor: _merahAksen,
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (_) => KotakMasukScreen(pengguna: widget.pengguna),
-                          ),
-                        );
+                        setState(() => _currentNavIndex = 4);
                       },
                     ),
                 ],
@@ -618,12 +705,7 @@ class _HomeScreenState extends State<HomeScreen> {
               // Tombol cepat Tambah Pasokan Stok
               InkWell(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => CatatBarangMasukScreen(pengguna: widget.pengguna),
-                    ),
-                  );
+                  _navigasiKe(CatatBarangMasukScreen(pengguna: _penggunaAktif));
                 },
                 borderRadius: BorderRadius.circular(12),
                 child: Padding(
@@ -727,154 +809,70 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // ── 5. Bagian "Menu" (Grid 4 Kolom) ───────────────────────────────────────
   Widget _buildMenuSection() {
-    // Menu Pemilik: 7 ubin, Menu Penjaga: 3 ubin
+    // Menu Pemilik: 8 ubin, Menu Penjaga: 4 ubin
     final items = _isPemilik
         ? [
             {
               'label': 'Barang masuk',
               'icon': 'assets/icons/ikon-inn-22x22-23794F.svg',
-              'action': () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => BarangMasukScreen(pengguna: widget.pengguna),
-                  ),
-                );
-              },
+              'action': () => _navigasiKe(BarangMasukScreen(pengguna: widget.pengguna)),
             },
             {
               'label': 'Kelola barang',
               'icon': 'assets/icons/ikon-box-22x22-23794F.svg',
-              'action': () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => KelolaBarangScreen(pengguna: widget.pengguna),
-                  ),
-                );
-              },
+              'action': () => _navigasiKe(KelolaBarangScreen(pengguna: widget.pengguna)),
             },
             {
               'label': 'Rencana belanja',
               'icon': 'assets/icons/ikon-clip-22x22-23794F.svg',
-              'action': () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => RencanaBelanjaScreen(pengguna: widget.pengguna),
-                  ),
-                );
-              },
+              'action': () => _navigasiKe(RencanaBelanjaScreen(pengguna: widget.pengguna)),
             },
             {
               'label': 'Kasbon',
               'icon': 'assets/icons/ikon-wallet-22x22-23794F.svg',
-              'action': () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => KasbonScreen(pengguna: widget.pengguna),
-                  ),
-                );
-              },
+              'action': () => _navigasiKe(KasbonScreen(pengguna: widget.pengguna)),
             },
             {
               'label': 'Riwayat transaksi',
               'icon': 'assets/icons/ikon-receipt-22x22-23794F.svg',
-              'action': () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => RiwayatTransaksiScreen(pengguna: widget.pengguna),
-                  ),
-                );
-              },
+              'action': () => _navigasiKe(RiwayatTransaksiScreen(pengguna: widget.pengguna)),
             },
             {
               'label': 'Laba per barang',
               'icon': 'assets/icons/ikon-trend-22x22-23794F.svg',
-              'action': () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => LabaPerBarangScreen(pengguna: widget.pengguna),
-                  ),
-                );
-              },
+              'action': () => _navigasiKe(LabaPerBarangScreen(pengguna: widget.pengguna)),
             },
             {
               'label': 'Tim warung',
               'icon': 'assets/icons/ikon-users-22x22-23794F.svg',
-              'action': () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => TambahAkunPenjagaScreen(pengguna: widget.pengguna),
-                  ),
-                );
-              },
+              'action': () => _navigasiKe(TambahAkunPenjagaScreen(pengguna: widget.pengguna)),
             },
             {
               'label': 'Kelola titipan',
               'icon': 'assets/icons/ikon-flag-22x22-23794F.svg',
-              'action': () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => KelolaTitipanScreen(pengguna: widget.pengguna),
-                  ),
-                );
-              },
+              'action': () => _navigasiKe(KelolaTitipanScreen(pengguna: widget.pengguna)),
             },
           ]
         : [
             {
               'label': 'Barang masuk',
               'icon': 'assets/icons/ikon-inn-22x22-23794F.svg',
-              'action': () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => BarangMasukScreen(pengguna: widget.pengguna),
-                  ),
-                );
-              },
+              'action': () => _navigasiKe(BarangMasukScreen(pengguna: widget.pengguna)),
             },
             {
               'label': 'Kelola titipan',
               'icon': 'assets/icons/ikon-flag-22x22-23794F.svg',
-              'action': () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => KelolaTitipanScreen(pengguna: widget.pengguna),
-                  ),
-                );
-              },
+              'action': () => _navigasiKe(KelolaTitipanScreen(pengguna: widget.pengguna)),
             },
             {
               'label': 'Kasbon',
               'icon': 'assets/icons/ikon-wallet-22x22-23794F.svg',
-              'action': () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => KasbonScreen(pengguna: widget.pengguna),
-                  ),
-                );
-              },
+              'action': () => _navigasiKe(KasbonScreen(pengguna: widget.pengguna)),
             },
             {
               'label': 'Riwayat transaksi',
               'icon': 'assets/icons/ikon-receipt-22x22-23794F.svg',
-              'action': () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => RiwayatTransaksiScreen(pengguna: widget.pengguna),
-                  ),
-                );
-              },
+              'action': () => _navigasiKe(RiwayatTransaksiScreen(pengguna: widget.pengguna)),
             },
           ];
 
@@ -912,9 +910,8 @@ class _HomeScreenState extends State<HomeScreen> {
             children: items.map((item) {
               return SizedBox(
                 width: 70,
-                child: GestureDetector(
+                child: _BouncyMenuTile(
                   onTap: item['action'] as VoidCallback,
-                  behavior: HitTestBehavior.opaque,
                   child: Column(
                     children: [
                       Container(
@@ -923,6 +920,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         decoration: BoxDecoration(
                           color: _hijauMuda,
                           borderRadius: BorderRadius.circular(14),
+                          boxShadow: [
+                            BoxShadow(
+                              color: _hijauAksi.withValues(alpha: 0.12),
+                              blurRadius: 6,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
                         ),
                         child: Center(
                           child: SvgPicture.asset(
@@ -937,7 +941,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         item['label'] as String,
                         style: GoogleFonts.inter(
                           fontSize: 11,
-                          fontWeight: FontWeight.w400,
+                          fontWeight: FontWeight.w500,
                           color: _abuTeks,
                           height: 1.15,
                         ),
@@ -956,180 +960,116 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // ── 6. Bottom Navigation Bar Floating Pill ────────────────────────────────
-  Widget _buildBottomNav() {
-    final navItems = _isPemilik
-        ? [
-            {'label': 'Beranda', 'icon': 'assets/icons/ikon-home-22x22-F8B62B.svg'},
-            {'label': 'Kasir', 'icon': 'assets/icons/ikon-cart-22x22-F4EFE0.svg'},
-            {'label': 'Stok', 'icon': 'assets/icons/ikon-box-22x22-F4EFE0.svg'},
-            {'label': 'Laporan', 'icon': 'assets/icons/ikon-chart-22x22-F4EFE0.svg'},
-            {'label': 'Kotak masuk', 'icon': 'assets/icons/ikon-inbox-22x22-F4EFE0.svg'},
-          ]
-        : [
-            {'label': 'Beranda', 'icon': 'assets/icons/ikon-home-22x22-F8B62B.svg'},
-            {'label': 'Kasir', 'icon': 'assets/icons/ikon-cart-22x22-F4EFE0.svg'},
-            {'label': 'Stok', 'icon': 'assets/icons/ikon-box-22x22-F4EFE0.svg'},
-            {'label': 'Lapor', 'icon': 'assets/icons/ikon-flag-22x22-F4EFE0.svg'},
-          ];
-
-    return Container(
-      height: 64,
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      decoration: BoxDecoration(
-        color: _hijauTua,
-        borderRadius: BorderRadius.circular(32),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.25),
-            blurRadius: 20,
-            offset: const Offset(0, 6),
-          ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: List.generate(navItems.length, (idx) {
-          final item = navItems[idx];
-          final bool isActive = _currentNavIndex == idx;
-          final Color itemColor = isActive ? _kuningAksen : _bgLayar;
-
-          return GestureDetector(
-            onTap: () {
-              setState(() => _currentNavIndex = idx);
-              if (idx == 1) {
-                // Modul Kasir
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => KasirScreen(pengguna: widget.pengguna),
-                  ),
-                );
-              } else if (idx == 2) {
-                // Modul Stok
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => StokScreen(pengguna: widget.pengguna),
-                  ),
-                );
-              } else if (_isPemilik && idx == 3) {
-                // Modul Laporan Penjualan (Pemilik)
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => LaporanPenjualanScreen(pengguna: widget.pengguna),
-                  ),
-                );
-              } else if (_isPemilik && idx == 4) {
-                // Kotak Masuk (Pemilik)
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => KotakMasukScreen(pengguna: widget.pengguna),
-                  ),
-                );
-              } else if (!_isPemilik && idx == 3) {
-                // Lapor (Penjaga) -> Laporan Saya / Form Lapor
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (_) => LaporanSayaScreen(pengguna: widget.pengguna),
-                  ),
-                );
-              } else {
-                _showSnackbar('Navigasi ke ${item['label']}');
-              }
-            },
-            behavior: HitTestBehavior.opaque,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SvgPicture.asset(
-                  item['icon'] as String,
-                  width: 22,
-                  height: 22,
-                  colorFilter: ColorFilter.mode(itemColor, BlendMode.srcIn),
-                ),
-                const SizedBox(height: 3),
-                Text(
-                  item['label'] as String,
-                  style: GoogleFonts.inter(
-                    color: itemColor,
-                    fontSize: 10.5,
-                    fontWeight: isActive ? FontWeight.w800 : FontWeight.w500,
-                  ),
-                ),
-              ],
+  // ── Navigasi Halus dengan PageRouteBuilder (Fluid Transitions) ────────────
+  void _navigasiKe(Widget screen) {
+    Navigator.push(
+      context,
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) => screen,
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          final curved = CurvedAnimation(
+            parent: animation,
+            curve: Curves.easeOutCubic,
+          );
+          return FadeTransition(
+            opacity: curved,
+            child: SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(0.0, 0.04),
+                end: Offset.zero,
+              ).animate(curved),
+              child: child,
             ),
           );
-        }),
+        },
+        transitionDuration: const Duration(milliseconds: 280),
       ),
-    );
+    ).then((_) {
+      if (mounted) {
+        setState(() => _currentNavIndex = 0);
+        PeringatanService.instance.periksaSemuaPeringatan();
+      }
+    });
+  }
+
+  // ── Handler Klik Tab Navigasi Bawah ─────────────────────────────────────────
+  void _handleNavTap(int idx) {
+    if (idx == 0 && _currentNavIndex == 0) {
+      // Jika di Beranda dan tekan Beranda lagi: Scroll halus ke atas
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(
+          0,
+          duration: const Duration(milliseconds: 400),
+          curve: Curves.easeOutCubic,
+        );
+      }
+      return;
+    }
+
+    setState(() => _currentNavIndex = idx);
   }
 
   Future<void> _bukaPengaturan() async {
     final updated = await Navigator.push<PenggunaModel>(
       context,
-      MaterialPageRoute(
-        builder: (_) => PengaturanScreen(pengguna: _penggunaAktif),
+      PageRouteBuilder(
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            PengaturanScreen(pengguna: _penggunaAktif),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          final curved =
+              CurvedAnimation(parent: animation, curve: Curves.easeOutCubic);
+          return FadeTransition(
+            opacity: curved,
+            child: SlideTransition(
+              position:
+                  Tween<Offset>(begin: const Offset(0.0, 0.04), end: Offset.zero)
+                      .animate(curved),
+              child: child,
+            ),
+          );
+        },
+        transitionDuration: const Duration(milliseconds: 280),
       ),
     );
-    if (updated != null) {
-      setState(() => _penggunaAktif = updated);
+    if (mounted) {
+      setState(() {
+        if (updated != null) {
+          _penggunaAktif = updated;
+        }
+      });
     }
   }
+}
 
-  void _showSnackbar(String msg) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(msg),
-        backgroundColor: _hijauTua,
-        duration: const Duration(seconds: 2),
-      ),
-    );
-  }
+/// Widget tombol interaktif dengan animasi pantulan pegas halus (tactile spring) saat ditekan
+class _BouncyMenuTile extends StatefulWidget {
+  final Widget child;
+  final VoidCallback onTap;
 
-  void _showProfilDialog() {
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: Text(
-          'Profil Warung Azzam',
-          style: GoogleFonts.inter(fontWeight: FontWeight.bold, color: _hijauTua),
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Nama: ${widget.pengguna.nama}', style: GoogleFonts.inter()),
-            Text('No. HP: ${widget.pengguna.nomorHp}', style: GoogleFonts.inter()),
-            Text('Peran: ${widget.pengguna.peran}', style: GoogleFonts.inter()),
-            Text('Warung: ${widget.pengguna.namaWarung}', style: GoogleFonts.inter()),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.pop(ctx);
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (_) => const LoginScreen()),
-              );
-            },
-            child: const Text('Keluar (Logout)', style: TextStyle(color: _merahAksen)),
-          ),
-          ElevatedButton(
-            onPressed: () => Navigator.pop(ctx),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: _hijauAksi,
-              foregroundColor: Colors.white,
-            ),
-            child: const Text('Tutup'),
-          ),
-        ],
+  const _BouncyMenuTile({required this.child, required this.onTap});
+
+  @override
+  State<_BouncyMenuTile> createState() => _BouncyMenuTileState();
+}
+
+class _BouncyMenuTileState extends State<_BouncyMenuTile> {
+  bool _isPressed = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTapDown: (_) => setState(() => _isPressed = true),
+      onTapUp: (_) {
+        setState(() => _isPressed = false);
+        widget.onTap();
+      },
+      onTapCancel: () => setState(() => _isPressed = false),
+      behavior: HitTestBehavior.opaque,
+      child: AnimatedScale(
+        scale: _isPressed ? 0.90 : 1.0,
+        duration: const Duration(milliseconds: 120),
+        curve: Curves.easeOutCubic,
+        child: widget.child,
       ),
     );
   }

@@ -21,26 +21,57 @@ class SimwarFormatter {
     return '${isNegative ? "-Rp " : "Rp "}$reversed';
   }
 
-  /// Format tanggal & waktu ke format khas Indonesia: "22 Nov 2026, 19:30 WIB"
+  /// Format tanggal & waktu real-time ke format Indonesia: "26 Nov 2026, 21:58 WIB"
   static String tanggal(DateTime dt) {
     const List<String> namaBulan = [
       'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun',
       'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'
     ];
-    final String hari = dt.day.toString().padLeft(2, '0');
-    final String bulan = namaBulan[dt.month - 1];
-    final int tahun = dt.year;
-    final String jam = dt.hour.toString().padLeft(2, '0');
-    final String menit = dt.minute.toString().padLeft(2, '0');
-    return '$hari $bulan $tahun, $jam:$menit WIB';
+    final local = dt.toLocal();
+    final String hari = local.day.toString().padLeft(2, '0');
+    final String bulan = namaBulan[local.month - 1];
+    final int tahun = local.year;
+    final String jam = local.hour.toString().padLeft(2, '0');
+    final String menit = local.minute.toString().padLeft(2, '0');
+    final offsetHours = local.timeZoneOffset.inHours;
+    final zona = offsetHours == 7
+        ? ' WIB'
+        : offsetHours == 8
+            ? ' WITA'
+            : offsetHours == 9
+                ? ' WIT'
+                : '';
+    return '$hari $bulan $tahun, $jam:$menit$zona';
   }
 
-  /// Format tanggal pendek tanpa jam: "22 November 2026"
+  /// Format jam:menit real-time ("21:58")
+  static String jamMenit(DateTime dt) {
+    final local = dt.toLocal();
+    final String jam = local.hour.toString().padLeft(2, '0');
+    final String menit = local.minute.toString().padLeft(2, '0');
+    return '$jam:$menit';
+  }
+
+  /// Format ringkas header real-time ("Kam, 26 Nov · 21:58")
+  static String hariTanggalSingkat(DateTime dt) {
+    const List<String> namaHari = ['Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab', 'Min'];
+    const List<String> namaBulan = [
+      'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun',
+      'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'
+    ];
+    final local = dt.toLocal();
+    final hari = namaHari[local.weekday - 1];
+    final bulan = namaBulan[local.month - 1];
+    return '$hari, ${local.day} $bulan · ${jamMenit(local)}';
+  }
+
+  /// Format tanggal pendek tanpa jam: "26 November 2026"
   static String tanggalPendek(DateTime dt) {
     const List<String> namaBulan = [
       'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
       'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
     ];
-    return '${dt.day} ${namaBulan[dt.month - 1]} ${dt.year}';
+    final local = dt.toLocal();
+    return '${local.day} ${namaBulan[local.month - 1]} ${local.year}';
   }
 }

@@ -9,11 +9,15 @@ import 'kelola_barang_screen.dart';
 class StokScreen extends StatefulWidget {
   final String initialTab; // 'menipis' | 'kedaluwarsa'
   final PenggunaModel? pengguna;
+  final bool embeddedInNavbar;
+  final VoidCallback? onBackToHome;
 
   const StokScreen({
     super.key,
     this.initialTab = 'menipis',
     this.pengguna,
+    this.embeddedInNavbar = false,
+    this.onBackToHome,
   });
 
   @override
@@ -74,7 +78,14 @@ class _StokScreenState extends State<StokScreen> {
       backgroundColor: _bgLayar,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(24, 16, 24, 40),
+          padding: EdgeInsets.fromLTRB(
+            24,
+            16,
+            24,
+            widget.embeddedInNavbar
+                ? (115 + MediaQuery.paddingOf(context).bottom)
+                : (40 + MediaQuery.paddingOf(context).bottom),
+          ),
           physics: const BouncingScrollPhysics(),
           child: Center(
             child: ConstrainedBox(
@@ -87,7 +98,13 @@ class _StokScreenState extends State<StokScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       GestureDetector(
-                        onTap: () => Navigator.pop(context),
+                        onTap: () {
+                          if (widget.onBackToHome != null) {
+                            widget.onBackToHome!();
+                          } else {
+                            Navigator.pop(context);
+                          }
+                        },
                         child: Container(
                           width: 40,
                           height: 40,

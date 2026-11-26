@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../models/barang_model.dart';
 import '../models/pengaturan_warung_model.dart';
 import '../models/pengguna_model.dart';
+import '../services/auth_service.dart';
 import 'login_screen.dart';
+import 'register_screen_1.dart';
 import 'tambah_akun_penjaga_screen.dart';
 
 /// SIMWAR — Layar Pengaturan Warung & Profil Pengguna
@@ -102,14 +105,20 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
                   title: 'QRIS Dinamis Warung',
                   subtitle: 'NMID: ${_cfg.nmidQris}',
                   value: _cfg.qrisAktif,
-                  onChanged: (val) => setState(() => _cfg.qrisAktif = val),
+                  onChanged: (val) {
+                    setState(() => _cfg.qrisAktif = val);
+                    PengaturanStore.instance.simpanKeLocalStorage();
+                  },
                 ),
                 const Divider(color: _borderGaris, height: 16),
                 _buildSwitchRow(
                   title: 'Cetak Struk Otomatis',
                   subtitle: 'Langsung buka cetak setelah bayar',
                   value: _cfg.otomatisCetakStruk,
-                  onChanged: (val) => setState(() => _cfg.otomatisCetakStruk = val),
+                  onChanged: (val) {
+                    setState(() => _cfg.otomatisCetakStruk = val);
+                    PengaturanStore.instance.simpanKeLocalStorage();
+                  },
                 ),
                 const Divider(color: _borderGaris, height: 16),
                 _buildActionRow(
@@ -122,7 +131,10 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
                   title: 'Efek Suara Kasir',
                   subtitle: 'Suara scan barcode & kalkulasi total',
                   value: _cfg.suaraKasirAktif,
-                  onChanged: (val) => setState(() => _cfg.suaraKasirAktif = val),
+                  onChanged: (val) {
+                    setState(() => _cfg.suaraKasirAktif = val);
+                    PengaturanStore.instance.simpanKeLocalStorage();
+                  },
                 ),
               ],
             ),
@@ -137,14 +149,20 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
                   title: 'Peringatan Stok Menipis',
                   subtitle: 'Beri tanda merah saat stok <= batas min',
                   value: _cfg.notifStokMenipis,
-                  onChanged: (val) => setState(() => _cfg.notifStokMenipis = val),
+                  onChanged: (val) {
+                    setState(() => _cfg.notifStokMenipis = val);
+                    PengaturanStore.instance.simpanKeLocalStorage();
+                  },
                 ),
                 const Divider(color: _borderGaris, height: 16),
                 _buildSwitchRow(
                   title: 'Peringatan Barang Kedaluwarsa',
-                  subtitle: 'Peringatkan barang mendekati 30 hari basi',
+                  subtitle: 'Peringatkan barang mendekati batas simpan',
                   value: _cfg.notifKedaluwarsa,
-                  onChanged: (val) => setState(() => _cfg.notifKedaluwarsa = val),
+                  onChanged: (val) {
+                    setState(() => _cfg.notifKedaluwarsa = val);
+                    PengaturanStore.instance.simpanKeLocalStorage();
+                  },
                 ),
               ],
             ),
@@ -175,6 +193,25 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
                     },
                   ),
                 ],
+                const Divider(color: _borderGaris, height: 16),
+                _buildActionRow(
+                  title: 'Tambah Akun Pemilik Lain',
+                  subtitle: 'Daftarkan akun pemilik baru untuk warung',
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => const RegisterScreen1(),
+                      ),
+                    );
+                  },
+                ),
+                const Divider(color: _borderGaris, height: 16),
+                _buildActionRow(
+                  title: 'Ganti Akun / Login Akun Lain',
+                  subtitle: 'Masuk dengan nomor HP pemilik atau penjaga lain',
+                  onTap: _showLogoutConfirmation,
+                ),
               ],
             ),
             const SizedBox(height: 20),
@@ -511,14 +548,15 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
         actions: [
           TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Batal')),
           ElevatedButton(
-            onPressed: () {
-              setState(() {
-                _user = _user.copyWith(
-                  nama: namaCtrl.text.trim(),
-                  nomorHp: hpCtrl.text.trim(),
-                );
-              });
-              Navigator.pop(ctx);
+            onPressed: () async {
+              final updated = _user.copyWith(
+                nama: namaCtrl.text.trim(),
+                nomorHp: hpCtrl.text.trim(),
+              );
+              final saved = await AuthService().updateProfileAndPassword(user: updated);
+              if (ctx.mounted) Navigator.pop(ctx);
+              if (!mounted) return;
+              setState(() => _user = saved);
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Profil berhasil diperbarui!'), backgroundColor: _hijauAksi),
               );
@@ -567,13 +605,17 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
         actions: [
           TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Batal')),
           ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
               setState(() {
                 _cfg.namaWarung = namaCtrl.text.trim();
                 _cfg.alamatWarung = alamatCtrl.text.trim();
                 _cfg.noTeleponWarung = telpCtrl.text.trim();
+                _user = _user.copyWith(namaWarung: _cfg.namaWarung);
               });
-              Navigator.pop(ctx);
+              await PengaturanStore.instance.simpanKeLocalStorage();
+              await AuthService().saveActiveSession(_user);
+              if (ctx.mounted) Navigator.pop(ctx);
+              if (!mounted) return;
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Data warung berhasil diperbarui!'), backgroundColor: _hijauAksi),
               );
@@ -626,12 +668,14 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
         actions: [
           TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Batal')),
           ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
               setState(() {
                 _cfg.pesanHeaderStruk = headerCtrl.text.trim();
                 _cfg.pesanFooterStruk = footerCtrl.text.trim();
               });
-              Navigator.pop(ctx);
+              await PengaturanStore.instance.simpanKeLocalStorage();
+              if (ctx.mounted) Navigator.pop(ctx);
+              if (!mounted) return;
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text('Format catatan struk disimpan!'), backgroundColor: _hijauAksi),
               );
@@ -654,7 +698,7 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
         backgroundColor: Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         title: Text(
-          'Ganti PIN Kasir',
+          'Ganti Password / PIN',
           style: GoogleFonts.inter(fontWeight: FontWeight.bold, color: _hijauTua),
         ),
         content: Column(
@@ -663,29 +707,36 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
             TextField(
               controller: pinLamaCtrl,
               obscureText: true,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(labelText: 'PIN Lama (6 Digit)', border: OutlineInputBorder()),
+              decoration: const InputDecoration(labelText: 'Password / PIN Lama', border: OutlineInputBorder()),
             ),
             const SizedBox(height: 12),
             TextField(
               controller: pinBaruCtrl,
               obscureText: true,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(labelText: 'PIN Baru', border: OutlineInputBorder()),
+              decoration: const InputDecoration(labelText: 'Password / PIN Baru (min 6 karakter)', border: OutlineInputBorder()),
             ),
           ],
         ),
         actions: [
           TextButton(onPressed: () => Navigator.pop(ctx), child: const Text('Batal')),
           ElevatedButton(
-            onPressed: () {
-              Navigator.pop(ctx);
+            onPressed: () async {
+              final baru = pinBaruCtrl.text.trim();
+              if (baru.length < 6) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Password / PIN baru minimal 6 karakter!'), backgroundColor: _merahAksen),
+                );
+                return;
+              }
+              await AuthService().updateProfileAndPassword(user: _user, newPassword: baru);
+              if (ctx.mounted) Navigator.pop(ctx);
+              if (!mounted) return;
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('PIN Kasir berhasil diperbarui!'), backgroundColor: _hijauAksi),
+                const SnackBar(content: Text('Password / PIN berhasil diperbarui!'), backgroundColor: _hijauAksi),
               );
             },
             style: ElevatedButton.styleFrom(backgroundColor: _hijauAksi, foregroundColor: Colors.white),
-            child: const Text('Ubah PIN'),
+            child: const Text('Simpan Password'),
           ),
         ],
       ),
@@ -712,13 +763,19 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
             child: const Text('Batal', style: TextStyle(color: _abuTeks)),
           ),
           ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
               Navigator.pop(ctx);
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (_) => const LoginScreen()),
-                (route) => false,
-              );
+              // Pastikan seluruh data katalog & transaksi aman tersimpan sebelum logout, lalu hapus sesi aktif
+              await BarangStore.instance.simpanKeLocalStorage();
+              await PengaturanStore.instance.simpanKeLocalStorage();
+              await AuthService().clearActiveSession();
+              if (mounted) {
+                Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (_) => const LoginScreen()),
+                  (route) => false,
+                );
+              }
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: _merahAksen,

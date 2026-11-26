@@ -13,11 +13,11 @@ class _RegisterScreen1State extends State<RegisterScreen1> {
   static const Color _hijauTua = Color(0xFF1A3C2E);
   static const Color _creamBg = Color(0xFFF6F2EA);
 
-  final _namaCtrl = TextEditingController(text: 'Alfian');
-  final _nomorHpCtrl = TextEditingController(text: '081299507150');
-  final _namaWarungCtrl = TextEditingController(text: 'Warung Azzam');
-  final _passwordCtrl = TextEditingController(text: '12345678');
-  final _passwordConfirmCtrl = TextEditingController(text: '12345678');
+  final _namaCtrl = TextEditingController();
+  final _nomorHpCtrl = TextEditingController();
+  final _namaWarungCtrl = TextEditingController();
+  final _passwordCtrl = TextEditingController();
+  final _passwordConfirmCtrl = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool _isSendingOtp = false;
 
@@ -170,7 +170,7 @@ class _RegisterScreen1State extends State<RegisterScreen1> {
                 _buildFieldLabel('Nama lengkap'),
                 _buildInputField(
                   controller: _namaCtrl,
-                  hint: 'Alfian',
+                  hint: 'Masukkan nama lengkap pemilik',
                   validator: (v) => (v == null || v.trim().isEmpty) ? 'Nama wajib diisi' : null,
                 ),
                 const SizedBox(height: 14),
@@ -179,9 +179,15 @@ class _RegisterScreen1State extends State<RegisterScreen1> {
                 _buildFieldLabel('Nomor HP'),
                 _buildInputField(
                   controller: _nomorHpCtrl,
-                  hint: '0812 3456 7890',
+                  hint: 'Contoh: 0812xxxxxxxx',
                   keyboardType: TextInputType.phone,
-                  validator: (v) => (v == null || v.trim().isEmpty) ? 'Nomor HP wajib diisi' : null,
+                  validator: (v) {
+                    if (v == null || v.trim().isEmpty) return 'Nomor HP wajib diisi';
+                    if (v.replaceAll(RegExp(r'\s+|-'), '').length < 9) {
+                      return 'Masukkan nomor HP yang valid';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 14),
 
@@ -189,7 +195,7 @@ class _RegisterScreen1State extends State<RegisterScreen1> {
                 _buildFieldLabel('Nama warung'),
                 _buildInputField(
                   controller: _namaWarungCtrl,
-                  hint: 'Warung Azzam',
+                  hint: 'Contoh: Warung Azzam / Warung Berkah',
                   validator: (v) => (v == null || v.trim().isEmpty) ? 'Nama warung wajib diisi' : null,
                 ),
                 const SizedBox(height: 14),
@@ -198,9 +204,13 @@ class _RegisterScreen1State extends State<RegisterScreen1> {
                 _buildFieldLabel('Kata sandi'),
                 _buildInputField(
                   controller: _passwordCtrl,
-                  hint: '••••••••',
+                  hint: 'Minimal 6 karakter',
                   obscure: true,
-                  validator: (v) => (v == null || v.isEmpty) ? 'Kata sandi wajib diisi' : null,
+                  validator: (v) {
+                    if (v == null || v.isEmpty) return 'Kata sandi wajib diisi';
+                    if (v.length < 6) return 'Kata sandi minimal 6 karakter';
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 14),
 
@@ -208,7 +218,7 @@ class _RegisterScreen1State extends State<RegisterScreen1> {
                 _buildFieldLabel('Ulangi kata sandi'),
                 _buildInputField(
                   controller: _passwordConfirmCtrl,
-                  hint: '••••••••',
+                  hint: 'Ketik ulang kata sandi',
                   obscure: true,
                   validator: (v) {
                     if (v == null || v.isEmpty) return 'Ulangi kata sandi';

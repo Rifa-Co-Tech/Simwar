@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../models/pengaturan_warung_model.dart';
 import '../models/pengguna_model.dart';
+import '../services/auth_service.dart';
 
-/// SIMWAR — Tambah Akun Penjaga (POV Pemilik)
+/// SIMWAR — Tambah Akun Penjaga & Kelola Tim Warung (POV Pemilik)
 /// Figma node: 2010:1061
 class TambahAkunPenjagaScreen extends StatefulWidget {
   final PenggunaModel? pengguna;
   const TambahAkunPenjagaScreen({super.key, this.pengguna});
 
   @override
-  State<TambahAkunPenjagaScreen> createState() => _TambahAkunPenjagaScreenState();
+  State<TambahAkunPenjagaScreen> createState() =>
+      _TambahAkunPenjagaScreenState();
 }
 
 class _TambahAkunPenjagaScreenState extends State<TambahAkunPenjagaScreen> {
@@ -21,10 +24,27 @@ class _TambahAkunPenjagaScreenState extends State<TambahAkunPenjagaScreen> {
   static const Color _borderGaris = Color(0xFFE4DCC3);
   static const Color _borderInput = Color(0xFFCFC7AA);
 
-  final TextEditingController _namaCtrl = TextEditingController(text: 'Rina');
-  final TextEditingController _hpCtrl = TextEditingController(text: '0813 5555 0101');
-  final TextEditingController _sandiCtrl = TextEditingController(text: 'rina2026');
+  final TextEditingController _namaCtrl = TextEditingController();
+  final TextEditingController _hpCtrl = TextEditingController();
+  final TextEditingController _sandiCtrl = TextEditingController();
+  final AuthService _authService = AuthService();
+
   bool _sandiTerlihat = false;
+  bool _isSaving = false;
+  List<PenggunaModel> _daftarPenjaga = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _muatDaftarPenjaga();
+  }
+
+  Future<void> _muatDaftarPenjaga() async {
+    final list = await _authService.getTeamAccounts(peranFilter: 'Penjaga');
+    if (mounted) {
+      setState(() => _daftarPenjaga = list);
+    }
+  }
 
   @override
   void dispose() {
@@ -34,7 +54,7 @@ class _TambahAkunPenjagaScreenState extends State<TambahAkunPenjagaScreen> {
     super.dispose();
   }
 
-  void _simpanAkun() {
+  Future<void> _simpanAkun() async {
     final nama = _namaCtrl.text.trim();
     final hp = _hpCtrl.text.trim();
     final sandi = _sandiCtrl.text.trim();
@@ -49,53 +69,98 @@ class _TambahAkunPenjagaScreenState extends State<TambahAkunPenjagaScreen> {
       return;
     }
 
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: Text(
-          'Akun Penjaga Berhasil Dibuat!',
-          style: GoogleFonts.inter(fontWeight: FontWeight.bold, color: _hijauTua),
+    if (sandi.length < 6) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Kata sandi minimal 6 karakter'),
+          backgroundColor: Color(0xFFC8401E),
         ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text('Penjaga dapat langsung masuk menggunakan:', style: GoogleFonts.inter(color: _abuTeks)),
-            const SizedBox(height: 12),
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: _hijauMuda,
-                borderRadius: BorderRadius.circular(12),
+      );
+      return;
+    }
+
+    setState(() => _isSaving = true);
+
+    try {
+      final warung = widget.pengguna?.namaWarung ??
+          PengaturanStore.instance.pengaturan.namaWarung;
+      await _authService.registerOrUpdateAccount(
+        nama: nama,
+        nomorHp: hp,
+        password: sandi,
+        peran: 'Penjaga',
+        namaWarung: warung,
+      );
+      await _muatDaftarPenjaga();
+
+      if (!mounted) return;
+      _namaCtrl.clear();
+      _hpCtrl.clear();
+      _sandiCtrl.clear();
+
+      showDialog(
+        context: context,
+        builder: (ctx) => AlertDialog(
+          backgroundColor: Colors.white,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          title: Text(
+            'Akun Penjaga Berhasil Dibuat!',
+            style: GoogleFonts.inter(fontWeight: FontWeight.bold, color: _hijauTua),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Penjaga dapat langsung masuk pada menu tab Penjaga menggunakan:',
+                style: GoogleFonts.inter(color: _abuTeks, fontSize: 13),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('Nama: $nama', style: GoogleFonts.inter(fontWeight: FontWeight.w600, color: _hijauTua)),
-                  Text('No. HP: $hp', style: GoogleFonts.inter(fontWeight: FontWeight.w600, color: _hijauTua)),
-                  Text('Sandi: $sandi', style: GoogleFonts.inter(fontWeight: FontWeight.w600, color: _hijauTua)),
-                ],
+              const SizedBox(height: 12),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: _hijauMuda,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Nama: $nama',
+                      style: GoogleFonts.inter(fontWeight: FontWeight.w600, color: _hijauTua),
+                    ),
+                    Text(
+                      'No. HP: ${AuthService.normalizePhone(hp)}',
+                      style: GoogleFonts.inter(fontWeight: FontWeight.w600, color: _hijauTua),
+                    ),
+                    Text(
+                      'Sandi: $sandi',
+                      style: GoogleFonts.inter(fontWeight: FontWeight.w600, color: _hijauTua),
+                    ),
+                  ],
+                ),
               ),
+            ],
+          ),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(ctx);
+                Navigator.pop(context);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: _hijauAksi,
+                foregroundColor: Colors.white,
+              ),
+              child: const Text('OK'),
             ),
           ],
         ),
-        actions: [
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(ctx);
-              Navigator.pop(context);
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: _hijauAksi,
-              foregroundColor: Colors.white,
-            ),
-            child: const Text('OK'),
-          ),
-        ],
-      ),
-    );
+      );
+    } finally {
+      if (mounted) setState(() => _isSaving = false);
+    }
   }
 
   @override
@@ -132,7 +197,7 @@ class _TambahAkunPenjagaScreenState extends State<TambahAkunPenjagaScreen> {
                       ),
                       const SizedBox(width: 14),
                       Text(
-                        'Tambah akun penjaga',
+                        'Tim warung & penjaga',
                         style: GoogleFonts.inter(
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
@@ -141,30 +206,30 @@ class _TambahAkunPenjagaScreenState extends State<TambahAkunPenjagaScreen> {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 28),
+                  const SizedBox(height: 24),
 
-                  // ── Avatar Placeholder (Figma 84x84) ──────────────────────
+                  // ── Avatar Placeholder ───────────────────────────────────
                   Center(
                     child: Column(
                       children: [
                         Container(
-                          width: 84,
-                          height: 84,
+                          width: 78,
+                          height: 78,
                           decoration: const BoxDecoration(
                             color: _hijauMuda,
                             shape: BoxShape.circle,
                           ),
                           child: const Center(
                             child: Icon(
-                              Icons.camera_alt,
+                              Icons.person_add_alt_1_rounded,
                               size: 32,
                               color: _hijauAksi,
                             ),
                           ),
                         ),
-                        const SizedBox(height: 10),
+                        const SizedBox(height: 8),
                         Text(
-                          'Tambah foto (opsional)',
+                          'Daftarkan akun penjaga warung',
                           style: GoogleFonts.inter(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
@@ -174,7 +239,7 @@ class _TambahAkunPenjagaScreenState extends State<TambahAkunPenjagaScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 28),
+                  const SizedBox(height: 24),
 
                   // ── Field 1: Nama Penjaga ────────────────────────────────
                   Text(
@@ -204,11 +269,11 @@ class _TambahAkunPenjagaScreenState extends State<TambahAkunPenjagaScreen> {
                       ),
                       decoration: const InputDecoration(
                         border: InputBorder.none,
-                        hintText: 'Contoh: Rina',
+                        hintText: 'Masukkan nama penjaga',
                       ),
                     ),
                   ),
-                  const SizedBox(height: 18),
+                  const SizedBox(height: 16),
 
                   // ── Field 2: Nomor HP ────────────────────────────────────
                   Text(
@@ -239,15 +304,15 @@ class _TambahAkunPenjagaScreenState extends State<TambahAkunPenjagaScreen> {
                       ),
                       decoration: const InputDecoration(
                         border: InputBorder.none,
-                        hintText: 'Contoh: 0813 5555 0101',
+                        hintText: 'Contoh: 0813xxxxxxxx',
                       ),
                     ),
                   ),
-                  const SizedBox(height: 18),
+                  const SizedBox(height: 16),
 
                   // ── Field 3: Kata Sandi Sementara ────────────────────────
                   Text(
-                    'Kata sandi sementara',
+                    'Kata sandi',
                     style: GoogleFonts.inter(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
@@ -282,9 +347,12 @@ class _TambahAkunPenjagaScreenState extends State<TambahAkunPenjagaScreen> {
                           ),
                         ),
                         IconButton(
-                          onPressed: () => setState(() => _sandiTerlihat = !_sandiTerlihat),
+                          onPressed: () =>
+                              setState(() => _sandiTerlihat = !_sandiTerlihat),
                           icon: Icon(
-                            _sandiTerlihat ? Icons.visibility_off : Icons.visibility,
+                            _sandiTerlihat
+                                ? Icons.visibility_off
+                                : Icons.visibility,
                             color: _abuTeks,
                             size: 20,
                           ),
@@ -292,13 +360,13 @@ class _TambahAkunPenjagaScreenState extends State<TambahAkunPenjagaScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(height: 40),
+                  const SizedBox(height: 28),
 
                   // ── Tombol Simpan Akun Penjaga ────────────────────────────
                   SizedBox(
                     height: 54,
                     child: ElevatedButton(
-                      onPressed: _simpanAkun,
+                      onPressed: _isSaving ? null : _simpanAkun,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: _hijauAksi,
                         foregroundColor: Colors.white,
@@ -307,25 +375,105 @@ class _TambahAkunPenjagaScreenState extends State<TambahAkunPenjagaScreen> {
                           borderRadius: BorderRadius.circular(27),
                         ),
                       ),
-                      child: Text(
-                        'Simpan akun penjaga',
-                        style: GoogleFonts.inter(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
+                      child: _isSaving
+                          ? const SizedBox(
+                              width: 22,
+                              height: 22,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                                strokeWidth: 2.5,
+                              ),
+                            )
+                          : Text(
+                              'Simpan akun penjaga',
+                              style: GoogleFonts.inter(
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                    ),
+                  ),
+
+                  if (_daftarPenjaga.isNotEmpty) ...[
+                    const SizedBox(height: 28),
+                    Text(
+                      'Penjaga Terdaftar (${_daftarPenjaga.length})',
+                      style: GoogleFonts.inter(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: _hijauTua,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    ..._daftarPenjaga.map(
+                      (p) => Container(
+                        margin: const EdgeInsets.only(bottom: 8),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 14, vertical: 12),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(14),
+                          border: Border.all(color: _borderGaris),
+                        ),
+                        child: Row(
+                          children: [
+                            CircleAvatar(
+                              radius: 18,
+                              backgroundColor: _hijauMuda,
+                              child: Text(
+                                p.nama.isNotEmpty
+                                    ? p.nama[0].toUpperCase()
+                                    : 'P',
+                                style: GoogleFonts.inter(
+                                  fontWeight: FontWeight.w700,
+                                  color: _hijauAksi,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    p.nama,
+                                    style: GoogleFonts.inter(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w700,
+                                      color: _hijauTua,
+                                    ),
+                                  ),
+                                  Text(
+                                    p.nomorHp,
+                                    style: GoogleFonts.inter(
+                                      fontSize: 12,
+                                      color: _abuTeks,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 4),
+                              decoration: BoxDecoration(
+                                color: _hijauMuda,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Text(
+                                'Aktif',
+                                style: GoogleFonts.inter(
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w700,
+                                  color: _hijauAksi,
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 12),
-                  Text(
-                    'Penjaga diminta mengganti kata sandi saat pertama masuk.',
-                    style: GoogleFonts.inter(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w400,
-                      color: _abuTeks,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
+                  ],
                 ],
               ),
             ),

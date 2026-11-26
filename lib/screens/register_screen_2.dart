@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-import '../models/pengguna_model.dart';
+import '../models/barang_masuk_model.dart';
+import '../models/barang_model.dart';
+import '../models/kasbon_model.dart';
+import '../models/laporan_model.dart';
+import '../models/notifikasi_model.dart';
+import '../models/pengaturan_warung_model.dart';
+import '../models/rencana_belanja_model.dart';
+import '../models/transaksi_model.dart';
+import '../services/auth_service.dart';
 import 'home_screen.dart';
+import 'tambah_akun_penjaga_screen.dart';
 
 class RegisterScreen2 extends StatefulWidget {
   final String nama;
@@ -26,8 +34,8 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
   static const Color _creamBg = Color(0xFFF6F2EA);
 
   String _selectedKedaluwarsa = '7 hari';
-  final _batasStokCtrl = TextEditingController(text: '5 pcs');
-  bool _tambahPenjaga = true;
+  final _batasStokCtrl = TextEditingController(text: '10 pcs');
+  bool _tambahPenjaga = false;
   bool _isLoading = false;
 
   @override
@@ -39,72 +47,72 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
   Future<void> _onSelesaiDanMasuk() async {
     setState(() => _isLoading = true);
 
-    final cleanHp = widget.nomorHp.replaceAll(RegExp(r'\s+|-'), '').trim();
-
     try {
-      final client = Supabase.instance.client;
-
-      // Cek apakah nomor HP sudah terdaftar
-      final existing = await client
-          .from('pengguna')
-          .select()
-          .eq('nomor_hp', cleanHp)
-          .maybeSingle();
-
-      PenggunaModel pengguna;
-
-      if (existing != null) {
-        // Update data jika sudah ada
-        final updated = await client
-            .from('pengguna')
-            .update({
-              'nama': widget.nama,
-              'password': widget.password,
-              'peran': 'Pemilik',
-              'status_aktif': true,
-            })
-            .eq('nomor_hp', cleanHp)
-            .select()
-            .single();
-        pengguna = PenggunaModel.fromMap(updated);
-      } else {
-        // Insert user baru ke database Supabase
-        final inserted = await client
-            .from('pengguna')
-            .insert({
-              'nama': widget.nama,
-              'nomor_hp': cleanHp,
-              'password': widget.password,
-              'peran': 'Pemilik',
-              'status_aktif': true,
-            })
-            .select()
-            .single();
-        pengguna = PenggunaModel.fromMap(inserted);
+      // 1. Simpan preferensi warung ke PengaturanStore
+      final cfg = PengaturanStore.instance.pengaturan;
+      if (widget.namaWarung.trim().isNotEmpty) {
+        cfg.namaWarung = widget.namaWarung.trim();
+        cfg.pesanHeaderStruk =
+            '${cfg.namaWarung.toUpperCase()}\nBelanja Hemat, Lengkap & Berkah';
       }
+      final parsedBatas = int.tryParse(
+            _batasStokCtrl.text.replaceAll(RegExp(r'[^0-9]'), ''),
+          ) ??
+          10;
+      cfg.batasStokDefault = parsedBatas > 0 ? parsedBatas : 10;
+      final parsedHari = int.tryParse(
+            _selectedKedaluwarsa.replaceAll(RegExp(r'[^0-9]'), ''),
+          ) ??
+          7;
+      cfg.hariPeringatanKedaluwarsa = parsedHari;
+      await PengaturanStore.instance.simpanKeLocalStorage();
 
-      if (!mounted) return;
-
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (_) => HomeScreen(pengguna: pengguna)),
-        (route) => false,
-      );
-    } catch (e) {
-      if (!mounted) return;
-      // Tetap lanjutkan ke Beranda dengan data lokal jika koneksi terhambat
-      final penggunaFallback = PenggunaModel(
-        id: '1',
+      // 2. Daftarkan akun ke Supabase & Cache Lokal + Simpan Sesi Auto-Login
+      final authService = AuthService();
+      final pengguna = await authService.registerOrUpdateAccount(
         nama: widget.nama,
-        nomorHp: cleanHp,
+        nomorHp: widget.nomorHp,
+        password: widget.password,
         peran: 'Pemilik',
-        statusAktif: true,
+        namaWarung: cfg.namaWarung,
       );
+      await authService.saveActiveSession(pengguna);
+
+      // 3. Muat data lokal / sinkronisasi awal
+      await Future.wait([
+        BarangStore.instance.muatDariLocalStorage(),
+        TransaksiStore.instance.muatDariLocalStorage(),
+        KasbonStore.instance.muatDariLocalStorage(),
+        BarangMasukStore.instance.muatDariLocalStorage(),
+        RencanaBelanjaStore.instance.muatDariLocalStorage(),
+        LaporanStore.instance.muatDariLocalStorage(),
+        NotifikasiStore.instance.muatDariLocalStorage(),
+      ]);
+      BarangStore.instance.sinkronkanDariSupabase().catchError((_) {});
+
+      if (!mounted) return;
+
       Navigator.pushAndRemoveUntil(
         context,
-        MaterialPageRoute(builder: (_) => HomeScreen(pengguna: penggunaFallback)),
+        PageRouteBuilder(
+          pageBuilder: (_, __, ___) => HomeScreen(pengguna: pengguna),
+          transitionsBuilder: (_, anim, __, child) {
+            final curved = CurvedAnimation(parent: anim, curve: Curves.easeOutCubic);
+            return FadeTransition(opacity: curved, child: child);
+          },
+          transitionDuration: const Duration(milliseconds: 380),
+        ),
         (route) => false,
       );
+
+      if (_tambahPenjaga) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => TambahAkunPenjagaScreen(pengguna: pengguna),
+          ),
+        );
+      }
     } finally {
       if (mounted) setState(() => _isLoading = false);
     }

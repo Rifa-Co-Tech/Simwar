@@ -12,7 +12,15 @@ import 'laba_per_barang_screen.dart';
 /// Figma nodes: 2030:75 & 2055:211
 class LaporanPenjualanScreen extends StatefulWidget {
   final PenggunaModel? pengguna;
-  const LaporanPenjualanScreen({super.key, this.pengguna});
+  final bool embeddedInNavbar;
+  final VoidCallback? onBackToHome;
+
+  const LaporanPenjualanScreen({
+    super.key,
+    this.pengguna,
+    this.embeddedInNavbar = false,
+    this.onBackToHome,
+  });
 
   @override
   State<LaporanPenjualanScreen> createState() => _LaporanPenjualanScreenState();
@@ -63,7 +71,13 @@ class _LaporanPenjualanScreenState extends State<LaporanPenjualanScreen> {
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new, color: _hijauTua, size: 20),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () {
+            if (widget.onBackToHome != null) {
+              widget.onBackToHome!();
+            } else {
+              Navigator.pop(context);
+            }
+          },
         ),
         title: Text(
           'Laporan Penjualan',
@@ -82,7 +96,14 @@ class _LaporanPenjualanScreenState extends State<LaporanPenjualanScreen> {
         ],
       ),
       body: SingleChildScrollView(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.fromLTRB(
+          20,
+          20,
+          20,
+          widget.embeddedInNavbar
+              ? (115 + MediaQuery.paddingOf(context).bottom)
+              : (20 + MediaQuery.paddingOf(context).bottom),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -12,7 +12,15 @@ import 'pembayaran_screen.dart';
 /// SIMWAR — Modul Kasir: Keranjang & Jual (Figma node 2029:2)
 class KasirScreen extends StatefulWidget {
   final PenggunaModel? pengguna;
-  const KasirScreen({super.key, this.pengguna});
+  final bool embeddedInNavbar;
+  final VoidCallback? onBackToHome;
+
+  const KasirScreen({
+    super.key,
+    this.pengguna,
+    this.embeddedInNavbar = false,
+    this.onBackToHome,
+  });
 
   @override
   State<KasirScreen> createState() => _KasirScreenState();
@@ -52,7 +60,55 @@ class _KasirScreenState extends State<KasirScreen> {
     return SimwarFormatter.rupiah(nominal);
   }
 
+  int _getStokTersedia(String id, String nama) {
+    final b = BarangStore.instance.cariById(id) ?? BarangStore.instance.cari(nama);
+    return b?.stok ?? 0;
+  }
+
+  void _tampilkanPeringatanStok(String pesan) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        behavior: SnackBarBehavior.floating,
+        margin: EdgeInsets.only(
+          left: 20,
+          right: 20,
+          bottom: widget.embeddedInNavbar ? 160 : 90,
+        ),
+        backgroundColor: const Color(0xFFC8401E),
+        elevation: 8,
+        duration: const Duration(seconds: 3),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
+        content: Row(
+          children: [
+            const Icon(Icons.warning_amber_rounded, color: Colors.white, size: 24),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                pesan,
+                style: GoogleFonts.inter(
+                  color: Colors.white,
+                  fontSize: 12.5,
+                  fontWeight: FontWeight.w600,
+                  height: 1.25,
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   void _tambahKuantiti(int index) {
+    final item = _keranjang[index];
+    final stokTersedia = _getStokTersedia(item.id, item.nama);
+    if (item.jumlah >= stokTersedia) {
+      _tampilkanPeringatanStok(
+        'Stok tidak mencukupi!\nSisa stok "${item.nama}" di kelola barang hanya $stokTersedia ${item.satuan}.',
+      );
+      return;
+    }
     setState(() {
       _keranjang[index].jumlah++;
     });
@@ -238,25 +294,35 @@ class _KasirScreenState extends State<KasirScreen> {
                                   ],
                                 ),
                                 trailing: ElevatedButton(
-                                  onPressed: () {
-                                    Navigator.pop(ctx);
-                                    _tambahBarangManual(ItemKeranjang(
-                                      id: item.id,
-                                      nama: item.nama,
-                                      harga: item.hargaJual,
-                                      satuan: item.satuan,
-                                      jumlah: 1,
-                                    ));
-                                  },
+                                  onPressed: habis
+                                      ? () {
+                                          _tampilkanPeringatanStok(
+                                            'Stok "${item.nama}" sedang habis (0 ${item.satuan})!\nSilakan tambahkan stok terlebih dahulu di Kelola Barang.',
+                                          );
+                                        }
+                                      : () {
+                                          Navigator.pop(ctx);
+                                          _tambahBarangManual(ItemKeranjang(
+                                            id: item.id,
+                                            nama: item.nama,
+                                            harga: item.hargaJual,
+                                            satuan: item.satuan,
+                                            jumlah: 1,
+                                          ));
+                                        },
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: _hijauMuda,
-                                    foregroundColor: _hijauAksi,
+                                    backgroundColor: habis
+                                        ? const Color(0xFFC8401E).withValues(alpha: 0.15)
+                                        : _hijauMuda,
+                                    foregroundColor: habis
+                                        ? const Color(0xFFC8401E)
+                                        : _hijauAksi,
                                     elevation: 0,
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(14),
                                     ),
                                   ),
-                                  child: const Text('+ Tambah'),
+                                  child: Text(habis ? 'Habis' : '+ Tambah'),
                                 ),
                               );
                             },
@@ -272,21 +338,47 @@ class _KasirScreenState extends State<KasirScreen> {
   }
 
   void _tambahBarangManual(ItemKeranjang item) {
-    setState(() {
-      final existingIndex = _keranjang.indexWhere((k) =>
-          (k.id.isNotEmpty && k.id == item.id) ||
-          k.nama.trim().toLowerCase() == item.nama.trim().toLowerCase());
-      if (existingIndex >= 0) {
-        _keranjang[existingIndex].jumlah++;
-      } else {
-        _keranjang.add(item.copyWith(jumlah: 1));
+    final stokTersedia = _getStokTersedia(item.id, item.nama);
+    if (stokTersedia <= 0) {
+      _tampilkanPeringatanStok(
+        'Stok "${item.nama}" sedang kosong (0 ${item.satuan})!\nTidak dapat menambahkan ke keranjang.',
+      );
+      return;
+    }
+
+    final existingIndex = _keranjang.indexWhere((k) =>
+        (k.id.isNotEmpty && k.id == item.id) ||
+        k.nama.trim().toLowerCase() == item.nama.trim().toLowerCase());
+
+    if (existingIndex >= 0) {
+      if (_keranjang[existingIndex].jumlah >= stokTersedia) {
+        _tampilkanPeringatanStok(
+          'Stok tidak mencukupi!\nSisa stok "${item.nama}" di kelola barang hanya $stokTersedia ${item.satuan}.',
+        );
+        return;
       }
-    });
+      setState(() {
+        _keranjang[existingIndex].jumlah++;
+      });
+    } else {
+      setState(() {
+        _keranjang.add(item.copyWith(jumlah: 1));
+      });
+    }
+
+    ScaffoldMessenger.of(context).clearSnackBars();
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
+        behavior: SnackBarBehavior.floating,
+        margin: EdgeInsets.only(
+          left: 20,
+          right: 20,
+          bottom: widget.embeddedInNavbar ? 160 : 90,
+        ),
         content: Text('${item.nama} ditambahkan ke keranjang'),
         backgroundColor: _hijauAksi,
         duration: const Duration(seconds: 1),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
     );
   }
@@ -301,7 +393,14 @@ class _KasirScreenState extends State<KasirScreen> {
           children: [
             // Konten Atas Scrollable
             SingleChildScrollView(
-              padding: const EdgeInsets.fromLTRB(24, 16, 24, 180),
+              padding: EdgeInsets.fromLTRB(
+                24,
+                16,
+                24,
+                widget.embeddedInNavbar
+                    ? (280 + MediaQuery.paddingOf(context).bottom)
+                    : (190 + MediaQuery.paddingOf(context).bottom),
+              ),
               physics: const BouncingScrollPhysics(),
               child: Center(
                 child: ConstrainedBox(
@@ -313,7 +412,13 @@ class _KasirScreenState extends State<KasirScreen> {
                       Row(
                         children: [
                           GestureDetector(
-                            onTap: () => Navigator.pop(context),
+                            onTap: () {
+                              if (widget.onBackToHome != null) {
+                                widget.onBackToHome!();
+                              } else {
+                                Navigator.pop(context);
+                              }
+                            },
                             child: Container(
                               width: 40,
                               height: 40,
@@ -552,9 +657,18 @@ class _KasirScreenState extends State<KasirScreen> {
             Positioned(
               left: 0,
               right: 0,
-              bottom: 0,
+              bottom: widget.embeddedInNavbar
+                  ? (92 + MediaQuery.paddingOf(context).bottom)
+                  : MediaQuery.paddingOf(context).bottom,
               child: Container(
-                padding: const EdgeInsets.fromLTRB(24, 18, 24, 28),
+                padding: EdgeInsets.fromLTRB(
+                  24,
+                  18,
+                  24,
+                  widget.embeddedInNavbar
+                      ? 20
+                      : (24 + MediaQuery.paddingOf(context).bottom),
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius:
@@ -612,6 +726,18 @@ class _KasirScreenState extends State<KasirScreen> {
                             onPressed: _keranjang.isEmpty
                                 ? null
                                 : () async {
+                                    // Validasi ulang seluruh stok keranjang sebelum bayar
+                                    for (var k in _keranjang) {
+                                      final stokNow =
+                                          _getStokTersedia(k.id, k.nama);
+                                      if (k.jumlah > stokNow) {
+                                        _tampilkanPeringatanStok(
+                                          'Stok "${k.nama}" tidak cukup!\nSisa stok saat ini: $stokNow ${k.satuan}.',
+                                        );
+                                        return;
+                                      }
+                                    }
+
                                     final res = await Navigator.push(
                                       context,
                                       MaterialPageRoute(

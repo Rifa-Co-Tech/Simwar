@@ -17,13 +17,25 @@ class PenggunaModel {
 
   factory PenggunaModel.fromMap(Map<String, dynamic> map) {
     return PenggunaModel(
-      id: map['id']?.toString() ?? '',
-      nama: map['nama']?.toString() ?? '',
-      nomorHp: map['nomor_hp']?.toString() ?? '',
-      peran: map['peran']?.toString() ?? '',
+      id: (map['id_pengguna'] ?? map['id'] ?? '').toString(),
+      nama: (map['nama'] ?? '').toString(),
+      nomorHp: (map['nomor_hp'] ?? '').toString(),
+      peran: (map['peran'] ?? '').toString(),
       statusAktif: map['status_aktif'] == true,
-      namaWarung: map['nama_warung']?.toString() ?? 'Warung Azzam',
+      namaWarung: (map['nama_warung'] ?? 'Warung Azzam').toString(),
     );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'id_pengguna': id,
+      'nama': nama,
+      'nomor_hp': nomorHp,
+      'peran': peran,
+      'status_aktif': statusAktif,
+      'nama_warung': namaWarung,
+    };
   }
 
   PenggunaModel copyWith({

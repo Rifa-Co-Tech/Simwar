@@ -9,7 +9,15 @@ import 'lapor_ke_pemilik_screen.dart';
 /// Figma node: 2073:4093
 class LaporanSayaScreen extends StatefulWidget {
   final PenggunaModel? pengguna;
-  const LaporanSayaScreen({super.key, this.pengguna});
+  final bool embeddedInNavbar;
+  final VoidCallback? onBackToHome;
+
+  const LaporanSayaScreen({
+    super.key,
+    this.pengguna,
+    this.embeddedInNavbar = false,
+    this.onBackToHome,
+  });
 
   @override
   State<LaporanSayaScreen> createState() => _LaporanSayaScreenState();
@@ -46,7 +54,14 @@ class _LaporanSayaScreenState extends State<LaporanSayaScreen> {
       backgroundColor: _bgLayar,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.fromLTRB(24, 16, 24, 40),
+          padding: EdgeInsets.fromLTRB(
+            24,
+            16,
+            24,
+            widget.embeddedInNavbar
+                ? (115 + MediaQuery.paddingOf(context).bottom)
+                : (40 + MediaQuery.paddingOf(context).bottom),
+          ),
           physics: const BouncingScrollPhysics(),
           child: Center(
             child: ConstrainedBox(
@@ -58,7 +73,13 @@ class _LaporanSayaScreenState extends State<LaporanSayaScreen> {
                   Row(
                     children: [
                       GestureDetector(
-                        onTap: () => Navigator.pop(context),
+                        onTap: () {
+                          if (widget.onBackToHome != null) {
+                            widget.onBackToHome!();
+                          } else {
+                            Navigator.pop(context);
+                          }
+                        },
                         child: Container(
                           width: 40,
                           height: 40,

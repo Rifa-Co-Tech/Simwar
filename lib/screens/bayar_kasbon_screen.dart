@@ -76,12 +76,13 @@ class _BayarKasbonScreenState extends State<BayarKasbonScreen> {
     KasbonStore.instance.bayarKasbon(widget.pelanggan.id, _nominalBayar, _metode);
 
     // 2. Catat ke Riwayat Transaksi Warung
+    final now = DateTime.now();
     final trx = TransaksiModel(
-      id: DateTime.now().millisecondsSinceEpoch.toString(),
-      kode: 'TRX-${(140 + TransaksiStore.instance.semua.length).toString().padLeft(4, "0")}',
-      waktu: '${DateTime.now().hour.toString().padLeft(2, "0")}.${DateTime.now().minute.toString().padLeft(2, "0")}',
-      tanggal: 'Hari ini',
-      kasir: widget.pengguna?.nama.isNotEmpty == true ? widget.pengguna!.nama : 'Rina',
+      id: now.millisecondsSinceEpoch.toString(),
+      kode: 'TRX-${(TransaksiStore.instance.semua.length + 1).toString().padLeft(4, "0")}',
+      waktu: '${now.hour.toString().padLeft(2, "0")}.${now.minute.toString().padLeft(2, "0")}',
+      tanggal: SimwarFormatter.tanggalPendek(now),
+      kasir: widget.pengguna?.nama.isNotEmpty == true ? widget.pengguna!.nama : 'Pemilik',
       metode: 'Kasbon',
       status: 'Selesai',
       namaPelanggan: widget.pelanggan.nama,

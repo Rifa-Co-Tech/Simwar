@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import '../models/barang_model.dart';
+import '../models/pengaturan_warung_model.dart';
 import '../models/pengguna_model.dart';
 import '../utils/formatters.dart';
 import '../widgets/scanner_modal.dart';
@@ -42,6 +43,7 @@ class _TambahBarangScreenState extends State<TambahBarangScreen> {
 
   String _kategori = 'Makanan';
   bool _isTitipan = false;
+  bool _isSaving = false;
   DateTime? _tglKedaluwarsa;
 
   bool get _isEdit => widget.barangEdit != null;
@@ -50,15 +52,16 @@ class _TambahBarangScreenState extends State<TambahBarangScreen> {
   void initState() {
     super.initState();
     final b = widget.barangEdit;
+    final batasDefault = PengaturanStore.instance.pengaturan.batasStokDefault;
     _namaCtrl = TextEditingController(text: b?.nama ?? '');
     _barcodeCtrl = TextEditingController(text: b?.barcode ?? '');
-    _hargaBeliCtrl = TextEditingController(text: b != null ? b.hargaBeli.toString() : '2800');
-    _hargaJualCtrl = TextEditingController(text: b != null ? b.hargaJual.toString() : '3500');
-    _batasMinCtrl = TextEditingController(text: b != null ? b.batasMin.toString() : '10');
-    _stokAwalCtrl = TextEditingController(text: b != null ? b.stok.toString() : '24');
+    _hargaBeliCtrl = TextEditingController(text: b != null ? b.hargaBeli.toString() : '');
+    _hargaJualCtrl = TextEditingController(text: b != null ? b.hargaJual.toString() : '');
+    _batasMinCtrl = TextEditingController(text: (b?.batasMin ?? batasDefault).toString());
+    _stokAwalCtrl = TextEditingController(text: b != null ? b.stok.toString() : '');
     _kategori = b?.kategori ?? 'Makanan';
     _isTitipan = b?.isTitipan ?? false;
-    _tglKedaluwarsa = b?.tglKedaluwarsa ?? DateTime.now().add(const Duration(days: 180));
+    _tglKedaluwarsa = b?.tglKedaluwarsa;
     if (b?.fotoPath != null && b!.fotoPath!.isNotEmpty) {
       _fotoBarang = XFile(b.fotoPath!);
     }
@@ -139,7 +142,8 @@ class _TambahBarangScreenState extends State<TambahBarangScreen> {
     );
   }
 
-  void _simpanBarang() {
+  Future<void> _simpanBarang() async {
+    if (_isSaving) return;
     final nama = _namaCtrl.text.trim();
     if (nama.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -150,48 +154,114 @@ class _TambahBarangScreenState extends State<TambahBarangScreen> {
 
     final beli = int.tryParse(_hargaBeliCtrl.text.trim()) ?? 0;
     final jual = int.tryParse(_hargaJualCtrl.text.trim()) ?? 0;
-    final batas = int.tryParse(_batasMinCtrl.text.trim()) ?? 10;
-    final stok = int.tryParse(_stokAwalCtrl.text.trim()) ?? 10;
-
-    if (_isEdit) {
-      final updated = widget.barangEdit!;
-      updated.nama = nama;
-      updated.barcode = _barcodeCtrl.text.trim();
-      updated.kategori = _kategori;
-      updated.hargaBeli = beli;
-      updated.hargaJual = jual;
-      updated.batasMin = batas;
-      updated.stok = stok;
-      updated.isTitipan = _isTitipan;
-      updated.tglKedaluwarsa = _tglKedaluwarsa;
-      if (_fotoBarang != null) {
-        updated.fotoPath = _fotoBarang!.path;
-      }
-      BarangStore.instance.ubahBarangAsync(updated);
-    } else {
-      final newBarang = BarangModel(
-        id: DateTime.now().millisecondsSinceEpoch.toString(),
-        nama: nama,
-        barcode: _barcodeCtrl.text.trim(),
-        kategori: _kategori,
-        hargaBeli: beli,
-        hargaJual: jual,
-        stok: stok,
-        batasMin: batas,
-        isTitipan: _isTitipan,
-        tglKedaluwarsa: _tglKedaluwarsa,
-        fotoPath: _fotoBarang?.path,
+    if (jual <= 0) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Harga jual harus diisi lebih dari Rp 0'), backgroundColor: Color(0xFFC8401E)),
       );
-      BarangStore.instance.tambahBarangAsync(newBarang);
+      return;
     }
 
-    Navigator.pop(context);
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(_isEdit ? 'Data barang berhasil diperbarui!' : 'Barang baru berhasil ditambahkan!'),
-        backgroundColor: _hijauAksi,
+    final batasDefault = PengaturanStore.instance.pengaturan.batasStokDefault;
+    final batas = int.tryParse(_batasMinCtrl.text.trim()) ?? batasDefault;
+    final stok = int.tryParse(_stokAwalCtrl.text.trim()) ?? 0;
+
+    setState(() => _isSaving = true);
+    try {
+      if (_isEdit) {
+        final updated = widget.barangEdit!;
+        updated.nama = nama;
+        updated.barcode = _barcodeCtrl.text.trim();
+        updated.kategori = _kategori;
+        updated.hargaBeli = beli;
+        updated.hargaJual = jual;
+        updated.batasMin = batas;
+        updated.stok = stok;
+        updated.isTitipan = _isTitipan;
+        updated.tglKedaluwarsa = _tglKedaluwarsa;
+        if (_fotoBarang != null) {
+          updated.fotoPath = _fotoBarang!.path;
+        }
+        await BarangStore.instance.ubahBarangAsync(updated);
+      } else {
+        final newBarang = BarangModel(
+          id: DateTime.now().millisecondsSinceEpoch.toString(),
+          nama: nama,
+          barcode: _barcodeCtrl.text.trim(),
+          kategori: _kategori,
+          hargaBeli: beli,
+          hargaJual: jual,
+          stok: stok,
+          batasMin: batas,
+          isTitipan: _isTitipan,
+          tglKedaluwarsa: _tglKedaluwarsa,
+          fotoPath: _fotoBarang?.path,
+        );
+        await BarangStore.instance.tambahBarangAsync(newBarang);
+      }
+
+      if (!mounted) return;
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(_isEdit ? 'Data barang berhasil diperbarui!' : 'Barang baru berhasil ditambahkan!'),
+          backgroundColor: _hijauAksi,
+        ),
+      );
+    } finally {
+      if (mounted) setState(() => _isSaving = false);
+    }
+  }
+
+  Future<void> _hapusBarang() async {
+    final target = widget.barangEdit;
+    if (target == null || _isSaving) return;
+
+    final konfirmasi = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        title: Text(
+          'Hapus Barang?',
+          style: GoogleFonts.inter(fontWeight: FontWeight.w700, color: _hijauTua),
+        ),
+        content: Text(
+          'Barang "${target.nama}" akan dihapus permanen dari katalog warung.',
+          style: GoogleFonts.inter(fontSize: 13, color: _abuTeks),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: Text('Batal', style: GoogleFonts.inter(color: _abuTeks)),
+          ),
+          ElevatedButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFFC8401E),
+              foregroundColor: Colors.white,
+              elevation: 0,
+            ),
+            child: const Text('Hapus'),
+          ),
+        ],
       ),
     );
+
+    if (konfirmasi != true || !mounted) return;
+    setState(() => _isSaving = true);
+    try {
+      await BarangStore.instance.hapusBarangAsync(target.id);
+      if (!mounted) return;
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Barang berhasil dihapus dari katalog.'),
+          backgroundColor: Color(0xFFC8401E),
+        ),
+      );
+    } finally {
+      if (mounted) setState(() => _isSaving = false);
+    }
   }
 
   @override
@@ -674,7 +744,7 @@ class _TambahBarangScreenState extends State<TambahBarangScreen> {
                   SizedBox(
                     height: 54,
                     child: ElevatedButton(
-                      onPressed: _simpanBarang,
+                      onPressed: _isSaving ? null : _simpanBarang,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: _hijauAksi,
                         foregroundColor: Colors.white,
@@ -683,12 +753,45 @@ class _TambahBarangScreenState extends State<TambahBarangScreen> {
                           borderRadius: BorderRadius.circular(27),
                         ),
                       ),
-                      child: Text(
-                        'Simpan barang',
-                        style: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.w700),
-                      ),
+                      child: _isSaving
+                          ? const SizedBox(
+                              width: 22,
+                              height: 22,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 2.5,
+                                color: Colors.white,
+                              ),
+                            )
+                          : Text(
+                              'Simpan barang',
+                              style: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.w700),
+                            ),
                     ),
                   ),
+                  if (_isEdit) ...[
+                    const SizedBox(height: 12),
+                    SizedBox(
+                      height: 48,
+                      child: OutlinedButton.icon(
+                        onPressed: _isSaving ? null : _hapusBarang,
+                        icon: const Icon(Icons.delete_outline, color: Color(0xFFC8401E)),
+                        label: Text(
+                          'Hapus barang',
+                          style: GoogleFonts.inter(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: const Color(0xFFC8401E),
+                          ),
+                        ),
+                        style: OutlinedButton.styleFrom(
+                          side: const BorderSide(color: Color(0xFFC8401E)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ],
               ),
             ),
