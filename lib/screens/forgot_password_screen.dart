@@ -1,17 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../models/barang_masuk_model.dart';
-import '../models/barang_model.dart';
-import '../models/kasbon_model.dart';
-import '../models/laporan_model.dart';
-import '../models/notifikasi_model.dart';
 import '../models/pengaturan_warung_model.dart';
 import '../models/pengguna_model.dart';
-import '../models/rencana_belanja_model.dart';
-import '../models/transaksi_model.dart';
 import '../services/auth_service.dart';
 import '../services/otp_service.dart';
+import '../services/session_data_service.dart';
 import 'home_screen.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
@@ -181,17 +175,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
         password: _newPasswordCtrl.text,
       );
       await authService.saveActiveSession(pengguna);
-
-      await Future.wait([
-        PengaturanStore.instance.muatDariLocalStorage(),
-        BarangStore.instance.muatDariLocalStorage(),
-        TransaksiStore.instance.muatDariLocalStorage(),
-        KasbonStore.instance.muatDariLocalStorage(),
-        BarangMasukStore.instance.muatDariLocalStorage(),
-        RencanaBelanjaStore.instance.muatDariLocalStorage(),
-        LaporanStore.instance.muatDariLocalStorage(),
-        NotifikasiStore.instance.muatDariLocalStorage(),
-      ]);
+      await SessionDataService.loadAllForUser(pengguna);
 
       if (!mounted) return;
       Navigator.pushAndRemoveUntil(

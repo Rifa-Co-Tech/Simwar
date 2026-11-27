@@ -5,6 +5,7 @@ class PenggunaModel {
   final String peran;
   final bool statusAktif;
   final String namaWarung;
+  final String ownerPhone;
 
   PenggunaModel({
     required this.id,
@@ -12,8 +13,14 @@ class PenggunaModel {
     required this.nomorHp,
     required this.peran,
     required this.statusAktif,
-    this.namaWarung = 'Warung Azzam',
+    this.namaWarung = 'Warung Saya',
+    this.ownerPhone = '',
   });
+
+  String get effectiveOwnerPhone =>
+      (peran.toLowerCase() == 'penjaga' && ownerPhone.trim().isNotEmpty)
+          ? ownerPhone.trim()
+          : nomorHp.trim();
 
   factory PenggunaModel.fromMap(Map<String, dynamic> map) {
     return PenggunaModel(
@@ -22,7 +29,8 @@ class PenggunaModel {
       nomorHp: (map['nomor_hp'] ?? '').toString(),
       peran: (map['peran'] ?? '').toString(),
       statusAktif: map['status_aktif'] == true,
-      namaWarung: (map['nama_warung'] ?? 'Warung Azzam').toString(),
+      namaWarung: (map['nama_warung'] ?? 'Warung Saya').toString(),
+      ownerPhone: (map['owner_phone'] ?? '').toString(),
     );
   }
 
@@ -35,6 +43,7 @@ class PenggunaModel {
       'peran': peran,
       'status_aktif': statusAktif,
       'nama_warung': namaWarung,
+      'owner_phone': ownerPhone,
     };
   }
 
@@ -45,6 +54,7 @@ class PenggunaModel {
     String? peran,
     bool? statusAktif,
     String? namaWarung,
+    String? ownerPhone,
   }) {
     return PenggunaModel(
       id: id ?? this.id,
@@ -53,6 +63,7 @@ class PenggunaModel {
       peran: peran ?? this.peran,
       statusAktif: statusAktif ?? this.statusAktif,
       namaWarung: namaWarung ?? this.namaWarung,
+      ownerPhone: ownerPhone ?? this.ownerPhone,
     );
   }
 }

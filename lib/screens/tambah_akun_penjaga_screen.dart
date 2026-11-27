@@ -90,6 +90,7 @@ class _TambahAkunPenjagaScreenState extends State<TambahAkunPenjagaScreen> {
         password: sandi,
         peran: 'Penjaga',
         namaWarung: warung,
+        ownerPhone: widget.pengguna?.effectiveOwnerPhone,
       );
       await _muatDaftarPenjaga();
 

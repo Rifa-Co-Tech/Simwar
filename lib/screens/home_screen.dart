@@ -1,17 +1,14 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../models/analisis_laba_model.dart';
-import '../models/barang_masuk_model.dart';
 import '../models/barang_model.dart';
-import '../models/kasbon_model.dart';
 import '../models/laporan_model.dart';
 import '../models/notifikasi_model.dart';
 import '../models/pengaturan_warung_model.dart';
 import '../models/pengguna_model.dart';
-import '../models/rencana_belanja_model.dart';
-import '../models/transaksi_model.dart';
 import '../utils/formatters.dart';
 import 'barang_masuk_screen.dart';
 import 'catat_barang_masuk_screen.dart';
@@ -31,6 +28,7 @@ import 'riwayat_transaksi_screen.dart';
 import 'stok_screen.dart';
 import 'tambah_akun_penjaga_screen.dart';
 import '../services/peringatan_service.dart';
+import '../services/session_data_service.dart';
 import '../widgets/heads_up_notification_banner.dart';
 import '../widgets/simwar_bottom_nav.dart';
 
@@ -74,22 +72,16 @@ class _HomeScreenState extends State<HomeScreen> {
       if (mounted) setState(() {});
     });
 
-    // 1. Muat seluruh data lokal seketika agar offline/cepat
-    Future.wait([
-      PengaturanStore.instance.muatDariLocalStorage(),
-      BarangStore.instance.muatDariLocalStorage(),
-      TransaksiStore.instance.muatDariLocalStorage(),
-      KasbonStore.instance.muatDariLocalStorage(),
-      BarangMasukStore.instance.muatDariLocalStorage(),
-      RencanaBelanjaStore.instance.muatDariLocalStorage(),
-      LaporanStore.instance.muatDariLocalStorage(),
-      NotifikasiStore.instance.muatDariLocalStorage(),
-    ]).then((_) {
+    // 0. Inisialisasi Android Heads-Up System Notification & minta izin Android 13+
+    PeringatanService.instance.init();
+
+    // 1. Muat seluruh data lokal sesuai akun aktif seketika agar offline/cepat
+    SessionDataService.loadAllForUser(_penggunaAktif).then((_) {
       if (mounted) setState(() {});
       PeringatanService.instance.periksaSemuaPeringatan();
     });
 
-    // 2. Sinkronkan dari Supabase Cloud di latar belakang
+    // 2. Sinkronkan hanya barang milik akun aktif dari Supabase Cloud
     BarangStore.instance.sinkronkanDariSupabase().then((_) {
       if (mounted) setState(() {});
       PeringatanService.instance.periksaSemuaPeringatan();
@@ -138,10 +130,11 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
 
-            // ── Heads-Up Notification Banner (Notif Sungguhan di Atas Layar HP) ──
-            HeadsUpNotificationBanner(
-              onBukaStok: () => setState(() => _currentNavIndex = 2),
-            ),
+            // ── Heads-Up Notification Banner (khusus fallback preview Web; Android pakai Heads-Up OS) ──
+            if (kIsWeb)
+              HeadsUpNotificationBanner(
+                onBukaStok: () => setState(() => _currentNavIndex = 2),
+              ),
           ],
         ),
       ),

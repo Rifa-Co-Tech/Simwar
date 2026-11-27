@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import '../models/pengaturan_warung_model.dart';
 import '../models/pengguna_model.dart';
+import 'storage_scope.dart';
 
 class AuthService {
   final _client = Supabase.instance.client;
@@ -13,9 +14,28 @@ class AuthService {
   static const String _keyRegisteredPemilikPhone = 'simwar_reg_pemilik_hp_v1';
   static const String _keyRegisteredPenjagaPhone = 'simwar_reg_penjaga_hp_v1';
 
+  static String get _activeScopeKey => StorageScope.activeScope;
+  static String get activeScopeKey => StorageScope.activeScope;
+
   static String normalizePhone(String phone) {
     return phone.replaceAll(RegExp(r'\s+|-'), '').trim();
   }
+
+  static String computeScopeKey(PenggunaModel user) {
+    final clean = normalizePhone(user.effectiveOwnerPhone)
+        .replaceAll(RegExp(r'[^0-9a-zA-Z_]'), '');
+    return clean.isNotEmpty ? clean : 'default';
+  }
+
+  static void setActiveScopeForUser(PenggunaModel user) {
+    StorageScope.setScope(user.effectiveOwnerPhone);
+  }
+
+  static void clearScope() {
+    StorageScope.clear();
+  }
+
+  static String scopedKey(String baseKey) => StorageScope.key(baseKey);
 
   /// Ambil sesi pengguna yang masih aktif (untuk auto-login ke dashboard)
   Future<PenggunaModel?> getActiveSession() async {
@@ -25,7 +45,9 @@ class AuthService {
       if (jsonStr != null && jsonStr.isNotEmpty) {
         final decoded = jsonDecode(jsonStr);
         if (decoded is Map) {
-          return PenggunaModel.fromMap(Map<String, dynamic>.from(decoded));
+          final user = PenggunaModel.fromMap(Map<String, dynamic>.from(decoded));
+          setActiveScopeForUser(user);
+          return user;
         }
       }
     } catch (e) {
@@ -37,6 +59,7 @@ class AuthService {
   /// Simpan sesi aktif agar saat membuka aplikasi lagi langsung ke Dashboard
   Future<void> saveActiveSession(PenggunaModel user) async {
     try {
+      setActiveScopeForUser(user);
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString(_keyActiveSession, jsonEncode(user.toMap()));
       await _saveRegisteredPhoneForRole(user.peran, user.nomorHp);
@@ -48,6 +71,7 @@ class AuthService {
   /// Hapus sesi aktif saat pengguna menekan Logout
   Future<void> clearActiveSession() async {
     try {
+      clearScope();
       final prefs = await SharedPreferences.getInstance();
       await prefs.remove(_keyActiveSession);
     } catch (e) {
@@ -132,20 +156,10 @@ class AuthService {
     return [];
   }
 
-  /// Ambil daftar akun tim (penjaga/pemilik) dari Supabase + lokal
+  /// Ambil daftar akun tim (penjaga/pemilik) milik warung aktif saat ini
   Future<List<PenggunaModel>> getTeamAccounts({String? peranFilter}) async {
     final List<PenggunaModel> result = [];
-    try {
-      final query = _client.from('pengguna').select();
-      final rows = await query;
-      for (var row in rows) {
-        final u = PenggunaModel.fromMap(row);
-        if (peranFilter == null ||
-            u.peran.toLowerCase() == peranFilter.toLowerCase()) {
-          result.add(u);
-        }
-      }
-    } catch (_) {}
+    final currentScope = _activeScopeKey;
 
     try {
       final prefs = await SharedPreferences.getInstance();
@@ -154,6 +168,9 @@ class AuthService {
         final u = PenggunaModel.fromMap(row);
         if (peranFilter != null &&
             u.peran.toLowerCase() != peranFilter.toLowerCase()) {
+          continue;
+        }
+        if (currentScope != 'default' && computeScopeKey(u) != currentScope) {
           continue;
         }
         final cleanHp = normalizePhone(u.nomorHp);
@@ -178,10 +195,14 @@ class AuthService {
     required String password,
     required String peran,
     String? namaWarung,
+    String? ownerPhone,
   }) async {
     final cleanHp = normalizePhone(nomorHp);
     final roleTitle =
         peran.toLowerCase() == 'pemilik' ? 'Pemilik' : 'Penjaga';
+    final effectiveOwner = roleTitle == 'Pemilik'
+        ? cleanHp
+        : normalizePhone(ownerPhone ?? _activeScopeKey);
     final effectiveWarung = (namaWarung != null && namaWarung.trim().isNotEmpty)
         ? namaWarung.trim()
         : PengaturanStore.instance.pengaturan.namaWarung;
@@ -210,6 +231,7 @@ class AuthService {
         pengguna = PenggunaModel.fromMap({
           ...updated,
           'nama_warung': effectiveWarung,
+          'owner_phone': effectiveOwner,
         });
       } else {
         final inserted = await _client
@@ -226,6 +248,7 @@ class AuthService {
         pengguna = PenggunaModel.fromMap({
           ...inserted,
           'nama_warung': effectiveWarung,
+          'owner_phone': effectiveOwner,
         });
       }
     } catch (e) {
@@ -239,6 +262,7 @@ class AuthService {
       peran: roleTitle,
       statusAktif: true,
       namaWarung: effectiveWarung,
+      ownerPhone: effectiveOwner,
     );
 
     await saveLocalAccount(user: pengguna, password: password);
@@ -319,10 +343,24 @@ class AuthService {
       }
 
       if (response != null) {
-        final warungName = PengaturanStore.instance.pengaturan.namaWarung;
+        // Cek apakah ada owner_phone / nama_warung tersimpan di cache lokal untuk akun ini
+        final prefs = await SharedPreferences.getInstance();
+        final localRows = await _loadLocalAccountsRaw(prefs);
+        String savedOwner = '';
+        String savedWarung = '';
+        for (var row in localRows) {
+          final rowHp = normalizePhone((row['nomor_hp'] ?? '').toString());
+          if (rowHp == cleanHp || rowHp == rawHp) {
+            savedOwner = (row['owner_phone'] ?? '').toString();
+            savedWarung = (row['nama_warung'] ?? '').toString();
+            break;
+          }
+        }
         final user = PenggunaModel.fromMap({
           ...response,
-          'nama_warung': warungName,
+          if (savedWarung.isNotEmpty) 'nama_warung': savedWarung,
+          'owner_phone':
+              peran.toLowerCase() == 'pemilik' ? cleanHp : savedOwner,
         });
         await saveLocalAccount(user: user, password: password);
         await saveActiveSession(user);

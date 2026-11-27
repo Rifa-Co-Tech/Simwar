@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../services/storage_scope.dart';
 
 /// SIMWAR — Model & Store Pengaturan Warung & Profil Usaha
 class PengaturanWarungModel {
@@ -98,8 +99,13 @@ class PengaturanStore {
   factory PengaturanStore() => instance;
   PengaturanStore._internal();
 
-  static const String _keyLocal = 'simwar_pengaturan_warung_v1';
+  static String get _keyLocal => StorageScope.key('simwar_pengaturan_warung_v2');
   final PengaturanWarungModel pengaturan = PengaturanWarungModel();
+
+  void resetInMemory() {
+    final fresh = PengaturanWarungModel();
+    pengaturan.applyMap(fresh.toMap());
+  }
 
   Future<void> simpanKeLocalStorage() async {
     try {
@@ -111,6 +117,7 @@ class PengaturanStore {
   }
 
   Future<void> muatDariLocalStorage() async {
+    resetInMemory();
     try {
       final prefs = await SharedPreferences.getInstance();
       final jsonStr = prefs.getString(_keyLocal);

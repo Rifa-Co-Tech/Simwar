@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import '../services/storage_scope.dart';
 
 /// Helper mapping nama kategori <-> id_kategori di Supabase
 int _kategoriToId(String kategori) {
@@ -141,9 +142,17 @@ class BarangStore {
   factory BarangStore() => instance;
   BarangStore._internal();
 
-  static const String _keyLocalBarang = 'simwar_katalog_barang_v1';
+  static String get _keyLocalBarang => StorageScope.key('simwar_katalog_barang_v2');
+  static String get _keyOwnedIds => StorageScope.key('simwar_owned_barang_ids_v2');
   final List<BarangModel> _list = [];
+  final Set<String> _ownedSupabaseIds = {};
   bool _isLocalLoaded = false;
+
+  void resetInMemory() {
+    _list.clear();
+    _ownedSupabaseIds.clear();
+    _isLocalLoaded = false;
+  }
 
   List<BarangModel> get semua => _list;
 
@@ -180,24 +189,38 @@ class BarangStore {
       final maps = _list.map((b) => b.toMap()).toList();
       final jsonStr = jsonEncode(maps);
       await prefs.setString(_keyLocalBarang, jsonStr);
+      await prefs.setStringList(_keyOwnedIds, _ownedSupabaseIds.toList());
     } catch (e) {
       debugPrint('Gagal simpan barang ke SharedPreferences: $e');
     }
   }
 
   Future<void> muatDariLocalStorage() async {
+    _list.clear();
+    _ownedSupabaseIds.clear();
     try {
       final prefs = await SharedPreferences.getInstance();
+      final ownedList = prefs.getStringList(_keyOwnedIds);
+      if (ownedList != null) {
+        _ownedSupabaseIds.addAll(ownedList);
+      }
       final jsonStr = prefs.getString(_keyLocalBarang);
       if (jsonStr != null && jsonStr.isNotEmpty) {
         final decoded = jsonDecode(jsonStr);
         if (decoded is List) {
-          _list.clear();
           for (var item in decoded) {
             if (item is Map<String, dynamic>) {
-              _list.add(BarangModel.fromMap(item));
+              final model = BarangModel.fromMap(item);
+              _list.add(model);
+              if (int.tryParse(model.id) != null) {
+                _ownedSupabaseIds.add(model.id);
+              }
             } else if (item is Map) {
-              _list.add(BarangModel.fromMap(Map<String, dynamic>.from(item)));
+              final model = BarangModel.fromMap(Map<String, dynamic>.from(item));
+              _list.add(model);
+              if (int.tryParse(model.id) != null) {
+                _ownedSupabaseIds.add(model.id);
+              }
             }
           }
           _isLocalLoaded = true;
@@ -238,8 +261,9 @@ class BarangStore {
         final numId = rawId != null ? int.tryParse(rawId.toString()) : null;
 
         if (numId != null) {
-          // Update ID lokal barang dengan ID resmi Supabase
+          // Update ID lokal barang dengan ID resmi Supabase & catat sebagai milik akun aktif
           barang.id = numId.toString();
+          _ownedSupabaseIds.add(barang.id);
           await simpanKeLocalStorage();
 
           // Simpan batch stok ke tabel kelompok_kedaluwarsa
@@ -313,6 +337,7 @@ class BarangStore {
 
   void hapusBarang(String id) {
     _list.removeWhere((b) => b.id == id);
+    _ownedSupabaseIds.remove(id);
     simpanKeLocalStorage();
   }
 
@@ -452,6 +477,13 @@ class BarangStore {
           final nama = (row['nama_barang'] ?? row['nama'] ?? '').toString();
           if (nama.isEmpty) continue;
 
+          // Isolasi Multi-Akun: jangan menarik barang milik akun/HP lain dari tabel Supabase global.
+          // Hanya sinkronkan barang yang memang dimiliki atau sudah terdaftar pada akun warung aktif.
+          final isOwnedLocally = strId.isNotEmpty &&
+              (_ownedSupabaseIds.contains(strId) ||
+                  _list.any((b) => b.id == strId));
+          if (!isOwnedLocally) continue;
+
           final kat = _idToKategori(row['id_kategori']);
           final beli = (row['harga_beli'] as num?)?.toInt() ?? 0;
           final jual = (row['harga_jual'] as num?)?.toInt() ?? 0;
@@ -461,9 +493,7 @@ class BarangStore {
           final int calculatedStok = numId != null ? (stokMap[numId] ?? 0) : 0;
           final DateTime? calculatedExp = numId != null ? expiryMap[numId] : null;
 
-          final idx = _list.indexWhere((b) =>
-              (strId.isNotEmpty && b.id == strId) ||
-              b.nama.trim().toLowerCase() == nama.trim().toLowerCase());
+          final idx = _list.indexWhere((b) => b.id == strId);
 
           if (idx != -1) {
             // Perbarui data yang ada
@@ -483,23 +513,6 @@ class BarangStore {
             if (calculatedExp != null) {
               _list[idx].tglKedaluwarsa = calculatedExp;
             }
-          } else {
-            // Masukkan barang baru dari Cloud
-            _list.insert(
-              0,
-              BarangModel(
-                id: strId,
-                nama: nama,
-                barcode: barcode,
-                kategori: kat,
-                hargaBeli: beli,
-                hargaJual: jual,
-                stok: calculatedStok,
-                batasMin: batasMin,
-                satuan: 'pcs',
-                tglKedaluwarsa: calculatedExp,
-              ),
-            );
           }
         }
 

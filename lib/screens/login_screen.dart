@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../models/barang_masuk_model.dart';
 import '../models/barang_model.dart';
-import '../models/kasbon_model.dart';
-import '../models/laporan_model.dart';
-import '../models/notifikasi_model.dart';
 import '../models/pengaturan_warung_model.dart';
-import '../models/rencana_belanja_model.dart';
-import '../models/transaksi_model.dart';
 import '../services/auth_service.dart';
+import '../services/session_data_service.dart';
 import 'forgot_password_screen.dart';
 import 'home_screen.dart';
 import 'register_screen_1.dart';
@@ -105,17 +100,8 @@ class _LoginScreenState extends State<LoginScreen> {
       if (!mounted) return;
 
       if (pengguna != null) {
-        // Muat seluruh data warung tersimpan (Offline SharedPreferences + Supabase Cloud)
-        await Future.wait([
-          PengaturanStore.instance.muatDariLocalStorage(),
-          BarangStore.instance.muatDariLocalStorage(),
-          TransaksiStore.instance.muatDariLocalStorage(),
-          KasbonStore.instance.muatDariLocalStorage(),
-          BarangMasukStore.instance.muatDariLocalStorage(),
-          RencanaBelanjaStore.instance.muatDariLocalStorage(),
-          LaporanStore.instance.muatDariLocalStorage(),
-          NotifikasiStore.instance.muatDariLocalStorage(),
-        ]);
+        // Muat seluruh data warung milik akun aktif (Offline SharedPreferences + Supabase Cloud)
+        await SessionDataService.loadAllForUser(pengguna);
         BarangStore.instance.sinkronkanDariSupabase().catchError((_) {});
 
         if (!mounted) return;

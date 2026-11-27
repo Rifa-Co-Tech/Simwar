@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
-import '../models/barang_masuk_model.dart';
 import '../models/barang_model.dart';
-import '../models/kasbon_model.dart';
-import '../models/laporan_model.dart';
-import '../models/notifikasi_model.dart';
 import '../models/pengaturan_warung_model.dart';
-import '../models/rencana_belanja_model.dart';
-import '../models/transaksi_model.dart';
 import '../services/auth_service.dart';
+import '../services/session_data_service.dart';
 import 'home_screen.dart';
 import 'tambah_akun_penjaga_screen.dart';
 
@@ -48,46 +43,41 @@ class _RegisterScreen2State extends State<RegisterScreen2> {
     setState(() => _isLoading = true);
 
     try {
-      // 1. Simpan preferensi warung ke PengaturanStore
-      final cfg = PengaturanStore.instance.pengaturan;
-      if (widget.namaWarung.trim().isNotEmpty) {
-        cfg.namaWarung = widget.namaWarung.trim();
-        cfg.pesanHeaderStruk =
-            '${cfg.namaWarung.toUpperCase()}\nBelanja Hemat, Lengkap & Berkah';
-      }
+      final namaWarungFinal = widget.namaWarung.trim().isNotEmpty
+          ? widget.namaWarung.trim()
+          : 'Warung Saya';
       final parsedBatas = int.tryParse(
             _batasStokCtrl.text.replaceAll(RegExp(r'[^0-9]'), ''),
           ) ??
           10;
-      cfg.batasStokDefault = parsedBatas > 0 ? parsedBatas : 10;
+      final batasFinal = parsedBatas > 0 ? parsedBatas : 10;
       final parsedHari = int.tryParse(
             _selectedKedaluwarsa.replaceAll(RegExp(r'[^0-9]'), ''),
           ) ??
-          7;
-      cfg.hariPeringatanKedaluwarsa = parsedHari;
-      await PengaturanStore.instance.simpanKeLocalStorage();
+          3;
 
-      // 2. Daftarkan akun ke Supabase & Cache Lokal + Simpan Sesi Auto-Login
+      // 1. Daftarkan akun ke Supabase & Cache Lokal + Set Scope Akun Baru (terisolasi dari akun/HP lain)
       final authService = AuthService();
       final pengguna = await authService.registerOrUpdateAccount(
         nama: widget.nama,
         nomorHp: widget.nomorHp,
         password: widget.password,
         peran: 'Pemilik',
-        namaWarung: cfg.namaWarung,
+        namaWarung: namaWarungFinal,
       );
       await authService.saveActiveSession(pengguna);
+      await SessionDataService.loadAllForUser(pengguna);
 
-      // 3. Muat data lokal / sinkronisasi awal
-      await Future.wait([
-        BarangStore.instance.muatDariLocalStorage(),
-        TransaksiStore.instance.muatDariLocalStorage(),
-        KasbonStore.instance.muatDariLocalStorage(),
-        BarangMasukStore.instance.muatDariLocalStorage(),
-        RencanaBelanjaStore.instance.muatDariLocalStorage(),
-        LaporanStore.instance.muatDariLocalStorage(),
-        NotifikasiStore.instance.muatDariLocalStorage(),
-      ]);
+      // 2. Simpan preferensi warung pada scope akun baru
+      final cfg = PengaturanStore.instance.pengaturan;
+      cfg.namaWarung = namaWarungFinal;
+      cfg.pesanHeaderStruk =
+          '${namaWarungFinal.toUpperCase()}\nBelanja Hemat, Lengkap & Berkah';
+      cfg.noTeleponWarung = widget.nomorHp.trim();
+      cfg.batasStokDefault = batasFinal;
+      cfg.hariPeringatanKedaluwarsa = parsedHari;
+      await PengaturanStore.instance.simpanKeLocalStorage();
+
       BarangStore.instance.sinkronkanDariSupabase().catchError((_) {});
 
       if (!mounted) return;

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../services/storage_scope.dart';
 
 /// SIMWAR — Model & Store Notifikasi Warung
 enum KategoriNotif { stok, transaksi, laporan, pasokan }
@@ -69,19 +70,27 @@ class NotifikasiStore {
   factory NotifikasiStore() => instance;
   NotifikasiStore._internal();
 
-  static const String _keyLocal = 'simwar_notifikasi_v1';
+  static String get _keyLocal => StorageScope.key('simwar_notifikasi_v2');
 
   final List<NotifikasiModel> _list = [
-    NotifikasiModel(
-      id: 'welcome',
-      judul: 'Selamat Datang di SIMWAR Warung Azzam',
-      pesan:
-          'Aplikasi manajemen warung siap digunakan. Mulai dengan mencatat barang dan transaksi Anda.',
-      waktu: DateTime.now(),
-      kategori: KategoriNotif.transaksi,
-      isRead: false,
-    ),
+    _welcomeItem(),
   ];
+
+  static NotifikasiModel _welcomeItem() => NotifikasiModel(
+        id: 'welcome',
+        judul: 'Selamat Datang di SIMWAR',
+        pesan:
+            'Aplikasi manajemen warung siap digunakan. Mulai dengan mencatat barang dan transaksi Anda.',
+        waktu: DateTime.now(),
+        kategori: KategoriNotif.transaksi,
+        isRead: false,
+      );
+
+  void resetInMemory() {
+    _list
+      ..clear()
+      ..add(_welcomeItem());
+  }
 
   List<NotifikasiModel> get semua => List.unmodifiable(_list);
 
@@ -98,6 +107,7 @@ class NotifikasiStore {
   }
 
   Future<void> muatDariLocalStorage() async {
+    resetInMemory();
     try {
       final prefs = await SharedPreferences.getInstance();
       final jsonStr = prefs.getString(_keyLocal);

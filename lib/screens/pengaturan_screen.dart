@@ -4,6 +4,7 @@ import '../models/barang_model.dart';
 import '../models/pengaturan_warung_model.dart';
 import '../models/pengguna_model.dart';
 import '../services/auth_service.dart';
+import '../services/session_data_service.dart';
 import 'login_screen.dart';
 import 'register_screen_1.dart';
 import 'tambah_akun_penjaga_screen.dart';
@@ -765,10 +766,10 @@ class _PengaturanScreenState extends State<PengaturanScreen> {
           ElevatedButton(
             onPressed: () async {
               Navigator.pop(ctx);
-              // Pastikan seluruh data katalog & transaksi aman tersimpan sebelum logout, lalu hapus sesi aktif
+              // Pastikan seluruh data katalog & transaksi aman tersimpan sebelum logout, lalu reset sesi & memory store
               await BarangStore.instance.simpanKeLocalStorage();
               await PengaturanStore.instance.simpanKeLocalStorage();
-              await AuthService().clearActiveSession();
+              await SessionDataService.clearForLogout();
               if (mounted) {
                 Navigator.pushAndRemoveUntil(
                   context,

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../services/storage_scope.dart';
 import 'barang_model.dart';
 
 /// SIMWAR — Model Data Barang Masuk (Distributor & Titipan Warga)
@@ -155,8 +156,12 @@ class BarangMasukStore {
   factory BarangMasukStore() => instance;
   BarangMasukStore._internal();
 
-  static const String _keyLocal = 'simwar_barang_masuk_v1';
+  static String get _keyLocal => StorageScope.key('simwar_barang_masuk_v2');
   final List<BarangMasukModel> _list = [];
+
+  void resetInMemory() {
+    _list.clear();
+  }
 
   List<BarangMasukModel> get semua => List.unmodifiable(_list);
 
@@ -191,13 +196,13 @@ class BarangMasukStore {
   }
 
   Future<void> muatDariLocalStorage() async {
+    _list.clear();
     try {
       final prefs = await SharedPreferences.getInstance();
       final jsonStr = prefs.getString(_keyLocal);
       if (jsonStr != null && jsonStr.isNotEmpty) {
         final decoded = jsonDecode(jsonStr);
         if (decoded is List) {
-          _list.clear();
           for (var item in decoded) {
             if (item is Map) {
               _list.add(BarangMasukModel.fromMap(Map<String, dynamic>.from(item)));

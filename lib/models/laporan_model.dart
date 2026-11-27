@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../services/storage_scope.dart';
 
 /// SIMWAR — Model Data Laporan & Kotak Masuk
 /// Sesuai Figma node 2073:4002, 2073:4066, 2073:4093, 2073:4338, 2073:4412
@@ -86,8 +87,12 @@ class LaporanStore {
   factory LaporanStore() => instance;
   LaporanStore._internal();
 
-  static const String _keyLocal = 'simwar_laporan_v1';
+  static String get _keyLocal => StorageScope.key('simwar_laporan_v2');
   final List<LaporanModel> _list = [];
+
+  void resetInMemory() {
+    _list.clear();
+  }
 
   List<LaporanModel> get semua => List.unmodifiable(_list);
 
@@ -110,13 +115,13 @@ class LaporanStore {
   }
 
   Future<void> muatDariLocalStorage() async {
+    _list.clear();
     try {
       final prefs = await SharedPreferences.getInstance();
       final jsonStr = prefs.getString(_keyLocal);
       if (jsonStr != null && jsonStr.isNotEmpty) {
         final decoded = jsonDecode(jsonStr);
         if (decoded is List) {
-          _list.clear();
           for (var item in decoded) {
             if (item is Map) {
               _list.add(LaporanModel.fromMap(Map<String, dynamic>.from(item)));

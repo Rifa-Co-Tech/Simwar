@@ -2,16 +2,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../models/barang_masuk_model.dart';
 import '../models/barang_model.dart';
-import '../models/kasbon_model.dart';
-import '../models/laporan_model.dart';
-import '../models/notifikasi_model.dart';
 import '../models/pengaturan_warung_model.dart';
 import '../models/pengguna_model.dart';
-import '../models/rencana_belanja_model.dart';
-import '../models/transaksi_model.dart';
 import '../services/auth_service.dart';
+import '../services/session_data_service.dart';
 import 'home_screen.dart';
 import 'login_screen.dart';
 
@@ -122,30 +117,20 @@ class _SplashScreenState extends State<SplashScreen>
   Future<void> _siapkanAplikasiDanNavigasi() async {
     final stopwatch = Stopwatch()..start();
 
-    // 1. Muat seluruh penyimpanan lokal & pengaturan secara paralel
-    await Future.wait([
-      PengaturanStore.instance.muatDariLocalStorage(),
-      BarangStore.instance.muatDariLocalStorage(),
-      TransaksiStore.instance.muatDariLocalStorage(),
-      KasbonStore.instance.muatDariLocalStorage(),
-      BarangMasukStore.instance.muatDariLocalStorage(),
-      RencanaBelanjaStore.instance.muatDariLocalStorage(),
-      LaporanStore.instance.muatDariLocalStorage(),
-      NotifikasiStore.instance.muatDariLocalStorage(),
-    ]);
-
-    if (mounted) {
-      setState(() {
-        _namaWarung = PengaturanStore.instance.pengaturan.namaWarung;
-      });
-    }
-
-    // 2. Cek sesi login / registrasi aktif
+    // 1. Cek sesi login / registrasi aktif terlebih dahulu agar scope storage tepat
     final PenggunaModel? session = await AuthService().getActiveSession();
 
-    // Sinkronkan cloud di latar belakang jika sudah masuk
+    // 2. Muat data lokal milik akun warung aktif saja
     if (session != null) {
+      await SessionDataService.loadAllForUser(session);
+      if (mounted) {
+        setState(() {
+          _namaWarung = PengaturanStore.instance.pengaturan.namaWarung;
+        });
+      }
       BarangStore.instance.sinkronkanDariSupabase().catchError((_) {});
+    } else {
+      SessionDataService.resetAllStoresInMemory();
     }
 
     // 3. Pastikan animasi pembuka selesai minimal ~1.9 detik agar terasa halus seperti APK asli
